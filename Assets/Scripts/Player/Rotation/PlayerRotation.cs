@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Player.Rotation
 {
     public class PlayerRotation : MonoBehaviour
     {
-
+        private Rigidbody rigidBody;
+        public RotationModel Model { get; set; }
     }
 
 }

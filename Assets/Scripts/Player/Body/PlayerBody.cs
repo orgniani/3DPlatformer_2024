@@ -10,5 +10,7 @@ namespace Player.Body
 
         //private MovementRequest currentMovement = MovementRequest.InvalidRequest;
 
+        public BodyModel Model { get; set; }
+
     }
 }
