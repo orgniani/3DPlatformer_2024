@@ -4,7 +4,6 @@ namespace Camera.FollowTarget
 {
     public class FollowPlayer : MonoBehaviour
     {
-        //TODO: Review script
         [SerializeField] private Transform target;
 
         private float currentX = 0f;
@@ -25,13 +24,13 @@ namespace Camera.FollowTarget
 
         private void Start()
         {
-            //TODO: Move to a game manager instead
+            //TODO: Move to a game/menu manager instead
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
         private void FixedUpdate()
         {
-            Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
+            Quaternion rotation = Quaternion.Euler(currentY, currentX, 0); //TODO: Research quaternions
 
             Vector3 offset = Vector3.up * Model.OffsetUp;
 
@@ -39,7 +38,7 @@ namespace Camera.FollowTarget
             Vector3 position = rotation * negDistance + target.position + offset;
 
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Model.RotationSpeed * Time.deltaTime);
-            transform.position = Vector3.Lerp(transform.position, position, Model.Speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, position, Model.Speed * Time.deltaTime); //TODO: Research lerp
         }
 
         public void SetInputRotation(Vector2 input)

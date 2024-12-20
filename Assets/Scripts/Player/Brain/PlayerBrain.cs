@@ -8,11 +8,14 @@ namespace Player.Brain
 {
     public class PlayerBrain : MonoBehaviour
     {
-        //TODO: Review script
+        [Header("Player")]
         [SerializeField] private PlayerBody body;
         [SerializeField] private PlayerJump jump;
 
+        [Header("Input Reader")]
         [SerializeField] private InputReader inputReader;
+
+        [Header("Camera")]
         [SerializeField] private FollowPlayer cameraController;
         [SerializeField] private Transform cameraTransform;
 
@@ -36,6 +39,8 @@ namespace Player.Brain
         private void OnEnable()
         {
             if (!inputReader) return;
+
+            //TODO: This should be handled by event manager
             inputReader.onMovementInput += HandleMovementInput;
             inputReader.onJumpInput += HandleJumpInput;
             inputReader.onCameraInput += HandleCameraInput;
@@ -44,6 +49,8 @@ namespace Player.Brain
         private void OnDisable()
         {
             if (!inputReader) return;
+
+            //TODO: This should be handled by event manager
             inputReader.onMovementInput -= HandleMovementInput;
             inputReader.onJumpInput -= HandleJumpInput;
             inputReader.onCameraInput -= HandleCameraInput;
@@ -53,36 +60,29 @@ namespace Player.Brain
 
         private void Update()
         {
-            if (desiredDirection.magnitude > Mathf.Epsilon && input.magnitude < Mathf.Epsilon)
-            {
+            if (desiredDirection.magnitude > Mathf.Epsilon && input.magnitude < Mathf.Epsilon) //TODO: Mathf.Epsilon?
                 body.RequestBrake(Model.MovementBreakMultiplier);
-            }
 
             Vector3 movementInput = input;
-
             desiredDirection = TransformDirectionRelativeToCamera(movementInput);
-
             body.SetMovement(new MovementRequest(desiredDirection, Model.Speed, acceleration));
+        }
+
+        private Vector3 TransformDirectionRelativeToCamera(Vector2 input)
+        {
+            Vector3 direction = new Vector3(input.x, 0, input.y); //TODO: Research why z has to be 0
+
+            Vector3 cameraForward = cameraTransform.forward;
+            cameraForward.y = 0;
+
+            direction = Quaternion.LookRotation(cameraForward) * direction;
+
+            return direction.normalized;
         }
 
         private void HandleMovementInput(Vector2 input)
         {
             this.input = input;
-        }
-
-        private Vector3 TransformDirectionRelativeToCamera(Vector2 input)
-        {
-            Vector3 direction = new Vector3(input.x, 0, input.y);
-
-            if (cameraTransform)
-            {
-                Vector3 cameraForward = cameraTransform.forward;
-                cameraForward.y = 0;
-
-                direction = Quaternion.LookRotation(cameraForward) * direction;
-            }
-
-            return direction.normalized;
         }
 
         private void HandleCameraInput(Vector2 input)

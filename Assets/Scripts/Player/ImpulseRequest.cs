@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Player
 {
-    //TODO: Review script
     public readonly struct ImpulseRequest
     {
         public readonly Vector3 Direction;

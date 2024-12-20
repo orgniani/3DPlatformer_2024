@@ -9,7 +9,7 @@ namespace Player.Jump
 {
     public class PlayerJump : MonoBehaviour
     {
-        //TODO: Review script
+        [Header("Player")]
         [SerializeField] private PlayerBody body;
         [SerializeField] private PlayerBrain brain; //TODO: is this really necessary?
 
@@ -22,25 +22,12 @@ namespace Player.Jump
 
         private void Awake()
         {
-            if (!body)
-            {
-                Debug.LogError($"{name}: {nameof(body)} is null!" +
-                               $"\nDisabling object to avoid errors.");
-                enabled = false;
-                return;
-            }
-
-            if (!brain)
-            {
-                Debug.LogError($"{name}: {nameof(brain)} is null!" +
-                               $"\nDisabling object to avoid errors.");
-                enabled = false;
-                return;
-            }
+            ValidateReferences();
         }
 
         public bool TryJump(float normalAcceleration)
         {
+            //TODO: There MUST be a better way to do this
             if (!shouldJump) return false;
 
             if (!shouldJumpOnRamp) return false;
@@ -68,14 +55,12 @@ namespace Player.Jump
             yield return new WaitForSeconds(Model.Cooldown);
 
             brain.Acceleration = normalAcceleration;
-
-            //shouldJump = true;
         }
 
         private void OnCollisionEnter(Collision collision)
         {
             var contact = collision.contacts[0];
-            var contactAngle = Vector3.Angle(contact.normal, Vector3.up);
+            var contactAngle = Vector3.Angle(contact.normal, Vector3.up); //TODO: Research vector3.angle
 
             if (contactAngle >= 90)
                 contactAngle = 0;
@@ -89,6 +74,25 @@ namespace Player.Jump
             else
             {
                 shouldJumpOnRamp = false;
+            }
+        }
+
+        private void ValidateReferences()
+        {
+            if (!body)
+            {
+                Debug.LogError($"{name}: {nameof(body)} is null!" +
+                               $"\nDisabling object to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!brain)
+            {
+                Debug.LogError($"{name}: {nameof(brain)} is null!" +
+                               $"\nDisabling object to avoid errors.");
+                enabled = false;
+                return;
             }
         }
     }

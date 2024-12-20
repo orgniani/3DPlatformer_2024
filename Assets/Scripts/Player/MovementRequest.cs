@@ -1,11 +1,11 @@
 using System;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Player
 {
-    public readonly struct MovementRequest : IEquatable<MovementRequest>
+    public readonly struct MovementRequest : IEquatable<MovementRequest> //TODO: Research IEquatable
     {
-        //TODO: Review script
         public readonly Vector3 Direction;
 
         public readonly float Acceleration;
@@ -14,9 +14,7 @@ namespace Player
 
         public static MovementRequest InvalidRequest => new(Vector3.zero, 0, 0);
 
-        public MovementRequest(Vector3 direction,
-                               float goalSpeed,
-                               float acceleration)
+        public MovementRequest(Vector3 direction, float goalSpeed, float acceleration)
         {
             Direction = direction;
             GoalSpeed = goalSpeed;
@@ -24,9 +22,11 @@ namespace Player
         }
 
         public Vector3 GetGoalVelocity() => Direction * GoalSpeed;
+
         public Vector3 GetAccelerationVector() => Direction * Acceleration;
 
         public bool IsValid() => this != InvalidRequest;
+
 
         public bool Equals(MovementRequest other)
         {
@@ -40,29 +40,22 @@ namespace Player
             return obj is MovementRequest other && Equals(other);
         }
 
-        public override int GetHashCode()
+        public override int GetHashCode() //TODO: GetHashCode?
         {
             unchecked
             {
                 var hashCode = Direction.GetHashCode();
-                hashCode = (hashCode * 397) ^ GoalSpeed.GetHashCode();
+                hashCode = (hashCode * 397) * GoalSpeed.GetHashCode(); //TODO: Why 397?
                 return hashCode;
             }
         }
 
-        public override string ToString()
-        {
-            return IsValid()
-                       ? $"MovementRequest({Direction}, {GoalSpeed}, {Acceleration})"
-                       : $"MovementRequest(Invalid)";
-        }
-
-        public static bool operator ==(MovementRequest one, MovementRequest two)
+        public static bool operator ==(MovementRequest one, MovementRequest two) //TODO: Where is this used?
         {
             return one.Equals(two);
         }
 
-        public static bool operator !=(MovementRequest one, MovementRequest two)
+        public static bool operator !=(MovementRequest one, MovementRequest two) //TODO: Where is this used?
         {
             return !(one == two);
         }

@@ -6,14 +6,14 @@ namespace Player.Body
     [RequireComponent((typeof(Rigidbody)))]
     public class PlayerBody : MonoBehaviour
     {
-        //TODO: Review script
         private Rigidbody rigidBody;
 
         private MovementRequest currentMovement = MovementRequest.InvalidRequest;
-        private bool isBrakeRequested = false;
-        private float brakeMultiplier = 1;
 
-        private readonly List<ImpulseRequest> impulseRequests = new();
+        private bool isBrakeRequested = false;
+        private float brakeMultiplier;
+
+        private readonly List<ImpulseRequest> impulseRequests = new(); //TODO: Could this be something other than a list?
 
         private bool shouldBreak = false;
         private bool shouldCheckIfOnLand = true;
@@ -37,9 +37,7 @@ namespace Player.Body
         private void FixedUpdate()
         {
             if (isBrakeRequested)
-            {
                 Break();
-            }
 
             ManageMovement();
             ManageImpulseRequests();
@@ -63,7 +61,7 @@ namespace Player.Body
 
         private void Break()
         {
-            rigidBody.AddForce(-rigidBody.velocity * brakeMultiplier, ForceMode.Impulse);
+            rigidBody.AddForce(-rigidBody.velocity * brakeMultiplier, ForceMode.Impulse); //TODO: Research forcemode
             isBrakeRequested = false;
         }
 
@@ -72,6 +70,7 @@ namespace Player.Body
             var velocity = rigidBody.velocity;
             velocity.y = 0;
 
+            //TODO: There must be a way to improve this bit
             RaycastHit hit;
 
             Vector3 lineOffset = new Vector3(0f, Model.FloorLineCheckOffset, 0f);
@@ -99,6 +98,16 @@ namespace Player.Body
             rigidBody.AddForce(accelerationVector, ForceMode.Force);
         }
 
+        private void ManageImpulseRequests()
+        {
+            foreach (var request in impulseRequests)
+            {
+                rigidBody.AddForce(request.GetForceVector(), ForceMode.Impulse);
+            }
+
+            impulseRequests.Clear();
+        }
+
         private void CheckIfOnLand(bool onFloorLineCheck, bool onFloorSphereCheck)
         {
             if (onFloorLineCheck)
@@ -120,16 +129,6 @@ namespace Player.Body
             }
 
             if (IsOnLand == true) shouldCheckIfOnLand = false;
-        }
-
-        private void ManageImpulseRequests()
-        {
-            foreach (var request in impulseRequests)
-            {
-                rigidBody.AddForce(request.GetForceVector(), ForceMode.Impulse);
-            }
-
-            impulseRequests.Clear();
         }
 
         private void OnCollisionEnter(Collision collision)

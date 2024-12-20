@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffca2aa0a38d1742b6e66c23c59611b, type: 3}
   m_Name: PJM_Default
   m_EditorClassIdentifier: 
+  <Model>k__BackingField:
+    <Force>k__BackingField: 5
+    <FloorAngle>k__BackingField: 35
+    <JumpAcceleration>k__BackingField: 8
+    <BrakeMultiplier>k__BackingField: 0.5
+    <Cooldown>k__BackingField: 1
+    <WaitToJump>k__BackingField: 0.1

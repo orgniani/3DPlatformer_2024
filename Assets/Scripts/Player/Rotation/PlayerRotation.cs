@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Player.Rotation
 {
+    [RequireComponent((typeof(Rigidbody)))]
     public class PlayerRotation : MonoBehaviour
     {
-        //TODO: Review script
         private Rigidbody rigidBody;
 
         public RotationModel Model { get; set; }
@@ -29,10 +29,10 @@ namespace Player.Rotation
             Vector3 velocity = rigidBody.velocity;
             velocity.y = 0;
 
-            if (velocity.magnitude < Model.MinimumSpeedForRotation)
+            if (velocity.magnitude < Model.MinimumSpeedForRotation) //TODO: Research magnitude
                 return;
 
-            float rotationAngle = Vector3.SignedAngle(transform.forward, velocity, Vector3.up);
+            float rotationAngle = Vector3.SignedAngle(transform.forward, velocity, Vector3.up); //TODO: Research signed angle
             transform.Rotate(Vector3.up, rotationAngle * Model.RotationSpeed * Time.deltaTime);
         }
     }
