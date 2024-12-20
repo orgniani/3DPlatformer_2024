@@ -12,3 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80024f3283d187478498c1d78b1bda6, type: 3}
   m_Name: CFPM_Default
   m_EditorClassIdentifier: 
+  <Model>k__BackingField:
+    <OffsetUp>k__BackingField: 1.5
+    <Speed>k__BackingField: 8
+    <RotationSpeed>k__BackingField: 8
+    <Distance>k__BackingField: 10
+    <MinVerticalAngle>k__BackingField: 5
+    <MaxVerticalAngle>k__BackingField: 60
+    <Sensitivity>k__BackingField: 3

@@ -313,15 +313,51 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 559663945}
+        m_TargetAssemblyTypeName: Input.InputReader, Orgniani.Platformer.Input.Runtime
+        m_MethodName: HandleMovementInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ad9368d0-ddb2-4f38-b2de-bf8503e68b2f
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 559663945}
+        m_TargetAssemblyTypeName: Input.InputReader, Orgniani.Platformer.Input.Runtime
+        m_MethodName: HandleCameraInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 96357ca0-3435-48ed-9931-6a6897345e91
     m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 559663945}
+        m_TargetAssemblyTypeName: Input.InputReader, Orgniani.Platformer.Input.Runtime
+        m_MethodName: HandleJumpInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b5db045b-d5d9-4f5a-8726-f5bf1c24114f
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
@@ -451,7 +487,7 @@ Transform:
   m_GameObject: {fileID: 743305320}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.9, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -482,6 +518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12691d75d73870c49babb5101389434e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 743305325}
+  brain: {fileID: 743305324}
 --- !u!114 &743305324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,6 +532,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a96600d2f476264faaa2f8bc906264f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 743305325}
+  jump: {fileID: 743305323}
+  inputReader: {fileID: 559663945}
+  cameraController: {fileID: 1263811088}
+  cameraTransform: {fileID: 1263811087}
 --- !u!114 &743305325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,7 +640,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &1188058315
 GameObject:
@@ -949,7 +992,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.36, z: 0}
-  m_LocalScale: {x: 500, y: 10, z: 500}
+  m_LocalScale: {x: 100, y: 10, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

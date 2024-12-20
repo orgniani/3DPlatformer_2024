@@ -14,7 +14,7 @@ namespace Input
 
         public void HandleMovementInput(InputAction.CallbackContext ctx)
         {
-            onMovementInput?.Invoke(ctx.ReadValue<Vector2>()); 
+            onMovementInput?.Invoke(ctx.ReadValue<Vector2>());
         }
 
         public void HandleJumpInput(InputAction.CallbackContext ctx)
