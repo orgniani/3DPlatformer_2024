@@ -1,0 +1,16 @@
+{
+    "name": "Orgniani.Platformer.Events.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0950dede9ce59a6439f3b0bded86077c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
