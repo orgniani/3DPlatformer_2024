@@ -32,7 +32,8 @@ namespace Gameplay
 
                 yield return null;
             }
-            //TODO: _playerManager.SetPlayerAtLevelStartAndEnable(levelStart.position);
+
+            _playerManager.SetPlayerAtLevelStartAndEnable(levelStart.position);
         }
 
         private void ValidateReferences()

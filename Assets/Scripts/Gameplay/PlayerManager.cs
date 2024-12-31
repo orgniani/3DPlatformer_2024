@@ -7,7 +7,6 @@ using UnityEngine.TextCore.Text;
 
 namespace Gameplay
 {
-    [RequireComponent(typeof(Character))]
     public class PlayerManager : MonoBehaviour
     {
         [Header("References")]
@@ -17,21 +16,10 @@ namespace Gameplay
 
         //private PlayerBrain _player; //TODO: Should it be character?
 
-        /*
-        private void Reset()
-        {
-            _player = GetComponent<Character>();
-        }
+        
 
         private void Awake()
         {
-            _player ??= GetComponent<Character>();
-
-            if (_player)
-            {
-                _player.enabled = false;
-            }
-
             if (!playerDataSource)
             {
                 Debug.LogError($"{name}: {nameof(playerDataSource)} is null!" +
@@ -47,16 +35,15 @@ namespace Gameplay
 
             if (EventManager<string>.Instance)
             {
-                EventManager<string>.Instance.SubscribeToEvent(GameEvents.MoveAction, OnMoveEvent);
-                EventManager<string>.Instance.SubscribeToEvent(GameEvents.RunAction, OnRunEvent);
+                
+                //EventManager<string>.Instance.SubscribeToEvent(GameEvents.MoveAction, OnMoveEvent);
+                //EventManager<string>.Instance.SubscribeToEvent(GameEvents.RunAction, OnRunEvent);
             }
 
             //TODO: Set itself as player reference via ReferenceManager/DataSource | DONE
             if (playerDataSource.Value == null)
                 playerDataSource.Value = this;
 
-            if (characterDataSource.Value == null)
-                characterDataSource.Value = _character;
         }
 
         private void OnDisable()
@@ -65,24 +52,21 @@ namespace Gameplay
 
             if (EventManager<string>.Instance)
             {
-                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.MoveAction, OnMoveEvent);
-                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.RunAction, OnRunEvent);
+                //EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.MoveAction, OnMoveEvent);
+                //EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.RunAction, OnRunEvent);
             }
 
             //TODO: Remove itself as player reference via reference manager/dataSource | DONE
             if (playerDataSource.Value == this)
                 playerDataSource.Value = null;
-
-            if (characterDataSource.Value == _character)
-                characterDataSource.Value = null;
         }
 
         public void SetPlayerAtLevelStartAndEnable(Vector3 levelStartPosition)
         {
             transform.position = levelStartPosition;
-            _player.enabled = true;
         }
 
+        /*
         private void OnMoveEvent(params object[] args)
         {
             if (args.Length > 0 && args[0] is Vector3 direction)

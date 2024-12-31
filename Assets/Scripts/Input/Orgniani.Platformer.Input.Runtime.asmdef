@@ -2,7 +2,8 @@
     "name": "Orgniani.Platformer.Input.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:ac5028d33b9ef2f40887e4add30c4149"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

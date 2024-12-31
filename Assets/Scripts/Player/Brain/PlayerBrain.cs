@@ -2,22 +2,27 @@ using Player.Body;
 using Player.Jump;
 using Camera.FollowTarget;
 using Input;
+using DataSources;
 using UnityEngine;
+using System.Collections;
 
 namespace Player.Brain
 {
     public class PlayerBrain : MonoBehaviour
     {
+        [Header("References")]
+        [Header("Data Sources")]
+        [SerializeField] private DataSource<InputReader> inputReaderDataSource;
+
         [Header("Player")]
         [SerializeField] private PlayerBody body;
         [SerializeField] private PlayerJump jump;
 
-        [Header("Input Reader")]
-        [SerializeField] private InputReader inputReader;
-
         [Header("Camera")]
         [SerializeField] private FollowPlayer cameraController;
         [SerializeField] private Transform cameraTransform;
+
+        private InputReader inputReader;
 
         private Vector3 desiredDirection;
         private Vector2 input;
@@ -36,11 +41,18 @@ namespace Player.Brain
             ValidateReferences();
         }
 
-        private void OnEnable()
+        private IEnumerator Start()
         {
-            if (!inputReader) return;
+            while (inputReader == null)
+            {
+                //TODO: Get reference to player controller from ReferenceManager/DataSource | DONE
 
-            //TODO: This should be handled by event manager
+                if (inputReaderDataSource.Value != null)
+                    inputReader = inputReaderDataSource.Value;
+
+                yield return null;
+            }
+
             inputReader.onMovementInput += HandleMovementInput;
             inputReader.onJumpInput += HandleJumpInput;
             inputReader.onCameraInput += HandleCameraInput;
@@ -48,8 +60,6 @@ namespace Player.Brain
 
         private void OnDisable()
         {
-            if (!inputReader) return;
-
             //TODO: This should be handled by event manager
             inputReader.onMovementInput -= HandleMovementInput;
             inputReader.onJumpInput -= HandleJumpInput;
@@ -100,14 +110,6 @@ namespace Player.Brain
             if (!body)
             {
                 Debug.LogError($"{name}: {nameof(body)} is null!" +
-                               $"\nDisabling object to avoid errors.");
-                enabled = false;
-                return;
-            }
-
-            if (!inputReader)
-            {
-                Debug.LogError($"{name}: {nameof(inputReader)} is null!" +
                                $"\nDisabling object to avoid errors.");
                 enabled = false;
                 return;
