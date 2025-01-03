@@ -12,11 +12,9 @@ namespace Gameplay
         [Header("References")]
         [Header("Data Sources")]
         [SerializeField] private DataSource<PlayerManager> playerDataSource;
-        //[SerializeField] private DataSource<Character> characterDataSource;
 
-        //private PlayerBrain _player; //TODO: Should it be character?
-
-        
+        [Header("Logs")]
+        [SerializeField] private bool enableLogs = true;
 
         private void Awake()
         {
@@ -31,16 +29,6 @@ namespace Gameplay
 
         private void OnEnable()
         {
-            //TODO: Subscribe to inputs via event manager/event channel | DONE
-
-            if (EventManager<string>.Instance)
-            {
-                
-                //EventManager<string>.Instance.SubscribeToEvent(GameEvents.MoveAction, OnMoveEvent);
-                //EventManager<string>.Instance.SubscribeToEvent(GameEvents.RunAction, OnRunEvent);
-            }
-
-            //TODO: Set itself as player reference via ReferenceManager/DataSource | DONE
             if (playerDataSource.Value == null)
                 playerDataSource.Value = this;
 
@@ -48,15 +36,6 @@ namespace Gameplay
 
         private void OnDisable()
         {
-            //TODO: Unsubscribe from all inputs via event manager/event channel | DONE
-
-            if (EventManager<string>.Instance)
-            {
-                //EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.MoveAction, OnMoveEvent);
-                //EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.RunAction, OnRunEvent);
-            }
-
-            //TODO: Remove itself as player reference via reference manager/dataSource | DONE
             if (playerDataSource.Value == this)
                 playerDataSource.Value = null;
         }
@@ -66,41 +45,14 @@ namespace Gameplay
             transform.position = levelStartPosition;
         }
 
-        /*
-        private void OnMoveEvent(params object[] args)
-        {
-            if (args.Length > 0 && args[0] is Vector3 direction)
-            {
-                HandleMove(direction);
-            }
-        }
-
-        private void OnRunEvent(params object[] args)
-        {
-            if (args.Length > 0 && args[0] is bool shouldRun)
-            {
-                HandleRun(shouldRun);
-            }
-        }
-
-        private void HandleMove(Vector2 direction)
-        {
-            _player.SetDirection(new Vector3(direction.x, 0, direction.y));
-        }
-
-        private void HandleRun(bool shouldRun)
-        {
-            if (shouldRun)
-                _player.StartRunning();
-            else
-                _player.StopRunning();
-        }
-
         public void ReceiveAttack()
         {
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.LoseAction, true);
 
+            if (enableLogs) Debug.Log($"<color=red> {name}: received an attack! </color>");
+            Destroy(gameObject);
         }
-        */
     }
 }
 

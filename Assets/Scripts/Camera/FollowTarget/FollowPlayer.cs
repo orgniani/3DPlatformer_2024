@@ -22,12 +22,6 @@ namespace Camera.FollowTarget
             }
         }
 
-        private void Start()
-        {
-            //TODO: Move to a game/menu manager instead
-            //Cursor.lockState = CursorLockMode.Locked;
-            //Cursor.visible = false;
-        }
         private void FixedUpdate()
         {
             Quaternion rotation = Quaternion.Euler(currentY, currentX, 0); //TODO: Research quaternions

@@ -1,3 +1,17 @@
 {
-	"name": "Orgniani.Platformer.AI.Runtime"
+    "name": "Orgniani.Platformer.AI.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ac5028d33b9ef2f40887e4add30c4149",
+        "GUID:3ffd7927f780415419610558b4051432"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
