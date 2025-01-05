@@ -1,27 +1,25 @@
-using DataSources;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using Events;
+using Core;
 
 namespace Input
 {
     public class InputReader : MonoBehaviour
     {
         [Header("References")]
-        [Header("Data Sources")]
-        [SerializeField] private DataSource<InputReader> inputReaderDataSource;
+        [Header("Inputs")]
+        [SerializeField] private InputActionAsset inputActions;
 
-        //TODO: These should be handled by the event manager
-        public event Action<Vector2> onMovementInput = delegate { };
-        public event Action<Vector2> onCameraInput = delegate { };
-        public event Action onJumpInput = delegate { };
+        private InputAction _moveAction;
+        private InputAction _jumpAction;
+        private InputAction _lookAction;
 
         private void Awake()
         {
-            if (!inputReaderDataSource)
+            if (!inputActions)
             {
-                Debug.LogError($"{name}: {nameof(inputReaderDataSource)} is null!" +
+                Debug.LogError($"{name}: {nameof(inputActions)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
@@ -30,30 +28,72 @@ namespace Input
 
         private void OnEnable()
         {
-            inputReaderDataSource.Value = this;
+            _moveAction = inputActions.FindAction(GameEvents.MoveAction);
+
+            if (_moveAction != null)
+            {
+                _moveAction.performed += HandleMovementInput;
+                _moveAction.canceled += HandleMovementInput;
+            }
+
+            _jumpAction = inputActions.FindAction(GameEvents.JumpAction);
+
+            if (_jumpAction != null)
+            {
+                _jumpAction.started += HandleJumpInput;
+                _jumpAction.canceled += HandleJumpInput;
+            }
+
+            _lookAction = inputActions.FindAction(GameEvents.LookAction);
+
+            if (_lookAction != null)
+            {
+                _lookAction.started += HandleCameraInput;
+                _lookAction.canceled += HandleCameraInput;
+            }
         }
 
         private void OnDisable()
         {
-            if (inputReaderDataSource != null && inputReaderDataSource.Value == this)
-                inputReaderDataSource.Value = null;
+            if (_moveAction != null)
+            {
+                _moveAction.performed -= HandleMovementInput;
+                _moveAction.canceled -= HandleMovementInput;
+            }
+
+            if (_jumpAction != null)
+            {
+                _jumpAction.started -= HandleJumpInput;
+                _jumpAction.canceled -= HandleJumpInput;
+            }
+
+            if (_lookAction != null)
+            {
+                _lookAction.started -= HandleCameraInput;
+                _lookAction.canceled -= HandleCameraInput;
+            }
         }
 
         public void HandleMovementInput(InputAction.CallbackContext ctx)
         {
-            onMovementInput?.Invoke(ctx.ReadValue<Vector2>());
+            Vector2 movementInput = ctx.ReadValue<Vector2>();
+
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.MoveAction, movementInput);
         }
 
         public void HandleJumpInput(InputAction.CallbackContext ctx)
         {
-            if (ctx.performed)
-                onJumpInput?.Invoke();
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.JumpAction, _jumpAction);
         }
 
         public void HandleCameraInput(InputAction.CallbackContext ctx)
         {
-            onCameraInput?.Invoke(ctx.ReadValue<Vector2>());
-        }
+            Vector2 cameraInput = ctx.ReadValue<Vector2>();
 
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.LookAction, cameraInput);
+        }
     }
 }

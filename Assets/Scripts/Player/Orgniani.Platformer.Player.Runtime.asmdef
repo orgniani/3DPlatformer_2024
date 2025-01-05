@@ -2,9 +2,9 @@
     "name": "Orgniani.Platformer.Player.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:2ea773f0110d581498deadd64457dd6f",
         "GUID:f1d4bf7c257d84149a741da6a5e6547e",
-        "GUID:ac5028d33b9ef2f40887e4add30c4149"
+        "GUID:0c41ecabeae71c142b8374dd60c94134",
+        "GUID:0950dede9ce59a6439f3b0bded86077c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,19 +1,15 @@
 using Player.Body;
 using Player.Jump;
 using Camera.FollowTarget;
-using Input;
-using DataSources;
+using Events;
+using Core;
 using UnityEngine;
-using System.Collections;
 
 namespace Player.Brain
 {
     public class PlayerBrain : MonoBehaviour
     {
         [Header("References")]
-        [Header("Data Sources")]
-        [SerializeField] private DataSource<InputReader> inputReaderDataSource;
-
         [Header("Player")]
         [SerializeField] private PlayerBody body;
         [SerializeField] private PlayerJump jump;
@@ -22,12 +18,12 @@ namespace Player.Brain
         [SerializeField] private FollowPlayer cameraController;
         [SerializeField] private Transform cameraTransform;
 
-        private InputReader inputReader;
-
         private Vector3 desiredDirection;
         private Vector2 input;
 
         private float acceleration;
+
+        //TODO: DELETE public Vector3 GetDesiredDirection() => desiredDirection;
 
         public BrainModel Model { get; set; }
 
@@ -41,32 +37,25 @@ namespace Player.Brain
             ValidateReferences();
         }
 
-        private IEnumerator Start()
+        private void OnEnable()
         {
-            while (inputReader == null)
+            if (EventManager<string>.Instance)
             {
-                //TODO: Get reference to player controller from ReferenceManager/DataSource | DONE
-
-                if (inputReaderDataSource.Value != null)
-                    inputReader = inputReaderDataSource.Value;
-
-                yield return null;
+                EventManager<string>.Instance.SubscribeToEvent(GameEvents.MoveAction, HandleMovementInput);
+                EventManager<string>.Instance.SubscribeToEvent(GameEvents.JumpAction, HandleJumpInput);
+                EventManager<string>.Instance.SubscribeToEvent(GameEvents.LookAction, HandleCameraInput);
             }
-
-            inputReader.onMovementInput += HandleMovementInput;
-            inputReader.onJumpInput += HandleJumpInput;
-            inputReader.onCameraInput += HandleCameraInput;
         }
 
         private void OnDisable()
         {
-            //TODO: This should be handled by event manager
-            inputReader.onMovementInput -= HandleMovementInput;
-            inputReader.onJumpInput -= HandleJumpInput;
-            inputReader.onCameraInput -= HandleCameraInput;
+            if (EventManager<string>.Instance)
+            {
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.MoveAction, HandleMovementInput);
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.JumpAction, HandleJumpInput);
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.LookAction, HandleCameraInput);
+            }
         }
-
-        public Vector3 GetDesiredDirection() => desiredDirection;
 
         private void Update()
         {
@@ -90,17 +79,19 @@ namespace Player.Brain
             return direction.normalized;
         }
 
-        private void HandleMovementInput(Vector2 input)
+        private void HandleMovementInput(params object[] args)
         {
-            this.input = input;
+            if (args.Length > 0 && args[0] is Vector2 movementInput)
+                input = movementInput;
         }
 
-        private void HandleCameraInput(Vector2 input)
+        private void HandleCameraInput(params object[] args)
         {
-            cameraController.SetInputRotation(input);
+            if (args.Length > 0 && args[0] is Vector2 cameraInput)
+                cameraController.SetInputRotation(cameraInput);
         }
 
-        private void HandleJumpInput()
+        private void HandleJumpInput(params object[] args)
         {
             jump.TryJump(Model.Acceleration);
         }
@@ -140,5 +131,4 @@ namespace Player.Brain
             }
         }
     }
-
 }

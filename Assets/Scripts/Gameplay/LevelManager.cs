@@ -21,12 +21,22 @@ namespace Gameplay
             ValidateReferences();
         }
 
+        private void OnEnable()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        private void OnDisable()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
         private IEnumerator Start()
         {
             while (_playerManager == null)
             {
-                //TODO: Get reference to player controller from ReferenceManager/DataSource | DONE
-
                 if (playerDataSource.Value != null)
                     _playerManager = playerDataSource.Value;
 

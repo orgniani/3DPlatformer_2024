@@ -1288,6 +1288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputReaderDataSource: {fileID: 11400000, guid: 03ad3cde163efaf4ebc6133c38609471,
     type: 2}
+  inputActions: {fileID: -944628639613478452, guid: ded9c9c2499a7514cb987926e72b2b64,
+    type: 3}
 --- !u!4 &995108185
 Transform:
   m_ObjectHideFlags: 0
@@ -1317,7 +1319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: ded9c9c2499a7514cb987926e72b2b64,
     type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:

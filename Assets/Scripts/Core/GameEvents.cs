@@ -9,6 +9,7 @@ namespace Core
         public const string UnloadScenery = "UnloadScenery";
 
         public const string MoveAction = "Move";
-        public const string RunAction = "Run";
+        public const string JumpAction = "Jump";
+        public const string LookAction = "Look";
     }
 }
