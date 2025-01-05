@@ -1,13 +1,20 @@
+using DataSources;
 using Player.Body;
 using Player.Brain;
 using Player.Jump;
 using Player.Rotation;
+using Characters;
 using UnityEngine;
 
 namespace Player
 {
+    [RequireComponent(typeof(Character))]
     public class PlayerSetup : MonoBehaviour
     {
+        [Header("Data Sources")]
+        [SerializeField] private DataSource<Character> characterDataSource;
+
+        //TODO: Check if these should just be data sources?? who's to say.
         [Header("Character Body")]
         [SerializeField] private BodyModelContainer bodyModelContainer;
         [SerializeField] private PlayerBody playerBody;
@@ -24,8 +31,38 @@ namespace Player
         [SerializeField] private RotationModelContainer rotationModelContainer;
         [SerializeField] private PlayerRotation playerRotation;
 
+        private Character _character;
+
+        private void Reset()
+        {
+            _character = GetComponent<Character>();
+        }
+
+        private void Awake()
+        {
+            _character ??= GetComponent<Character>();
+
+            if (_character)
+            {
+                _character.enabled = false;
+            }
+        }
 
         private void OnEnable()
+        {
+            ValidateAndAssignValues();
+
+            if (characterDataSource.Value == null)
+                characterDataSource.Value = _character;
+        }
+
+        private void OnDisable()
+        {
+            if (characterDataSource.Value == _character)
+                characterDataSource.Value = null;
+        }
+
+        private void ValidateAndAssignValues()
         {
             // JUMP
             if (playerJump && jumpModelContainer)

@@ -13,10 +13,10 @@ namespace Player.Jump
         [SerializeField] private PlayerBody body;
         [SerializeField] private PlayerBrain brain; //TODO: is this really necessary?
 
-        private bool shouldJump = true;
-        private bool shouldJumpOnRamp = true;
+        private bool _shouldJump = true;
+        private bool _shouldJumpOnRamp = true;
 
-        public event Action onJump = delegate { };
+        public event Action OnJump = delegate { };
 
         public JumpModel Model { get; set; }
 
@@ -28,9 +28,9 @@ namespace Player.Jump
         public bool TryJump(float normalAcceleration)
         {
             //TODO: There MUST be a better way to do this
-            if (!shouldJump) return false;
+            if (!_shouldJump) return false;
 
-            if (!shouldJumpOnRamp) return false;
+            if (!_shouldJumpOnRamp) return false;
 
             if (!body.IsOnLand) return false;
 
@@ -41,12 +41,12 @@ namespace Player.Jump
 
         private IEnumerator JumpSequence(float normalAcceleration)
         {
-            shouldJump = false;
+            _shouldJump = false;
 
             body.RequestBrake(Model.BrakeMultiplier);
             brain.Acceleration = Model.JumpAcceleration;
 
-            onJump?.Invoke();
+            OnJump?.Invoke();
 
             yield return new WaitForSeconds(Model.WaitToJump);
 
@@ -67,13 +67,13 @@ namespace Player.Jump
 
             if (contactAngle <= Model.FloorAngle)
             {
-                shouldJump = true;
-                shouldJumpOnRamp = true;
+                _shouldJump = true;
+                _shouldJumpOnRamp = true;
             }
 
             else
             {
-                shouldJumpOnRamp = false;
+                _shouldJumpOnRamp = false;
             }
         }
 

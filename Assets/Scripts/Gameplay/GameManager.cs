@@ -24,6 +24,7 @@ namespace Gameplay
 
         private SceneryManager _sceneryManager;
         private SceneryLoadId[] _allSceneIds;
+
         private int _currentLevelIndex = 0;
 
         public bool IsFinalLevel { get; private set; }

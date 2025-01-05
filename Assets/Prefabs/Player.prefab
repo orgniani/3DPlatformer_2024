@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4933663981258914701}
   - component: {fileID: 7736302451784472388}
   - component: {fileID: 2503549299925220571}
-  - component: {fileID: 4328791297933416092}
+  - component: {fileID: 3624096505196452982}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0800615e6f203a14e94a983d577971be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterDataSource: {fileID: 0}
   bodyModelContainer: {fileID: 11400000, guid: 5c725fff21f26484aa5170a5386df729, type: 2}
   playerBody: {fileID: 6542788559473259098}
   brainModelContainer: {fileID: 11400000, guid: 17a0a8e446b4859448949c79676cb3c2,
@@ -213,7 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a96600d2f476264faaa2f8bc906264f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputReaderDataSource: {fileID: 0}
   body: {fileID: 6542788559473259098}
   jump: {fileID: 7736302451784472388}
   cameraController: {fileID: 0}
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc6d0183f70dc64ba8b61d6bce41048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4328791297933416092
+--- !u!114 &3624096505196452982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,10 +253,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6579703793285202125}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f57393760f0e84c912f3ce4a2edcc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 27ac6689cf75ef3478783122cd5d3523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDataSource: {fileID: 11400000, guid: 3dc68173a897cd3469864fe8fd186d55, type: 2}
+  speed: 2.5
+  enableLogs: 1
 --- !u!1 &7357100434003354285
 GameObject:
   m_ObjectHideFlags: 0

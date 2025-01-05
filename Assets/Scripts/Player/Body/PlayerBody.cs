@@ -6,17 +6,17 @@ namespace Player.Body
     [RequireComponent((typeof(Rigidbody)))]
     public class PlayerBody : MonoBehaviour
     {
-        private Rigidbody rigidBody;
+        private Rigidbody _rigidBody;
 
-        private MovementRequest currentMovement = MovementRequest.InvalidRequest;
+        private MovementRequest _currentMovement = MovementRequest.InvalidRequest;
 
-        private bool isBrakeRequested = false;
-        private float brakeMultiplier;
+        private bool _isBrakeRequested = false;
+        private float _brakeMultiplier;
 
-        private readonly List<ImpulseRequest> impulseRequests = new(); //TODO: Could this be something other than a list?
+        private readonly List<ImpulseRequest> _impulseRequests = new(); //TODO: Could this be something other than a list?
 
-        private bool shouldBreak = false;
-        private bool shouldCheckIfOnLand = true;
+        private bool _shouldBreak = false;
+        private bool _shouldCheckIfOnLand = true;
 
         public bool IsFalling { private set; get; }
 
@@ -26,17 +26,17 @@ namespace Player.Body
 
         private void Reset()
         {
-            rigidBody = GetComponent<Rigidbody>();
+            _rigidBody = GetComponent<Rigidbody>();
         }
 
         private void Awake()
         {
-            rigidBody = GetComponent<Rigidbody>();
+            _rigidBody = GetComponent<Rigidbody>();
         }
 
         private void FixedUpdate()
         {
-            if (isBrakeRequested)
+            if (_isBrakeRequested)
                 Break();
 
             ManageMovement();
@@ -45,29 +45,29 @@ namespace Player.Body
 
         public void SetMovement(MovementRequest movementRequest)
         {
-            currentMovement = movementRequest;
+            _currentMovement = movementRequest;
         }
 
         public void RequestBrake(float brake)
         {
-            brakeMultiplier = brake;
-            isBrakeRequested = true;
+            _brakeMultiplier = brake;
+            _isBrakeRequested = true;
         }
 
         public void RequestImpulse(ImpulseRequest request)
         {
-            impulseRequests.Add(request);
+            _impulseRequests.Add(request);
         }
 
         private void Break()
         {
-            rigidBody.AddForce(-rigidBody.velocity * brakeMultiplier, ForceMode.Impulse); //TODO: Research forcemode
-            isBrakeRequested = false;
+            _rigidBody.AddForce(-_rigidBody.velocity * _brakeMultiplier, ForceMode.Impulse); //TODO: Research forcemode
+            _isBrakeRequested = false;
         }
 
         private void ManageMovement()
         {
-            var velocity = rigidBody.velocity;
+            var velocity = _rigidBody.velocity;
             velocity.y = 0;
 
             //TODO: There must be a way to improve this bit
@@ -83,10 +83,10 @@ namespace Player.Body
 
             CheckIfOnLand(onFloorLineCheck, onFloorSphereCheck);
 
-            if (!currentMovement.IsValid() || velocity.magnitude >= currentMovement.GoalSpeed)
+            if (!_currentMovement.IsValid() || velocity.magnitude >= _currentMovement.GoalSpeed)
                 return;
 
-            var accelerationVector = currentMovement.GetAccelerationVector();
+            var accelerationVector = _currentMovement.GetAccelerationVector();
 
             if (IsOnLand)
             {
@@ -95,24 +95,24 @@ namespace Player.Body
             }
 
             Debug.DrawRay(transform.position, accelerationVector, Color.red);
-            rigidBody.AddForce(accelerationVector, ForceMode.Force);
+            _rigidBody.AddForce(accelerationVector, ForceMode.Force);
         }
 
         private void ManageImpulseRequests()
         {
-            foreach (var request in impulseRequests)
+            foreach (var request in _impulseRequests)
             {
-                rigidBody.AddForce(request.GetForceVector(), ForceMode.Impulse);
+                _rigidBody.AddForce(request.GetForceVector(), ForceMode.Impulse);
             }
 
-            impulseRequests.Clear();
+            _impulseRequests.Clear();
         }
 
         private void CheckIfOnLand(bool onFloorLineCheck, bool onFloorSphereCheck)
         {
             if (onFloorLineCheck)
             {
-                if (!shouldCheckIfOnLand) return;
+                if (!_shouldCheckIfOnLand) return;
                 IsOnLand = onFloorSphereCheck;
             }
 
@@ -122,23 +122,23 @@ namespace Player.Body
 
                 else
                 {
-                    shouldCheckIfOnLand = true;
+                    _shouldCheckIfOnLand = true;
                     IsOnLand = false;
-                    shouldBreak = true;
+                    _shouldBreak = true;
                 }
             }
 
-            if (IsOnLand == true) shouldCheckIfOnLand = false;
+            if (IsOnLand == true) _shouldCheckIfOnLand = false;
         }
 
         private void OnCollisionEnter(Collision collision)
         {
             if (Model.FloorMask == (Model.FloorMask | (1 << collision.gameObject.layer)))
             {
-                if (!shouldBreak) return;
+                if (!_shouldBreak) return;
 
                 RequestBrake(Model.LandBrakeMultiplier);
-                shouldBreak = false;
+                _shouldBreak = false;
             }
         }
 

@@ -1,12 +1,10 @@
 {
-    "name": "Orgniani.Platformer.Gameplay.Runtime",
+    "name": "Orgniani.Platformer.Characters.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:ac5028d33b9ef2f40887e4add30c4149",
-        "GUID:aa88ffa5c3210de45aa22ad072595677",
-        "GUID:0c41ecabeae71c142b8374dd60c94134",
         "GUID:0950dede9ce59a6439f3b0bded86077c",
-        "GUID:329d9fddec2dd2e458f3cebcbf05a366"
+        "GUID:ac5028d33b9ef2f40887e4add30c4149",
+        "GUID:0c41ecabeae71c142b8374dd60c94134"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

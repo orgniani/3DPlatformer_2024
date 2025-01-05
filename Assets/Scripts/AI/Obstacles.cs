@@ -1,5 +1,5 @@
 using UnityEngine;
-using Gameplay;
+using Characters;
 using DataSources;
 
 namespace AI
@@ -8,15 +8,15 @@ namespace AI
     {
         [Header("References")]
         [Header("Data Sources")]
-        [SerializeField] private DataSource<PlayerManager> playerDataSource;
+        [SerializeField] private DataSource<Character> targetDataSource;
 
         [Header("Layers")]
-        [SerializeField] private LayerMask playerLayer;
+        [SerializeField] private LayerMask targetLayer;
 
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
 
-        private PlayerManager _target;
+        private Character _target;
 
         private void Awake()
         {
@@ -25,15 +25,15 @@ namespace AI
 
         private void Start()
         {
-            if (playerDataSource.Value != null)
+            if (targetDataSource.Value != null)
             {
-                _target = playerDataSource.Value;
+                _target = targetDataSource.Value;
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (((1 << other.gameObject.layer) & playerLayer.value) != 0)
+            if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
             {
                 _target.ReceiveAttack();
 
@@ -43,15 +43,15 @@ namespace AI
 
         private void ValidateReferences()
         {
-            if (playerLayer == 0)
+            if (targetLayer == 0)
             {
-                Debug.LogError($"{name}: {nameof(playerLayer)} is not set!");
+                Debug.LogError($"{name}: {nameof(targetLayer)} is not set!");
                 return;
             }
 
-            if (!playerDataSource)
+            if (!targetDataSource)
             {
-                Debug.LogError($"{name}: {nameof(playerDataSource)} is null!" +
+                Debug.LogError($"{name}: {nameof(targetDataSource)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

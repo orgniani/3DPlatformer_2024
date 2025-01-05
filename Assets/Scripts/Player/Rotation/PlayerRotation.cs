@@ -5,18 +5,18 @@ namespace Player.Rotation
     [RequireComponent((typeof(Rigidbody)))]
     public class PlayerRotation : MonoBehaviour
     {
-        private Rigidbody rigidBody;
+        private Rigidbody _rigidBody;
 
         public RotationModel Model { get; set; }
 
         private void Reset()
         {
-            rigidBody = GetComponent<Rigidbody>();
+            _rigidBody = GetComponent<Rigidbody>();
         }
 
         private void Awake()
         {
-            rigidBody = GetComponent<Rigidbody>();
+            _rigidBody = GetComponent<Rigidbody>();
         }
 
         private void Update()
@@ -26,7 +26,7 @@ namespace Player.Rotation
 
         private void RotateCharacter()
         {
-            Vector3 velocity = rigidBody.velocity;
+            Vector3 velocity = _rigidBody.velocity;
             velocity.y = 0;
 
             if (velocity.magnitude < Model.MinimumSpeedForRotation) //TODO: Research magnitude

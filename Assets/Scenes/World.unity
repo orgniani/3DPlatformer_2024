@@ -249,6 +249,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1093140385395587825, guid: bd94afbc248e0d94789f4d1e67dd1f88,
+        type: 3}
+      propertyPath: characterDataSource
+      value: 
+      objectReference: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09,
+        type: 2}
     - target: {fileID: 4933663981258914701, guid: bd94afbc248e0d94789f4d1e67dd1f88,
         type: 3}
       propertyPath: cameraTransform
@@ -259,12 +265,6 @@ PrefabInstance:
       propertyPath: cameraController
       value: 
       objectReference: {fileID: 1218581562}
-    - target: {fileID: 4933663981258914701, guid: bd94afbc248e0d94789f4d1e67dd1f88,
-        type: 3}
-      propertyPath: inputReaderDataSource
-      value: 
-      objectReference: {fileID: 11400000, guid: 03ad3cde163efaf4ebc6133c38609471,
-        type: 2}
     - target: {fileID: 6579703793285202125, guid: bd94afbc248e0d94789f4d1e67dd1f88,
         type: 3}
       propertyPath: m_Name

@@ -20,6 +20,36 @@ namespace Player
 
         private void Awake()
         {
+            ValidateReferences();
+        }
+
+        private void OnEnable()
+        {
+            jump.OnJump += HandleJump;
+        }
+
+        private void OnDisable()
+        {
+            jump.OnJump -= HandleJump;
+        }
+
+        private void Update()
+        {
+            var velocity = rigidBody.velocity;
+            velocity.y = 0;
+            var speed = velocity.magnitude;
+
+            animator.SetFloat(horSpeedParameter, speed);
+            animator.SetBool(isOnLandParameter, body.IsOnLand);
+        }
+
+        private void HandleJump()
+        {
+            animator.SetTrigger(jumpTriggerParameter);
+        }
+
+        private void ValidateReferences()
+        {
             if (!animator)
             {
                 Debug.LogError($"{name}: {nameof(animator)} is null!" +
@@ -51,34 +81,6 @@ namespace Player
                 enabled = false;
                 return;
             }
-        }
-
-        private void OnEnable()
-        {
-            //TODO: This should be handled by event manager
-            jump.onJump += HandleJump;
-        }
-
-        private void OnDisable()
-        {
-            //TODO: This should be handled by event manager
-            jump.onJump -= HandleJump;
-        }
-
-        private void Update()
-        {
-            var velocity = rigidBody.velocity;
-            velocity.y = 0;
-            var speed = velocity.magnitude;
-
-            animator.SetFloat(horSpeedParameter, speed);
-
-            animator.SetBool(isOnLandParameter, body.IsOnLand);
-        }
-
-        private void HandleJump()
-        {
-            animator.SetTrigger(jumpTriggerParameter);
         }
     }
 }

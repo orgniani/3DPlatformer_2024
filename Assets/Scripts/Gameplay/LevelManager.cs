@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using DataSources;
-using Core.Interactions;
+using Characters;
 
 namespace Gameplay
 {
@@ -9,12 +9,12 @@ namespace Gameplay
     {
         [Header("References")]
         [Header("Data Sources")]
-        [SerializeField] private DataSource<PlayerManager> playerDataSource;
+        [SerializeField] private DataSource<Character> playerDataSource;
 
         [Header("Transforms")]
         [SerializeField] private Transform levelStart;
 
-        private PlayerManager _playerManager;
+        private Character _player;
 
         private void Awake()
         {
@@ -35,15 +35,15 @@ namespace Gameplay
 
         private IEnumerator Start()
         {
-            while (_playerManager == null)
+            while (_player == null)
             {
                 if (playerDataSource.Value != null)
-                    _playerManager = playerDataSource.Value;
+                    _player = playerDataSource.Value;
 
                 yield return null;
             }
 
-            _playerManager.SetPlayerAtLevelStartAndEnable(levelStart.position);
+            _player.SetStartPosition(levelStart.position);
         }
 
         private void ValidateReferences()

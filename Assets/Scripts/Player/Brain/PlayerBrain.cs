@@ -18,19 +18,14 @@ namespace Player.Brain
         [SerializeField] private FollowPlayer cameraController;
         [SerializeField] private Transform cameraTransform;
 
-        private Vector3 desiredDirection;
-        private Vector2 input;
+        private Vector3 _desiredDirection;
+        private Vector2 _input;
 
-        private float acceleration;
-
-        //TODO: DELETE public Vector3 GetDesiredDirection() => desiredDirection;
+        private float _acceleration;
 
         public BrainModel Model { get; set; }
 
-        public float Acceleration
-        {
-            set { acceleration = value; }
-        }
+        public float Acceleration { set { _acceleration = value; } }
 
         private void Awake()
         {
@@ -59,12 +54,12 @@ namespace Player.Brain
 
         private void Update()
         {
-            if (desiredDirection.magnitude > Mathf.Epsilon && input.magnitude < Mathf.Epsilon) //TODO: Mathf.Epsilon?
+            if (_desiredDirection.magnitude > Mathf.Epsilon && _input.magnitude < Mathf.Epsilon) //TODO: Mathf.Epsilon?
                 body.RequestBrake(Model.MovementBreakMultiplier);
 
-            Vector3 movementInput = input;
-            desiredDirection = TransformDirectionRelativeToCamera(movementInput);
-            body.SetMovement(new MovementRequest(desiredDirection, Model.Speed, acceleration));
+            Vector3 movementInput = _input;
+            _desiredDirection = TransformDirectionRelativeToCamera(movementInput);
+            body.SetMovement(new MovementRequest(_desiredDirection, Model.Speed, _acceleration));
         }
 
         private Vector3 TransformDirectionRelativeToCamera(Vector2 input)
@@ -82,7 +77,7 @@ namespace Player.Brain
         private void HandleMovementInput(params object[] args)
         {
             if (args.Length > 0 && args[0] is Vector2 movementInput)
-                input = movementInput;
+                _input = movementInput;
         }
 
         private void HandleCameraInput(params object[] args)

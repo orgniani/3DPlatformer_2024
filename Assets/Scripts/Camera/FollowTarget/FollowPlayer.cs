@@ -6,8 +6,8 @@ namespace Camera.FollowTarget
     {
         [SerializeField] private Transform target;
 
-        private float currentX = 0f;
-        private float currentY = 0f;
+        private float _currentX = 0f;
+        private float _currentY = 0f;
 
         public FollowPlayerModel Model { get; set; }
 
@@ -24,7 +24,7 @@ namespace Camera.FollowTarget
 
         private void FixedUpdate()
         {
-            Quaternion rotation = Quaternion.Euler(currentY, currentX, 0); //TODO: Research quaternions
+            Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0); //TODO: Research quaternions
 
             Vector3 offset = Vector3.up * Model.OffsetUp;
 
@@ -37,9 +37,9 @@ namespace Camera.FollowTarget
 
         public void SetInputRotation(Vector2 input)
         {
-            currentX += input.x * Model.Sensitivity * Time.deltaTime;
-            currentY -= input.y * Model.Sensitivity * Time.deltaTime;
-            currentY = Mathf.Clamp(currentY, Model.MinVerticalAngle, Model.MaxVerticalAngle);
+            _currentX += input.x * Model.Sensitivity * Time.deltaTime;
+            _currentY -= input.y * Model.Sensitivity * Time.deltaTime;
+            _currentY = Mathf.Clamp(_currentY, Model.MinVerticalAngle, Model.MaxVerticalAngle);
         }
     }
 }
