@@ -80,8 +80,7 @@ namespace UI
 
         private void HandleOpenLoseMenu(params object[] args)
         {
-            if (gameManagerDataSource.Value.IsFinalLevel)
-                HandleMenuOptions(GameEvents.LoseAction);
+            HandleMenuOptions(GameEvents.LoseAction);
         }
 
         private void HandleMenuOptions(string id)

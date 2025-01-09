@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Level2_SceneryLoadId
   m_EditorClassIdentifier: 
   logName: Second Level
-  <SceneIndexes>k__BackingField: 04000000
+  <SceneIndexes>k__BackingField: 05000000
   <CanUnload>k__BackingField: 1

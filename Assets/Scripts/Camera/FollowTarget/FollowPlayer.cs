@@ -4,7 +4,7 @@ namespace Camera.FollowTarget
 {
     public class FollowPlayer : MonoBehaviour
     {
-        [SerializeField] private Transform target;
+        [SerializeField] private Transform target; //TODO: Should this be a data source?
 
         private float _currentX = 0f;
         private float _currentY = 0f;
@@ -24,6 +24,7 @@ namespace Camera.FollowTarget
 
         private void FixedUpdate()
         {
+            if (!target) return;
             Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0); //TODO: Research quaternions
 
             Vector3 offset = Vector3.up * Model.OffsetUp;

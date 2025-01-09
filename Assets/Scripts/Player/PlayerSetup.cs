@@ -41,11 +41,6 @@ namespace Player
         private void Awake()
         {
             _character ??= GetComponent<Character>();
-
-            if (_character)
-            {
-                _character.enabled = false;
-            }
         }
 
         private void OnEnable()

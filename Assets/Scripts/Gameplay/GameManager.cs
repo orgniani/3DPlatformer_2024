@@ -15,8 +15,13 @@ namespace Gameplay
         [SerializeField] private DataSource<SceneryManager> sceneryManagerDataSource;
 
         [Header("Scenery Ids")]
-        [SerializeField] private SceneryLoadId menuScene;
-        [SerializeField] private SceneryLoadId worldScene;
+        [Tooltip("Contains scene indexes for the Menus and Managers.")]
+        [SerializeField] private SceneryLoadId firstBatch;
+
+        [Tooltip("Contains the scene index for the World scene.")]
+        [SerializeField] private SceneryLoadId secondBatch;
+
+        [Tooltip("Contains scene indexes for each level. Each Scenery Model corresponds to a specific level.")]
         [SerializeField] private SceneryLoadId[] levels;
 
         [Header("Logs")]
@@ -35,8 +40,8 @@ namespace Gameplay
 
             _allSceneIds = new SceneryLoadId[2 + levels.Length];
 
-            _allSceneIds[0] = menuScene;
-            _allSceneIds[1] = worldScene;
+            _allSceneIds[0] = firstBatch;
+            _allSceneIds[1] = secondBatch;
 
             for (int i = 0; i < levels.Length; i++)
             {
@@ -65,7 +70,7 @@ namespace Gameplay
 
             if (EventManager<string>.Instance)
             {
-                EventManager<string>.Instance.SubscribeToEvent(GameEvents.WinAction, OnGameOver);
+                EventManager<string>.Instance.SubscribeToEvent(GameEvents.WinAction, OnWinLevel);
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.LoseAction, OnGameOver);
             }
         }
@@ -83,7 +88,7 @@ namespace Gameplay
 
             UnloadAllScenesOnStart();
 
-            InvokeLoadSceneryEvent(menuScene.SceneIndexes);
+            InvokeLoadSceneryEvent(firstBatch.SceneIndexes);
         }
 
         private void OnDisable()
@@ -93,7 +98,7 @@ namespace Gameplay
 
             if (EventManager<string>.Instance)
             {
-                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.WinAction, OnGameOver);
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.WinAction, OnWinLevel);
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.LoseAction, OnGameOver);
             }
         }
@@ -116,10 +121,16 @@ namespace Gameplay
             }
         }
 
+        private void OnWinLevel(params object[] args)
+        {
+            Debug.Log("LEVEL WON!");
+            if(!IsFinalLevel) NextLevel();
+        }
+
         private void OnGameOver(params object[] args)
         {
-            if (!IsFinalLevel)
-                NextLevel();
+            InvokeUnloadSceneryEvent(levels[_currentLevelIndex].SceneIndexes);
+            InvokeUnloadSceneryEvent(secondBatch.SceneIndexes);
         }
 
         public void HandlePlayGame()
@@ -129,23 +140,24 @@ namespace Gameplay
             _sceneryManager.ResetIdsToIndex0();
 
             _currentLevelIndex = 0;
-            InvokeLoadSceneryEvent(worldScene.SceneIndexes);
+            InvokeLoadSceneryEvent(secondBatch.SceneIndexes);
             InvokeLoadSceneryEvent(levels[_currentLevelIndex].SceneIndexes);
         }
 
-        private void NextLevel()
+        public void NextLevel()
         {
             if (_currentLevelIndex < levels.Length - 1)
             {
                 _currentLevelIndex++;
                 InvokeLoadSceneryEvent(levels[_currentLevelIndex].SceneIndexes);
             }
+
             else
             {
                 IsFinalLevel = true;
 
                 InvokeUnloadSceneryEvent(levels[_currentLevelIndex].SceneIndexes);
-                InvokeUnloadSceneryEvent(worldScene.SceneIndexes);
+                InvokeUnloadSceneryEvent(secondBatch.SceneIndexes);
             }
         }
 
@@ -171,17 +183,17 @@ namespace Gameplay
                 return;
             }
 
-            if (!menuScene)
+            if (!firstBatch)
             {
-                Debug.LogError($"{name}: {nameof(menuScene)} is null!" +
+                Debug.LogError($"{name}: {nameof(firstBatch)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }
 
-            if (!worldScene)
+            if (!secondBatch)
             {
-                Debug.LogError($"{name}: {nameof(worldScene)} is null!" +
+                Debug.LogError($"{name}: {nameof(secondBatch)} is null!" +
                                $"\nDisabling ocomponentbject to avoid errors.");
                 enabled = false;
                 return;
