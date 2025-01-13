@@ -123,7 +123,6 @@ namespace Gameplay
 
         private void OnWinLevel(params object[] args)
         {
-            Debug.Log("LEVEL WON!");
             if(!IsFinalLevel) NextLevel();
         }
 

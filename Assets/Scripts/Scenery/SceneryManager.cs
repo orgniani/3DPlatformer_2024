@@ -18,7 +18,6 @@ namespace Scenery
         [Header("Parameters")]
         [Header("Loading time")]
         [SerializeField] private float fakeLoadingTime = 1;
-        [SerializeField] private float delayPerScene = 0.5f;
 
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
@@ -29,6 +28,9 @@ namespace Scenery
         public event Action OnLoadStart = delegate { };
         public event Action<float> OnLoadPercentage = delegate { };
         public event Action OnLoadEnd = delegate { };
+
+        //TODO: There might be a better way to do this
+        public float FakeLoadingTime => fakeLoadingTime;
 
         private void Awake()
         {
@@ -100,29 +102,44 @@ namespace Scenery
             }
         }
 
+        //TODO: Come back to this and RECHECK CODE:
+        //is completed operations necessary?
         private IEnumerator UnloadAndLoadScenes(int[] unloadSceneIndexes, int[] loadSceneIndexes)
         {
             OnLoadStart?.Invoke();
             OnLoadPercentage?.Invoke(0);
 
-            int unloadCount = unloadSceneIndexes.Length;
-            int loadCount = loadSceneIndexes.Length;
-            int totalCount = unloadCount + loadCount;
+            int totalOperations = unloadSceneIndexes.Length + loadSceneIndexes.Length; 
+            int completedOperations = 0;
 
             if (unloadSceneIndexes.Length > 0)
             {
-                yield return Unload(unloadSceneIndexes, currentIndex => OnLoadPercentage((float)currentIndex / totalCount));
+                yield return Unload(unloadSceneIndexes, progress =>
+                {
+                    float normalizedProgress = (completedOperations + progress * unloadSceneIndexes.Length) / totalOperations;
+                    OnLoadPercentage?.Invoke(normalizedProgress);
+                });
+
                 yield return new WaitForSeconds(fakeLoadingTime);
+                completedOperations += unloadSceneIndexes.Length;
             }
 
             if (loadSceneIndexes.Length > 0)
             {
-                yield return Load(loadSceneIndexes, currentIndex => OnLoadPercentage((float)(currentIndex + unloadCount) / totalCount));
+                yield return Load(loadSceneIndexes, progress =>
+                {
+                    float normalizedProgress = (completedOperations + progress * loadSceneIndexes.Length) / totalOperations;
+                    OnLoadPercentage?.Invoke(normalizedProgress);
+                });
+
                 yield return new WaitForSeconds(fakeLoadingTime);
+                completedOperations += loadSceneIndexes.Length;
             }
 
-            _currentLevelIds = loadSceneIndexes;
+            yield return new WaitForSeconds(fakeLoadingTime);
             OnLoadEnd?.Invoke();
+
+            StopAllCoroutines();
         }
 
         private IEnumerator Load(int[] sceneIndexes, Action<float> onLoadedSceneQtyChanged)
@@ -143,8 +160,6 @@ namespace Scenery
                 {
                     yield return null;
                 }
-
-                yield return new WaitForSeconds(delayPerScene);
 
                 current++;
                 onLoadedSceneQtyChanged?.Invoke((float)current / sceneIndexes.Length);
@@ -175,10 +190,8 @@ namespace Scenery
                         yield return null;
                     }
 
-                    yield return new WaitForSeconds(delayPerScene);
-
                     current++;
-                    onLoadedSceneQtyChanged?.Invoke(current);
+                    onLoadedSceneQtyChanged?.Invoke((float)current / sceneIndexes.Length);
                 }
 
                 else

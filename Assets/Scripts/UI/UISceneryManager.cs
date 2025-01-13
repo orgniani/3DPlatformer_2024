@@ -12,8 +12,7 @@ namespace UI
         [SerializeField] private Canvas loadingScreen;
         [SerializeField] private Image loadingBarFill;
 
-        [Header("Parameters")]
-        [SerializeField] private float fillDuration = 0.25f;
+        private float _fillDuration;
 
         private Coroutine _currentFillCoroutine;
         private SceneryManager _sceneryManager;
@@ -21,7 +20,7 @@ namespace UI
         private void Awake()
         {
             _sceneryManager = GetComponent<SceneryManager>();
-
+            _fillDuration = _sceneryManager.FakeLoadingTime;
             ValidateReferences();
         }
 
@@ -64,12 +63,12 @@ namespace UI
         private IEnumerator LerpFill(float from, float to)
         {
             float startTime = Time.time;
-            float endTime = startTime + fillDuration;
+            float endTime = startTime + _fillDuration;
             float startFillAmount = loadingBarFill.fillAmount;
 
             while (Time.time < endTime)
             {
-                float timeProgress = (Time.time - startTime) / fillDuration;
+                float timeProgress = (Time.time - startTime) / _fillDuration;
                 loadingBarFill.fillAmount = Mathf.Lerp(startFillAmount, to, timeProgress);
                 yield return null;
             }
