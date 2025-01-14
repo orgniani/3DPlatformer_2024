@@ -34,6 +34,7 @@ namespace Characters
         private void EnableIsKinematic(params object[] args)
         {
             if (rb) rb.isKinematic = true;
+            transform.position = Vector3.zero;
 
         }
 

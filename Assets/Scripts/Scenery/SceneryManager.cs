@@ -124,6 +124,8 @@ namespace Scenery
                 completedOperations += unloadSceneIndexes.Length;
             }
 
+            completedOperations++;
+
             if (loadSceneIndexes.Length > 0)
             {
                 yield return Load(loadSceneIndexes, progress =>
@@ -135,6 +137,8 @@ namespace Scenery
                 yield return new WaitForSeconds(fakeLoadingTime);
                 completedOperations += loadSceneIndexes.Length;
             }
+
+            completedOperations++;
 
             yield return new WaitForSeconds(fakeLoadingTime);
             OnLoadEnd?.Invoke();

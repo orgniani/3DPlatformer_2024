@@ -261,7 +261,6 @@ MonoBehaviour:
   sceneryManagerDataSource: {fileID: 11400000, guid: 1b99eda2b4b157d4e9fff400706f45d4,
     type: 2}
   fakeLoadingTime: 2
-  delayPerScene: 3
   enableLogs: 0
 --- !u!1 &662094298
 GameObject:
@@ -467,7 +466,9 @@ MonoBehaviour:
   levels:
   - {fileID: 11400000, guid: 9304673d6f3c00e45b886a8347d568e6, type: 2}
   - {fileID: 11400000, guid: 9c7860c056f77f84a881f16dc316c418, type: 2}
-  enableLogs: 0
+  - {fileID: 11400000, guid: 91d4e2fdb7ca94b46b6af57ffba60b13, type: 2}
+  - {fileID: 11400000, guid: 5ff1b7df3c8ad55459b39c058bf68462, type: 2}
+  enableLogs: 1
 --- !u!1 &1871539870
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +877,7 @@ GameObject:
   - component: {fileID: 7483823219991419752}
   - component: {fileID: 987836391758047336}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Menu Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

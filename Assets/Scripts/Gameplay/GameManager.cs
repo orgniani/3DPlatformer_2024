@@ -123,7 +123,7 @@ namespace Gameplay
 
         private void OnWinLevel(params object[] args)
         {
-            if(!IsFinalLevel) NextLevel();
+            if (!IsFinalLevel) NextLevel();
         }
 
         private void OnGameOver(params object[] args)
@@ -143,7 +143,7 @@ namespace Gameplay
             InvokeLoadSceneryEvent(levels[_currentLevelIndex].SceneIndexes);
         }
 
-        public void NextLevel()
+        private void NextLevel()
         {
             if (_currentLevelIndex < levels.Length - 1)
             {
