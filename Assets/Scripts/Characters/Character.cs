@@ -10,12 +10,12 @@ namespace Characters
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
 
-        private Rigidbody rb;
+        private Rigidbody _rigidBody;
 
         private void Awake()
         {
             if (TryGetComponent<Rigidbody>(out var rigidbody))
-                rb = rigidbody;
+                _rigidBody = rigidbody;
         }
 
         private void OnEnable()
@@ -33,7 +33,7 @@ namespace Characters
         //TODO: RESEARCH IF THERE'S A BETTER WAY TO DO THIS
         private void EnableIsKinematic(params object[] args)
         {
-            if (rb) rb.isKinematic = true;
+            if (_rigidBody) _rigidBody.isKinematic = true;
             transform.position = Vector3.zero;
 
         }
@@ -49,7 +49,7 @@ namespace Characters
         public void SetStartPosition(Vector3 levelStartPosition)
         {
             transform.position = levelStartPosition;
-            if (rb) rb.isKinematic = false;
+            if (_rigidBody) _rigidBody.isKinematic = false;
         }
     }
 }

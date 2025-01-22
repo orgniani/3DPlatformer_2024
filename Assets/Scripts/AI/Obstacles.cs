@@ -1,6 +1,7 @@
 using UnityEngine;
 using Characters;
 using DataSources;
+using System.Collections.Generic;
 
 namespace AI
 {
@@ -16,7 +17,10 @@ namespace AI
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
 
+
+        //TODO: ITARGET??
         private Character _target;
+
 
         private void Awake()
         {
