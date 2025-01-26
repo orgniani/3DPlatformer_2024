@@ -1,49 +1,73 @@
-using AI;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-//TODO: Change script name
-public class ObstacleMovementController : MonoBehaviour
+namespace AI
 {
-    [Header("References")]
-    [SerializeField] private ObstacleMover obstacle;
-    [SerializeField] private LayerMask targetLayer;
-
-    private bool _shouldCollide = true;
-
-    private void Awake()
+    //TODO: Change name --> be more specific
+    public class ObstacleMovementController : MonoBehaviour
     {
-        ValidateReferences();
-    }
+        [Header("References")]
+        [SerializeField] private GameObject obstacle;
+        [SerializeField] private Transform position1;
+        [SerializeField] private Transform position2;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!_shouldCollide) return;
+        [SerializeField] private float moveSpeed = 2f;
 
-        if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
+        private Coroutine movementCoroutine;
+
+        private void Awake()
         {
-            StartCoroutine(obstacle.MoveToTarget());
-
-            _shouldCollide = false;
+            ValidateReferences();
         }
 
-    }
-
-    private void ValidateReferences()
-    {
-        if (targetLayer == 0)
+        private void Start()
         {
-            Debug.LogError($"{name}: {nameof(targetLayer)} is not set!");
-            return;
+            movementCoroutine = StartCoroutine(MoveSideToSide());
         }
 
-        if (!obstacle)
+        private void OnDisable()
         {
-            Debug.LogError($"{name}: {nameof(obstacle)} is null!" +
-                           $"\nDisabling component to avoid errors.");
-            enabled = false;
-            return;
+            if (movementCoroutine != null)
+                StopCoroutine(movementCoroutine);
+        }
+
+        private IEnumerator MoveSideToSide()
+        {
+            while (true) //TODO: NOT WHILE(TRUE), find alternative
+            {
+                //TODO: Interpolate between position1 and position2 using PingPong
+                float t = Mathf.PingPong(Time.time * moveSpeed, 1f);
+                obstacle.transform.position = Vector3.Lerp(position1.position, position2.position, t);
+
+                yield return null;
+            }
+        }
+
+        private void ValidateReferences()
+        {
+            if (!obstacle)
+            {
+                Debug.LogError($"{name}: {nameof(obstacle)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!position1)
+            {
+                Debug.LogError($"{name}: {nameof(position1)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!position2)
+            {
+                Debug.LogError($"{name}: {nameof(position2)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
         }
     }
 }

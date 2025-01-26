@@ -1,7 +1,6 @@
 using UnityEngine;
 using Characters;
 using DataSources;
-using System.Collections.Generic;
 
 namespace AI
 {
