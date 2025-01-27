@@ -4,7 +4,7 @@ namespace AI
 {
     public class ObstacleRotator : MonoBehaviour
     {
-        [Header("Rotation Settings")]
+        [Header("Parameters")]
         [SerializeField] private float speedMultiplier = 1f;
         [SerializeField] private Vector3 rotationAxis = Vector3.up;
 

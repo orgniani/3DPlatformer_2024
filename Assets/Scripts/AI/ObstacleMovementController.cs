@@ -11,7 +11,9 @@ namespace AI
         [SerializeField] private Transform position1;
         [SerializeField] private Transform position2;
 
+        [Header("Parameters")]
         [SerializeField] private float moveSpeed = 2f;
+        [SerializeField] private AnimationCurve movementCurve;
 
         private Coroutine movementCoroutine;
 
@@ -35,11 +37,12 @@ namespace AI
         {
             while (true) //TODO: NOT WHILE(TRUE), find alternative
             {
-                //TODO: Interpolate between position1 and position2 using PingPong
-                float t = Mathf.PingPong(Time.time * moveSpeed, 1f);
-                obstacle.transform.position = Vector3.Lerp(position1.position, position2.position, t);
+                float pingPongValue = Mathf.PingPong(Time.time * moveSpeed, 1f);
+                float curveValue = movementCurve.Evaluate(pingPongValue);
 
-                yield return null;
+                obstacle.transform.position = Vector3.Lerp(position1.position, position2.position, curveValue);
+
+                yield return new WaitForFixedUpdate();
             }
         }
 

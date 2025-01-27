@@ -9447,7 +9447,6 @@ Transform:
   m_Children:
   - {fileID: 730796975}
   - {fileID: 1599078339}
-  - {fileID: 1914345564}
   - {fileID: 560037851}
   - {fileID: 1094688971}
   - {fileID: 1935342568}
@@ -11076,12 +11075,12 @@ Transform:
   m_GameObject: {fileID: 1914345563}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -48.1, y: 2.1813974, z: -0.28099537}
+  m_LocalPosition: {x: -121.5, y: 4.6, z: 10.319005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 629549845}
-  m_Father: {fileID: 1637215584}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1914345565
 BoxCollider:
@@ -11116,7 +11115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25ccb94a7b24a74fbaf61ac6b0e91e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacle: {fileID: 629549853}
+  obstacles:
+  - {fileID: 629549853}
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -12433,4 +12433,5 @@ SceneRoots:
   - {fileID: 1885926132}
   - {fileID: 1121066854}
   - {fileID: 731865338}
+  - {fileID: 1914345564}
   - {fileID: 1637215584}

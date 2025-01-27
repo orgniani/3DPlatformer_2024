@@ -5,7 +5,7 @@ namespace AI
     public class ObstacleMovementTrigger : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private ObstacleMovement obstacle;
+        [SerializeField] private ObstacleMovement[] obstacles;
         [SerializeField] private LayerMask targetLayer;
 
         private bool _shouldCollide = true;
@@ -21,11 +21,13 @@ namespace AI
 
             if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
             {
-                StartCoroutine(obstacle.PushForward());
+                foreach(var obstacle in obstacles)
+                {
+                    StartCoroutine(obstacle.PushForward());
+                }
 
                 _shouldCollide = false;
             }
-
         }
 
         private void ValidateReferences()
@@ -36,9 +38,9 @@ namespace AI
                 return;
             }
 
-            if (!obstacle)
+            if (obstacles.Length <= 0)
             {
-                Debug.LogError($"{name}: {nameof(obstacle)} is null!" +
+                Debug.LogError($"{name}: {nameof(obstacles)} array is empty!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
