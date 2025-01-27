@@ -74,7 +74,7 @@ namespace Input
             }
         }
 
-        public void HandleMovementInput(InputAction.CallbackContext ctx)
+        private void HandleMovementInput(InputAction.CallbackContext ctx)
         {
             Vector2 movementInput = ctx.ReadValue<Vector2>();
 
@@ -82,13 +82,13 @@ namespace Input
                 EventManager<string>.Instance.InvokeEvent(GameEvents.MoveAction, movementInput);
         }
 
-        public void HandleJumpInput(InputAction.CallbackContext ctx)
+        private void HandleJumpInput(InputAction.CallbackContext ctx)
         {
             if (EventManager<string>.Instance)
                 EventManager<string>.Instance.InvokeEvent(GameEvents.JumpAction, _jumpAction);
         }
 
-        public void HandleCameraInput(InputAction.CallbackContext ctx)
+        private void HandleCameraInput(InputAction.CallbackContext ctx)
         {
             Vector2 cameraInput = ctx.ReadValue<Vector2>();
 
