@@ -18,6 +18,7 @@ namespace AI
             initialRotation = transform.localRotation;
         }
 
+        //TODO: Change UPDATE to COROUTINE
         private void Update()
         {
             elapsedTime += Time.deltaTime * speedMultiplier;

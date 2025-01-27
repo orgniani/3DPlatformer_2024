@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Player.Jump;
 
 namespace AI
 {
@@ -9,7 +10,7 @@ namespace AI
         [SerializeField] private float depressionAmount = 0.2f;
         [SerializeField] private float upAmount = 1.5f;
 
-        [SerializeField] private float depressionSpeed = 5f;
+        [SerializeField] private float bounceSpeed = 5f;
         [SerializeField] private float backToInitialPositionSpeed = 2f;
         [SerializeField] private float launchForceUp = 10f;
 
@@ -29,54 +30,47 @@ namespace AI
         {
             if (((1 << other.gameObject.layer) & targetLayer.value) != 0 && !isBouncing)
             {
-                if (other.TryGetComponent<Rigidbody>(out Rigidbody playerRigidbody))
-                    StartCoroutine(TrampolineBounce(playerRigidbody));
+                if (other.TryGetComponent<PlayerJump>(out PlayerJump playerJump))
+                    StartCoroutine(TrampolineBounce(playerJump));
             }
         }
 
-        private IEnumerator TrampolineBounce(Rigidbody playerRigidbody)
+        private IEnumerator TrampolineBounce(PlayerJump playerJump)
         {
             isBouncing = true;
 
-            // Step 1: Move the trampoline down
-            float elapsedTime = 0f;
-            while (elapsedTime < 1f)
-            {
-                elapsedTime += Time.deltaTime * depressionSpeed;
-                float curveValue = bounceCurve.Evaluate(elapsedTime);
-                transform.localPosition = initialPosition - new Vector3(0, curveValue * depressionAmount, 0);
-                yield return null;
-            }
+            Vector3 downPosition = initialPosition - new Vector3(0, depressionAmount, 0);
+            yield return SmoothTrampolineMovement(bounceSpeed, depressionAmount, downPosition);
 
-            // Step 2: Apply force to the player and move trampoline way up
-            elapsedTime = 0f;
-            while (elapsedTime < 1f)
-            {
-                elapsedTime += Time.deltaTime * depressionSpeed;
-                float curveValue = bounceCurve.Evaluate(elapsedTime);
-                transform.localPosition = initialPosition + new Vector3(0, curveValue * upAmount, 0); // Move way up
-                yield return null;
-            }
+            Vector3 extraForce = Vector3.up * launchForceUp;
+            yield return playerJump.TriggerJump(extraForce);
 
-            Vector3 launchDirection = transform.up * launchForceUp;
-            playerRigidbody.AddForce(launchDirection, ForceMode.Impulse);
+            Vector3 upPosition = initialPosition + new Vector3(0, upAmount, 0);
+            yield return SmoothTrampolineMovement(bounceSpeed, upAmount, upPosition);
 
-            // Step 3: Smoothly return the trampoline to its original position
-            elapsedTime = 0f;
-            while (elapsedTime < 1f)
-            {
-                elapsedTime += Time.deltaTime * (backToInitialPositionSpeed);
-                float curveValue = bounceCurve.Evaluate(elapsedTime);
-                transform.localPosition = Vector3.Lerp(
-                    transform.localPosition,
-                    initialPosition,
-                    curveValue
-                );
-                yield return null;
-            }
+            yield return SmoothTrampolineMovement(backToInitialPositionSpeed, depressionAmount, initialPosition);
 
-            transform.localPosition = initialPosition;
             isBouncing = false;
         }
+
+        //TODO: Check for concistency in ALL animation curve scripts
+        private IEnumerator SmoothTrampolineMovement(float movementSpeed, float movementAmount, Vector3 targetPosition)
+        {
+            float elapsedTime = 0f;
+            Vector3 startPosition = transform.localPosition;
+
+            while (elapsedTime < 1f)
+            {
+                elapsedTime += Time.deltaTime * movementSpeed;
+                float curveValue = bounceCurve.Evaluate(elapsedTime);
+
+                transform.localPosition = Vector3.Lerp(startPosition, targetPosition, curveValue);
+
+                yield return null;
+            }
+
+            transform.localPosition = targetPosition;
+        }
+
     }
 }

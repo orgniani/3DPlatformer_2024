@@ -57,6 +57,17 @@ namespace Player.Jump
             brain.Acceleration = normalAcceleration;
         }
 
+        //TODO: Check if this can be improved
+        public IEnumerator TriggerJump(Vector3 extraForce)
+        {
+            OnJump?.Invoke();
+
+            yield return new WaitForSeconds(0.1f);
+
+            _shouldJump = false;
+            body.RequestImpulse(new ImpulseRequest(Vector3.up, Model.Force + extraForce.magnitude));
+        }
+
         private void OnCollisionEnter(Collision collision)
         {
             var contact = collision.contacts[0];

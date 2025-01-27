@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 8427925799309135280}
   - component: {fileID: 7202420950237313829}
   m_Layer: 3
-  m_Name: Props_4a
+  m_Name: Trampoline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -255,9 +255,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   depressionAmount: 0.3
   upAmount: 1.5
-  depressionSpeed: 5
-  backToInitialPositionSpeed: 2
-  launchForceUp: 8
+  bounceSpeed: 5
+  backToInitialPositionSpeed: 1
+  launchForceUp: 5
   bounceCurve:
     serializedVersion: 2
     m_Curve:

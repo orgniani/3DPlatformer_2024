@@ -15960,7 +15960,7 @@ PrefabInstance:
     - target: {fileID: 4074813984219522512, guid: 04a77e7e43a79ed478e212e4f5ede12d,
         type: 3}
       propertyPath: m_Name
-      value: Trampoline
+      value: TrampolineBase
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
