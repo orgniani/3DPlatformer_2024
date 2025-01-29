@@ -2031,7 +2031,7 @@ Transform:
   m_GameObject: {fileID: 510427356}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.47, y: -5.3296833, z: -35.43}
+  m_LocalPosition: {x: -1.47, y: -5.3296833, z: -33.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2056,7 +2056,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.3999996, y: 5.62, z: 5.3999996}
+  m_Size: {x: 5.3999996, y: 13.95, z: 7.99}
   m_Center: {x: 2.5, y: 2.96, z: 2.5}
 --- !u!1001 &529345687
 PrefabInstance:
@@ -4403,6 +4403,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  winAudio: {fileID: 11400000, guid: 2762ff0a4fa263a44949d30e8e573d7f, type: 2}
   enableLogs: 1
 --- !u!65 &1239852698
 BoxCollider:
@@ -4935,7 +4936,7 @@ Transform:
   m_GameObject: {fileID: 1363432835}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.99, y: -5.3296833, z: -35.4}
+  m_LocalPosition: {x: 9.199007, y: -4.3799057, z: -35.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4960,7 +4961,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.3999996, y: 5.62, z: 5.3999996}
+  m_Size: {x: 5.3999996, y: 12.41, z: 8.3}
   m_Center: {x: 2.5, y: 2.96, z: 2.5}
 --- !u!1 &1370505297
 GameObject:

@@ -1,4 +1,4 @@
-namespace Core
+namespace Events
 {
     public static class GameEvents
     {
@@ -11,5 +11,7 @@ namespace Core
         public const string MoveAction = "Move";
         public const string JumpAction = "Jump";
         public const string LookAction = "Look";
+
+        public const string AudioAction = "PlayAudio";
     }
 }

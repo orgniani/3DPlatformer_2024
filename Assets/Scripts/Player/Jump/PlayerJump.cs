@@ -1,5 +1,7 @@
 using Player.Body;
 using Player.Brain;
+using Events;
+using Audio;
 
 using System;
 using System.Collections;
@@ -12,6 +14,8 @@ namespace Player.Jump
         [Header("Player")]
         [SerializeField] private PlayerBody body;
         [SerializeField] private PlayerBrain brain; //TODO: is this really necessary?
+
+        [SerializeField] private AudioEvent jumpAudio;
 
         private bool _shouldJump = true;
         private bool _shouldJumpOnRamp = true;
@@ -48,6 +52,9 @@ namespace Player.Jump
 
             OnJump?.Invoke();
 
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.AudioAction, jumpAudio, transform.position);
+
             yield return new WaitForSeconds(Model.WaitToJump);
 
             body.RequestImpulse(new ImpulseRequest(Vector3.up, Model.Force));
@@ -62,6 +69,7 @@ namespace Player.Jump
         {
             OnJump?.Invoke();
 
+            //TODO: Get rid of hardcoded value
             yield return new WaitForSeconds(0.1f);
 
             _shouldJump = false;

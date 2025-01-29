@@ -40,6 +40,7 @@ namespace Player
 
         private void Awake()
         {
+            //TODO: What does ??= mean?
             _character ??= GetComponent<Character>();
         }
 

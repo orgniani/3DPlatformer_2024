@@ -8086,6 +8086,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  winAudio: {fileID: 11400000, guid: 2762ff0a4fa263a44949d30e8e573d7f, type: 2}
   enableLogs: 1
 --- !u!65 &1239852698
 BoxCollider:

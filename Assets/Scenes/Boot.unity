@@ -464,10 +464,10 @@ MonoBehaviour:
   firstBatch: {fileID: 11400000, guid: 41a61f7899b3d4c4d989b72a6ff65d4c, type: 2}
   secondBatch: {fileID: 11400000, guid: a477e5c1668fbb445b8a664f3de596e1, type: 2}
   levels:
+  - {fileID: 11400000, guid: 9304673d6f3c00e45b886a8347d568e6, type: 2}
+  - {fileID: 11400000, guid: 9c7860c056f77f84a881f16dc316c418, type: 2}
   - {fileID: 11400000, guid: 91d4e2fdb7ca94b46b6af57ffba60b13, type: 2}
   - {fileID: 11400000, guid: 5ff1b7df3c8ad55459b39c058bf68462, type: 2}
-  - {fileID: 11400000, guid: 9c7860c056f77f84a881f16dc316c418, type: 2}
-  - {fileID: 11400000, guid: 9304673d6f3c00e45b886a8347d568e6, type: 2}
   enableLogs: 1
 --- !u!1 &1871539870
 GameObject:

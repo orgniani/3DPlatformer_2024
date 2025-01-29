@@ -2,7 +2,6 @@ using UnityEngine;
 using DataSources;
 using Scenery;
 using Events;
-using Core;
 using System.Collections.Generic;
 
 namespace Gameplay

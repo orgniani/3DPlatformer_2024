@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Events;
-using Core;
+using Audio;
 
 namespace Input
 {

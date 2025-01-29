@@ -620,6 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableLogs: 1
+  loseAudio: {fileID: 11400000, guid: 8e79f180dc840e147b2ec87387d0a531, type: 2}
 --- !u!1 &3952284186005495242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 6542788559946240025}
   brain: {fileID: 4933663981859690958}
+  jumpAudio: {fileID: 11400000, guid: d6553e164714c7240aa1413e42e7571d, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
