@@ -1,7 +1,6 @@
 using Core.Interactions;
 using Events;
 using UnityEngine;
-using Audio;
 
 namespace Characters
 {
@@ -9,7 +8,6 @@ namespace Characters
     {
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
-        [SerializeField] private AudioEvent loseAudio;
 
         private Rigidbody _rigidBody;
 
@@ -42,10 +40,7 @@ namespace Characters
         public void ReceiveAttack()
         {
             if (EventManager<string>.Instance)
-            {
                 EventManager<string>.Instance.InvokeEvent(GameEvents.LoseAction, true);
-                EventManager<string>.Instance.InvokeEvent(GameEvents.AudioAction, loseAudio, transform.position);
-            }
 
             if (enableLogs) Debug.Log($"<color=red> {name}: received an attack! </color>");
         }

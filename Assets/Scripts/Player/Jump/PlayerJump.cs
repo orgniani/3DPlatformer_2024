@@ -53,7 +53,7 @@ namespace Player.Jump
             OnJump?.Invoke();
 
             if (EventManager<string>.Instance)
-                EventManager<string>.Instance.InvokeEvent(GameEvents.AudioAction, jumpAudio, transform.position);
+                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, jumpAudio, gameObject);
 
             yield return new WaitForSeconds(Model.WaitToJump);
 

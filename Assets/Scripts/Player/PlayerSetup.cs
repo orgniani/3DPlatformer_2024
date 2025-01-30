@@ -5,6 +5,8 @@ using Player.Jump;
 using Player.Rotation;
 using Characters;
 using UnityEngine;
+using Camera;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Player
 {
@@ -13,6 +15,7 @@ namespace Player
     {
         [Header("Data Sources")]
         [SerializeField] private DataSource<Character> characterDataSource;
+        [SerializeField] private DataSource<CameraSetup> cameraDataSource;
 
         //TODO: Check if these should just be data sources?? who's to say.
         [Header("Character Body")]
@@ -32,6 +35,7 @@ namespace Player
         [SerializeField] private PlayerRotation playerRotation;
 
         private Character _character;
+        private CameraSetup _camera;
 
         private void Reset()
         {
@@ -46,10 +50,12 @@ namespace Player
 
         private void OnEnable()
         {
+            ValidateReferences();
             ValidateAndAssignValues();
 
             if (characterDataSource.Value == null)
                 characterDataSource.Value = _character;
+
         }
 
         private void OnDisable()
@@ -58,6 +64,33 @@ namespace Player
                 characterDataSource.Value = null;
         }
 
+        private void Start()
+        {
+            if (cameraDataSource.Value != null)
+            {
+                _camera = cameraDataSource.Value;
+                _camera.SetUp(transform);
+            }
+        }
+
+        private void ValidateReferences()
+        {
+            if (!characterDataSource)
+            {
+                Debug.LogError($"{name}: {nameof(characterDataSource)} is null!" +
+                               $"\nDisabling object to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!cameraDataSource)
+            {
+                Debug.LogError($"{name}: {nameof(cameraDataSource)} is null!" +
+                               $"\nDisabling object to avoid errors.");
+                enabled = false;
+                return;
+            }
+        }
         private void ValidateAndAssignValues()
         {
             // JUMP
@@ -90,6 +123,8 @@ namespace Player
             if (playerBrain && brainModelContainer)
             {
                 playerBrain.Model = brainModelContainer.Model;
+                playerBrain.Camera = cameraDataSource.Value;
+
                 playerBrain.enabled = true;
                 playerBrain.Acceleration = brainModelContainer.Model.Acceleration;
             }

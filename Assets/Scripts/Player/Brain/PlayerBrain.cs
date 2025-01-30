@@ -4,6 +4,7 @@ using Camera.FollowTarget;
 using Events;
 using Core;
 using UnityEngine;
+using Camera;
 
 namespace Player.Brain
 {
@@ -14,14 +15,12 @@ namespace Player.Brain
         [SerializeField] private PlayerBody body;
         [SerializeField] private PlayerJump jump;
 
-        [Header("Camera")]
-        [SerializeField] private FollowPlayer cameraController;
-        [SerializeField] private Transform cameraTransform;
-
         private Vector3 _desiredDirection;
         private Vector2 _input;
 
         private float _acceleration;
+
+        public CameraSetup Camera { get; set; }
 
         public BrainModel Model { get; set; }
 
@@ -66,7 +65,7 @@ namespace Player.Brain
         {
             Vector3 direction = new Vector3(input.x, 0, input.y); //TODO: Research why z has to be 0
 
-            Vector3 cameraForward = cameraTransform.forward;
+            Vector3 cameraForward = Camera.transform.forward;
             cameraForward.y = 0;
 
             direction = Quaternion.LookRotation(cameraForward) * direction;
@@ -83,7 +82,7 @@ namespace Player.Brain
         private void HandleCameraInput(params object[] args)
         {
             if (args.Length > 0 && args[0] is Vector2 cameraInput)
-                cameraController.SetInputRotation(cameraInput);
+                Camera.SetInputRotation(cameraInput);
         }
 
         private void HandleJumpInput(params object[] args)
@@ -104,22 +103,6 @@ namespace Player.Brain
             if (!jump)
             {
                 Debug.LogError($"{name}: {nameof(jump)} is null!" +
-                               $"\nDisabling object to avoid errors.");
-                enabled = false;
-                return;
-            }
-
-            if (!cameraController)
-            {
-                Debug.LogError($"{name}: {nameof(cameraController)} is null!" +
-                               $"\nDisabling object to avoid errors.");
-                enabled = false;
-                return;
-            }
-
-            if (!cameraTransform)
-            {
-                Debug.LogError($"{name}: {nameof(cameraTransform)} is null!" +
                                $"\nDisabling object to avoid errors.");
                 enabled = false;
                 return;

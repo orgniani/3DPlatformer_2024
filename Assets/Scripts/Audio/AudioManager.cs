@@ -1,31 +1,49 @@
 using UnityEngine;
 using Events;
+using System.Collections.Generic;
 
 namespace Audio
 {
     public class AudioManager : MonoBehaviour
     {
+        private Dictionary<GameObject, AudioSource> audioSources = new Dictionary<GameObject, AudioSource>();
+        [SerializeField] private AudioEvent loseAudio;
+        [SerializeField] private AudioEvent winAudio;
+
         private void OnEnable()
         {
             if (EventManager<string>.Instance)
-                EventManager<string>.Instance.SubscribeToEvent(GameEvents.AudioAction, PlayAudio);
+            {
+                EventManager<string>.Instance.SubscribeToEvent(GameEvents.PlayAudioAction, PlayAudio);
+                EventManager<string>.Instance.SubscribeToEvent(GameEvents.WinAction, PlayWinAudio);
+                EventManager<string>.Instance.SubscribeToEvent(GameEvents.LoseAction, PlayLoseAudio);
+            }
         }
 
         private void OnDisable()
         {
             if (EventManager<string>.Instance)
-                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.AudioAction, PlayAudio);
+            {
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.PlayAudioAction, PlayAudio);
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.WinAction, PlayWinAudio);
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.LoseAction, PlayLoseAudio);
+            }
         }
 
         private void PlayAudio(params object[] args)
         {
-            if (args.Length == 2 && args[0] is AudioEvent audioEvent && args[1] is Vector3 position)
+            if (args.Length == 2 && args[0] is AudioEvent audioEvent && args[1] is GameObject caller)
             {
-                if (audioEvent == null || audioEvent.clip == null) return;
+                if (audioEvent == null || audioEvent.clip == null || caller == null) return;
 
-                GameObject audioObj = new GameObject("AudioSource_" + audioEvent.clip.name);
-                audioObj.transform.position = position;
-                AudioSource source = audioObj.AddComponent<AudioSource>();
+                if (!audioSources.TryGetValue(caller, out AudioSource source))
+                {
+                    GameObject audioObj = new GameObject("AudioSource_" + caller.name);
+                    audioObj.transform.SetParent(caller.transform);
+                    audioObj.transform.localPosition = Vector3.zero;
+                    source = audioObj.AddComponent<AudioSource>();
+                    audioSources[caller] = source;
+                }
 
                 source.clip = audioEvent.clip;
                 source.loop = audioEvent.loop;
@@ -34,11 +52,17 @@ namespace Audio
                 source.spatialBlend = audioEvent.spatialBlend;
 
                 source.Play();
-
-                //TODO: Destroy when finished playing? mm :/
-                if (!audioEvent.loop)
-                    Destroy(audioObj, audioEvent.clip.length);
             }
+        }
+
+        private void PlayWinAudio(params object[] args)
+        {
+            PlayAudio(winAudio, gameObject);
+        }
+
+        private void PlayLoseAudio(params object[] args)
+        {
+            PlayAudio(loseAudio, gameObject);
         }
     }
 }
