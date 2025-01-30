@@ -1,9 +1,12 @@
 using UnityEngine;
 using Player.Jump;
 using Player.Body;
+using Audio;
+using Events;
 
 namespace Player
 {
+    //TODO: Perhaps this could be improved --> ANIMATOR VIEW
     public class AnimatorView : MonoBehaviour
     {
         [Header("References")]
@@ -12,6 +15,9 @@ namespace Player
 
         [SerializeField] private PlayerJump jump;
         [SerializeField] private PlayerBody body;
+
+        //TODO: Should this be moved?
+        [SerializeField] private AudioEvent footstepsAudio;
 
         [Header("Animator Parameters")]
         [SerializeField] private string jumpTriggerParameter = "jump";
@@ -46,6 +52,15 @@ namespace Player
         private void HandleJump()
         {
             animator.SetTrigger(jumpTriggerParameter);
+        }
+
+        private void OnFootstep(AnimationEvent animationEvent)
+        {
+            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            {
+                if (EventManager<string>.Instance)
+                    EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, footstepsAudio, gameObject);
+            }
         }
 
         private void ValidateReferences()

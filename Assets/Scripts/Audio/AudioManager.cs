@@ -36,6 +36,7 @@ namespace Audio
             {
                 if (audioEvent == null || audioEvent.clip == null || caller == null) return;
 
+                //TODO: Revise logic --> TryGetValue?
                 if (!audioSources.TryGetValue(caller, out AudioSource source))
                 {
                     GameObject audioObj = new GameObject("AudioSource_" + caller.name);
@@ -44,6 +45,9 @@ namespace Audio
                     source = audioObj.AddComponent<AudioSource>();
                     audioSources[caller] = source;
                 }
+
+                //TODO: it might not be necessary to check on all of this each time
+                //TODO: what if i need a game object to produce 2 sounds at once? can this happen?
 
                 source.clip = audioEvent.clip;
                 source.loop = audioEvent.loop;

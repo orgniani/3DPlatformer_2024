@@ -473,6 +473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 887430369453249681}
   - component: {fileID: 1368745844295421467}
+  - component: {fileID: 3952284186005495243}
   m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
@@ -480,6 +481,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3952284186005495243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3952284186005495242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8c4f970f588a147b319d968802e3b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1368745844295421467}
+  rigidBody: {fileID: 5192752803812427469}
+  jump: {fileID: 7736302452335031559}
+  body: {fileID: 6542788559946240025}
+  footstepsAudio: {fileID: 11400000, guid: 8452fc0f77b0cb54d9652a387b69462a, type: 2}
+  jumpTriggerParameter: jump
+  isOnLandParameter: on_land
+  horSpeedParameter: hor_speed
 --- !u!136 &4032048698715124252
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -746,7 +767,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3010880987316750246, guid: b3d22c566a40cfe45bfc575a822257f4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -771,8 +793,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 6542788559946240025}
   jump: {fileID: 7736302452335031559}
-  cameraController: {fileID: 0}
-  cameraTransform: {fileID: 0}
 --- !u!54 &5192752803812427469
 Rigidbody:
   m_ObjectHideFlags: 0
