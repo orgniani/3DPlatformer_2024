@@ -137,7 +137,8 @@ namespace Gameplay
 
             _sceneryManager.ResetIdsToIndex0();
 
-            _currentLevelIndex = 0;
+            _currentLevelIndex = 0; //TODO: Check so that this doesnt replay the TUTORIAL level
+            //TODO: Maybe with a TUTORIALDONE flag in here that the endOfTutorial can turn to true using the data source? Mayhaps.
             InvokeLoadSceneryEvent(secondBatch.SceneIndexes);
             InvokeLoadSceneryEvent(levels[_currentLevelIndex].SceneIndexes);
         }

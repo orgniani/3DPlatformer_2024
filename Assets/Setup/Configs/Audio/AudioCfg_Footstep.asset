@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0b2b1949a9dfa459528238f1dd2067, type: 3}
   m_Name: AudioCfg_Footstep
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 80af1cade56a9a44ab6e10999903f3f8, type: 3}
+  clip: {fileID: 8300000, guid: fa2dd6451cc1a234b8404370e7816a37, type: 3}
   loop: 0
   playOnAwake: 0
   volume: 1

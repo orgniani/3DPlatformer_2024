@@ -95,6 +95,7 @@ namespace UI
 
             if (buttonConfig != null && gameManagerDataSource.Value != null)
             {
+                //TODO: Check so that this doesnt replay the TUTORIAL level
                 gameManagerDataSource.Value.HandlePlayGame();
                 menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
             }
