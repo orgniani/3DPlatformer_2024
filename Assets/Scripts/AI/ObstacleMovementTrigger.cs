@@ -1,4 +1,6 @@
 using UnityEngine;
+using Audio;
+using Events;
 
 namespace AI
 {
@@ -7,6 +9,7 @@ namespace AI
         [Header("References")]
         [SerializeField] private ObstacleMovement[] obstacles;
         [SerializeField] private LayerMask targetLayer;
+        [SerializeField] private AudioEvent triggerAudio;
 
         private bool _shouldCollide = true;
 
@@ -21,10 +24,11 @@ namespace AI
 
             if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
             {
-                foreach(var obstacle in obstacles)
-                {
+                if (EventManager<string>.Instance)
+                    EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, triggerAudio, gameObject);
+
+                foreach (var obstacle in obstacles)
                     StartCoroutine(obstacle.PushForward());
-                }
 
                 _shouldCollide = false;
             }

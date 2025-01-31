@@ -136,6 +136,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonText: {fileID: 7704691999805061244}
+  clickAudio: {fileID: 11400000, guid: 3a18c246e42a44343b864141927d225a, type: 2}
+  hoverAudio: {fileID: 11400000, guid: 7dcc2b567077f874292b139230a4ccc2, type: 2}
 --- !u!1 &8464733774582685114
 GameObject:
   m_ObjectHideFlags: 0

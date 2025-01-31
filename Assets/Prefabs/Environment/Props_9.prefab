@@ -319,6 +319,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   enableLogs: 1
+  idleAudio: {fileID: 11400000, guid: 80dc64d3d02444a45818c72995562136, type: 2}
 --- !u!114 &5467848412746588309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedMultiplier: 1
   rotationAxis: {x: 1, y: 0, z: 0}
+  rotationAudio: {fileID: 0}
   rotationCurve:
     serializedVersion: 2
     m_Curve:

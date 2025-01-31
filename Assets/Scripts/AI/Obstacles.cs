@@ -1,6 +1,8 @@
 using UnityEngine;
 using Characters;
 using DataSources;
+using Audio;
+using Events;
 
 namespace AI
 {
@@ -16,13 +18,19 @@ namespace AI
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
 
+        [Header("Audio")]
+        [SerializeField] private AudioEvent idleAudio;
+
 
         //TODO: ITARGET??
         private Character _target;
-
+        private bool _shouldCollide = true;
 
         private void Awake()
         {
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, idleAudio, gameObject);
+
             ValidateReferences();
         }
 
@@ -36,11 +44,15 @@ namespace AI
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!_shouldCollide) return;
+
             if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
             {
                 _target.ReceiveAttack();
 
                 if (enableLogs) Debug.Log($"{name}: <color=orange> Player has died! </color>");
+
+                _shouldCollide = false;
             }
         }
 

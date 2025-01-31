@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using Player.Jump;
+using Audio;
+using Events;
 
 namespace AI
 {
@@ -18,6 +20,8 @@ namespace AI
 
         [SerializeField] private LayerMask targetLayer;
 
+        [SerializeField] private AudioEvent trampolineAudio;
+
         private Vector3 initialPosition;
         private bool isBouncing = false;
 
@@ -30,8 +34,11 @@ namespace AI
         {
             if (((1 << other.gameObject.layer) & targetLayer.value) != 0 && !isBouncing)
             {
+                //TODO: There must be a better way than TryGetComponent --> SEARCH!
                 if (other.TryGetComponent<PlayerJump>(out PlayerJump playerJump))
+                {
                     StartCoroutine(TrampolineBounce(playerJump));
+                }
             }
         }
 
@@ -44,6 +51,9 @@ namespace AI
 
             Vector3 extraForce = Vector3.up * launchForceUp;
             yield return playerJump.TriggerJump(extraForce);
+
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, trampolineAudio, gameObject);
 
             Vector3 upPosition = initialPosition + new Vector3(0, upAmount, 0);
             yield return SmoothTrampolineMovement(bounceSpeed, upAmount, upPosition);

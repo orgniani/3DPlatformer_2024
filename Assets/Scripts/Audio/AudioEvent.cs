@@ -7,7 +7,6 @@ namespace Audio
     {
         public AudioClip clip;
         public bool loop = false;
-        public bool playOnAwake = false;
         [Range(0f, 1f)] public float volume = 1f;
 
         [Header("3D SOUND SETTING")]

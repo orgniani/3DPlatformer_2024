@@ -7455,7 +7455,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  winAudio: {fileID: 11400000, guid: 2762ff0a4fa263a44949d30e8e573d7f, type: 2}
   enableLogs: 1
 --- !u!65 &1239852698
 BoxCollider:
@@ -7877,6 +7876,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3136347679548971029, guid: e898f64f4bb313b4093714a7f5141831,
+        type: 3}
+      propertyPath: rotationAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
+        type: 2}
     - target: {fileID: 4032094541106080986, guid: e898f64f4bb313b4093714a7f5141831,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -11121,6 +11126,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
+  triggerAudio: {fileID: 11400000, guid: 6291220847c4aa643993f65607db651a, type: 2}
 --- !u!4 &1915168147 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5411270384614237885, guid: 2cfd87436f82f694cb1ed07e801a4415,
@@ -11135,6 +11141,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1637215584}
     m_Modifications:
+    - target: {fileID: 464575957149835461, guid: de3df4a73a200dd4aab4b967d8702018,
+        type: 3}
+      propertyPath: rotationAudio
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5003257899507768075, guid: de3df4a73a200dd4aab4b967d8702018,
         type: 3}
       propertyPath: m_Name
@@ -12245,6 +12256,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3136347679548971029, guid: e898f64f4bb313b4093714a7f5141831,
+        type: 3}
+      propertyPath: rotationAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

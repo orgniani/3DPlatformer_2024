@@ -497,7 +497,10 @@ MonoBehaviour:
   rigidBody: {fileID: 5192752803812427469}
   jump: {fileID: 7736302452335031559}
   body: {fileID: 6542788559946240025}
-  footstepsAudio: {fileID: 11400000, guid: 8452fc0f77b0cb54d9652a387b69462a, type: 2}
+  footstepsAudioClips:
+  - {fileID: 11400000, guid: 8452fc0f77b0cb54d9652a387b69462a, type: 2}
+  - {fileID: 11400000, guid: 0b7a85bd533536a45b445a8a936a64bf, type: 2}
+  - {fileID: 11400000, guid: 05c773d7a5449734a94b4b99bcc204dd, type: 2}
   jumpTriggerParameter: jump
   isOnLandParameter: on_land
   horSpeedParameter: hor_speed

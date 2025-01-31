@@ -6,6 +6,7 @@ using Gameplay;
 using Events;
 using Core;
 using System.Linq;
+using Audio;
 
 namespace UI
 {
@@ -21,6 +22,10 @@ namespace UI
 
         [Header("Buttons")]
         [SerializeField] private List<UIButtonConfig> buttonConfigs = new();
+
+        [Header("Audio")]
+        //TODO: Should this be moved? --> CLICK BUTTON AUDIO
+        [SerializeField] private AudioEvent clickButtonAudio;
 
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
@@ -93,6 +98,8 @@ namespace UI
                 return;
             }
 
+            PlayClickButtonAudio();
+
             if (buttonConfig != null && gameManagerDataSource.Value != null)
             {
                 //TODO: Check so that this doesnt replay the TUTORIAL level
@@ -118,6 +125,12 @@ namespace UI
                     break;
                 }
             }
+        }
+
+        private void PlayClickButtonAudio()
+        {
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, clickButtonAudio, gameObject);
         }
 
         private void ExitGame()

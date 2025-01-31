@@ -84,8 +84,11 @@ namespace Input
 
         private void HandleJumpInput(InputAction.CallbackContext ctx)
         {
-            if (EventManager<string>.Instance)
-                EventManager<string>.Instance.InvokeEvent(GameEvents.JumpAction, _jumpAction);
+            if (ctx.phase == InputActionPhase.Started)
+            {
+                if (EventManager<string>.Instance)
+                    EventManager<string>.Instance.InvokeEvent(GameEvents.JumpAction, _jumpAction);
+            }
         }
 
         private void HandleCameraInput(InputAction.CallbackContext ctx)

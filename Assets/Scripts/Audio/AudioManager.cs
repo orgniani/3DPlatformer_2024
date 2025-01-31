@@ -49,11 +49,15 @@ namespace Audio
                 //TODO: it might not be necessary to check on all of this each time
                 //TODO: what if i need a game object to produce 2 sounds at once? can this happen?
 
+                source.playOnAwake = false;
+
                 source.clip = audioEvent.clip;
                 source.loop = audioEvent.loop;
-                source.playOnAwake = audioEvent.playOnAwake;
                 source.volume = audioEvent.volume;
+
                 source.spatialBlend = audioEvent.spatialBlend;
+                source.maxDistance = audioEvent.maxDistance;
+                source.minDistance = audioEvent.minDistance;
 
                 source.Play();
             }

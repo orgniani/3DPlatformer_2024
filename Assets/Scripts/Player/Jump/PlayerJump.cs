@@ -38,6 +38,7 @@ namespace Player.Jump
 
             if (!body.IsOnLand) return false;
 
+            _shouldJump = false;
             StartCoroutine(JumpSequence(normalAcceleration));
 
             return true;
@@ -78,6 +79,9 @@ namespace Player.Jump
 
         private void OnCollisionEnter(Collision collision)
         {
+            //TODO: Check if this is truly necesary
+            if (!body.IsOnLand) return;
+
             var contact = collision.contacts[0];
             var contactAngle = Vector3.Angle(contact.normal, Vector3.up); //TODO: Research vector3.angle
 

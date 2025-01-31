@@ -17,7 +17,7 @@ namespace Player
         [SerializeField] private PlayerBody body;
 
         //TODO: Should this be moved?
-        [SerializeField] private AudioEvent footstepsAudio;
+        [SerializeField] private AudioEvent[] footstepsAudioClips;
 
         [Header("Animator Parameters")]
         [SerializeField] private string jumpTriggerParameter = "jump";
@@ -58,8 +58,13 @@ namespace Player
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                if (EventManager<string>.Instance)
-                    EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, footstepsAudio, gameObject);
+                //TODO: Make a check in the validate references :) --> FOOTSTEPS
+                if (footstepsAudioClips.Length > 0)
+                {
+                    var index = Random.Range(0, footstepsAudioClips.Length);
+                    if (EventManager<string>.Instance)
+                        EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, footstepsAudioClips[index], gameObject);
+                }
             }
         }
 

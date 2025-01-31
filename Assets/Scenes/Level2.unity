@@ -1392,6 +1392,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3136347679548971029, guid: e898f64f4bb313b4093714a7f5141831,
         type: 3}
+      propertyPath: rotationAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
+        type: 2}
+    - target: {fileID: 3136347679548971029, guid: e898f64f4bb313b4093714a7f5141831,
+        type: 3}
       propertyPath: speedMultiplier
       value: 0.5
       objectReference: {fileID: 0}
@@ -2304,6 +2310,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8470771757395233051, guid: 9c41d981db5f5c14c8a3c97fa7093eaf,
         type: 3}
+      propertyPath: rotationAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
+        type: 2}
+    - target: {fileID: 8470771757395233051, guid: 9c41d981db5f5c14c8a3c97fa7093eaf,
+        type: 3}
       propertyPath: rotationAxis.y
       value: -1
       objectReference: {fileID: 0}
@@ -2711,6 +2723,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
+  triggerAudio: {fileID: 11400000, guid: 6291220847c4aa643993f65607db651a, type: 2}
 --- !u!65 &436786304
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5669,7 +5682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &902193345
 Transform:
   m_ObjectHideFlags: 0
@@ -5817,7 +5830,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1310282102}
-  - {fileID: 1739775467}
   - {fileID: 1239852696}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5991,6 +6003,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5467848412746588309, guid: 380287f50b6d85c44a78fc73bcd3bbce,
+        type: 3}
+      propertyPath: rotationAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6993,6 +7011,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3136347679548971029, guid: e898f64f4bb313b4093714a7f5141831,
         type: 3}
+      propertyPath: rotationAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
+        type: 2}
+    - target: {fileID: 3136347679548971029, guid: e898f64f4bb313b4093714a7f5141831,
+        type: 3}
       propertyPath: speedMultiplier
       value: 0.5
       objectReference: {fileID: 0}
@@ -7740,6 +7764,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5467848412746588309, guid: 380287f50b6d85c44a78fc73bcd3bbce,
+        type: 3}
+      propertyPath: rotationAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
+        type: 2}
     - target: {fileID: 7580661162955097211, guid: 380287f50b6d85c44a78fc73bcd3bbce,
         type: 3}
       propertyPath: moveSpeed
@@ -8086,7 +8116,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  winAudio: {fileID: 11400000, guid: 2762ff0a4fa263a44949d30e8e573d7f, type: 2}
   enableLogs: 1
 --- !u!65 &1239852698
 BoxCollider:
@@ -8868,7 +8897,7 @@ Transform:
   m_GameObject: {fileID: 1310282101}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.712202, y: -3.1669998, z: -13.341003}
+  m_LocalPosition: {x: 55.512203, y: -3.1669998, z: -47.841003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9156,6 +9185,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Props_5
       objectReference: {fileID: 0}
+    - target: {fileID: 8470771757395233051, guid: 9c41d981db5f5c14c8a3c97fa7093eaf,
+        type: 3}
+      propertyPath: rotationAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
+        type: 2}
     - target: {fileID: 8470771757395233051, guid: 9c41d981db5f5c14c8a3c97fa7093eaf,
         type: 3}
       propertyPath: rotationAxis.y
@@ -10089,6 +10124,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976842589219181722, guid: 0598a034c1b3d474e97ba38920f3ecc6,
+        type: 3}
+      propertyPath: rotationAudio
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3976842589219181722, guid: 0598a034c1b3d474e97ba38920f3ecc6,
         type: 3}
@@ -11507,37 +11547,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1737236107}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1739775466
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1739775467}
-  m_Layer: 0
-  m_Name: LevelStart (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1739775467
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739775466}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55.512203, y: -3.1669998, z: -47.841003}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 915736411}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1766566355
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12627,6 +12636,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5467848412746588309, guid: 380287f50b6d85c44a78fc73bcd3bbce,
+        type: 3}
+      propertyPath: rotationAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
+        type: 2}
     - target: {fileID: 7580661162955097211, guid: 380287f50b6d85c44a78fc73bcd3bbce,
         type: 3}
       propertyPath: moveSpeed
@@ -13935,6 +13950,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trampoline
       objectReference: {fileID: 0}
+    - target: {fileID: 7202420950237313829, guid: 04a77e7e43a79ed478e212e4f5ede12d,
+        type: 3}
+      propertyPath: trampolineAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: 4bdaeba7221ebd846a6ba0c9bb6b49e9,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

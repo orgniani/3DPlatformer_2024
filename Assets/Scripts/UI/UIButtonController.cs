@@ -2,13 +2,19 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Audio;
+using Events;
+using UnityEngine.EventSystems;
 
 namespace UI
 {
     [RequireComponent(typeof(Button))]
-    public sealed class UIButtonController : MonoBehaviour
+    public sealed class UIButtonController : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     {
         [SerializeField] private TMP_Text buttonText;
+
+        [SerializeField] private AudioEvent clickAudio;
+        [SerializeField] private AudioEvent hoverAudio;
 
         private string _id;
         private Button _button;
@@ -68,7 +74,27 @@ namespace UI
 
         private void HandleButtonClick()
         {
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, clickAudio, gameObject);
+
             OnClick?.Invoke(_id);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            PlayHoverSound();
+        }
+
+        public void OnSelect(BaseEventData eventData)
+        {
+            //TODO: Find a way to get this to work in controller too!
+            //PlayHoverSound();
+        }
+
+        private void PlayHoverSound()
+        {
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, hoverAudio, gameObject);
         }
     }
 }

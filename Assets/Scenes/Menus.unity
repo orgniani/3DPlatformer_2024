@@ -726,6 +726,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5cc16f59b6e85a140bb82bcd82a54804, type: 2}
   - {fileID: 11400000, guid: 176098d7ce7b6214a819449bfc2065bd, type: 2}
   - {fileID: 11400000, guid: db9f5728951eb5d4e9675c08870cf78c, type: 2}
+  clickButtonAudio: {fileID: 11400000, guid: 3a18c246e42a44343b864141927d225a, type: 2}
   enableLogs: 1
 --- !u!1 &733225304
 GameObject:
@@ -1292,7 +1293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: ded9c9c2499a7514cb987926e72b2b64,
     type: 3}
-  jumpAudio: {fileID: 11400000, guid: d6553e164714c7240aa1413e42e7571d, type: 2}
 --- !u!4 &995108185
 Transform:
   m_ObjectHideFlags: 0
@@ -1966,9 +1966,29 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Made by: Catalina Orgniani\n\nUI: Prinbles\n\nEnvironment: Batata Studio\n\nCharacters:
-    Supercyan\n\nSound Effects: \n\nMusic:\n\nSubject: Programacion con Motores de
-    Videojuegos I\n"
+  m_text: 'Made by: Catalina Orgniani
+
+
+    UI: Prinbles
+
+
+    Environment: Batata
+    Studio
+
+
+    Characters: Supercyan
+
+
+    Sound Effects: Leohpaz
+
+
+    Music:
+    Rizwan Ashraf
+
+
+    Subject: Programacion con Motores de Videojuegos I
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d1d1cd310b204b342b5e424aaeb52378, type: 2}
   m_sharedMaterial: {fileID: -1476354918355144528, guid: d1d1cd310b204b342b5e424aaeb52378,
@@ -1996,7 +2016,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.4
+  m_fontSize: 47.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2065,7 +2085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1388089928
 RectTransform:
   m_ObjectHideFlags: 0
