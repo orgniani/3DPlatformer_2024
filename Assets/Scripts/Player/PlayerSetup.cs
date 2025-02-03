@@ -37,6 +37,19 @@ namespace Player
         private Character _character;
         private CameraSetup _camera;
 
+        public BrainModelContainer BrainModelContainer
+        {
+            get
+            {
+                return brainModelContainer;
+            }
+
+            set
+            {
+                brainModelContainer = value;
+            }
+        }
+
         private void Reset()
         {
             _character = GetComponent<Character>();

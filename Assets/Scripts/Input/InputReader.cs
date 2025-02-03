@@ -7,13 +7,14 @@ namespace Input
 {
     public class InputReader : MonoBehaviour
     {
-        [Header("References")]
         [Header("Inputs")]
-        [SerializeField] private InputActionAsset inputActions;
+        [SerializeField] protected InputActionAsset inputActions;
 
         private InputAction _moveAction;
         private InputAction _jumpAction;
         private InputAction _lookAction;
+
+        public InputActionAsset InputActions => inputActions;
 
         private void Awake()
         {
@@ -29,7 +30,6 @@ namespace Input
         private void OnEnable()
         {
             _moveAction = inputActions.FindAction(GameEvents.MoveAction);
-
             if (_moveAction != null)
             {
                 _moveAction.performed += HandleMovementInput;
@@ -37,7 +37,6 @@ namespace Input
             }
 
             _jumpAction = inputActions.FindAction(GameEvents.JumpAction);
-
             if (_jumpAction != null)
             {
                 _jumpAction.started += HandleJumpInput;
@@ -45,7 +44,6 @@ namespace Input
             }
 
             _lookAction = inputActions.FindAction(GameEvents.LookAction);
-
             if (_lookAction != null)
             {
                 _lookAction.started += HandleCameraInput;
@@ -98,5 +96,6 @@ namespace Input
             if (EventManager<string>.Instance)
                 EventManager<string>.Instance.InvokeEvent(GameEvents.LookAction, cameraInput);
         }
+
     }
 }

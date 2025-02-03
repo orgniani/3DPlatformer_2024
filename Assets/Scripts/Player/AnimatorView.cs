@@ -54,6 +54,7 @@ namespace Player
             animator.SetTrigger(jumpTriggerParameter);
         }
 
+        //TODO: Add a summary to this :)
         private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
