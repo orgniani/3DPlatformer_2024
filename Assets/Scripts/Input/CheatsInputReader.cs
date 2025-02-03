@@ -1,6 +1,7 @@
 using Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Player.Brain; //TODO: Check if there's a better way to do this :)
 
 namespace Input
 {
@@ -9,6 +10,9 @@ namespace Input
     {
         [Header("Inputs")]
         [SerializeField] private string actionMapName = "Cheats";
+
+        [Header("Replacers")]
+        [SerializeField] private BrainModelReplacer brainModelReplacer;
 
         private InputReader _inputReader;
 
@@ -97,6 +101,7 @@ namespace Input
         {
             if (ctx.phase == InputActionPhase.Started)
             {
+                brainModelReplacer.ReplaceBrainModelContainer();
                 Debug.Log("FLASH INPUT");
             }
         }
@@ -114,6 +119,14 @@ namespace Input
             if (_cheatsActionMap == null)
             {
                 Debug.LogError($"{name}: {nameof(_cheatsActionMap)} not found!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!brainModelReplacer)
+            {
+                Debug.LogError($"{name}: {nameof(brainModelReplacer)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

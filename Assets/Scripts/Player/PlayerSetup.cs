@@ -47,6 +47,8 @@ namespace Player
             set
             {
                 brainModelContainer = value;
+                playerBrain.Model = brainModelContainer.Model;
+                playerBrain.Acceleration = brainModelContainer.Model.Acceleration;
             }
         }
 

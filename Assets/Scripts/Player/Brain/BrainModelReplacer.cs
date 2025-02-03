@@ -6,7 +6,7 @@ namespace Player.Brain
     public class BrainModelReplacer : ScriptableObject
     {
         [SerializeField] private BrainModelContainer flashBrainModelContainer;
-        [SerializeField] private string tagToSearch = "Player";
+        [SerializeField] private string tagToSearch = "Player"; //TODO: find a better way to do this
 
         private BrainModelContainer replacement;
 
@@ -19,6 +19,9 @@ namespace Player.Brain
         {
             var target = GameObject.FindGameObjectWithTag(tagToSearch);
 
+            if (!target) return;
+
+            //TODO: Try get component??
             if (target.TryGetComponent(out PlayerSetup setup))
             {
                 if (replacement == setup.BrainModelContainer)

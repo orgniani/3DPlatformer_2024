@@ -1440,7 +1440,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39f13849271dfe46b619b61c8ea016e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cheatsActionMapName: Cheats
+  actionMapName: Cheats
+  brainModelReplacer: {fileID: 11400000, guid: 5dd6a5aff201f514284a810eb552fdde, type: 2}
 --- !u!1 &1064642935
 GameObject:
   m_ObjectHideFlags: 0
