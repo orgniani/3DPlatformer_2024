@@ -1,8 +1,6 @@
 using Player.Body;
 using Player.Jump;
-using Camera.FollowTarget;
 using Events;
-using Core;
 using UnityEngine;
 using Camera;
 
@@ -59,8 +57,6 @@ namespace Player.Brain
             Vector3 movementInput = _input;
             _desiredDirection = TransformDirectionRelativeToCamera(movementInput);
             body.SetMovement(new MovementRequest(_desiredDirection, Model.Speed, _acceleration));
-
-            Debug.Log("Speed: " + Model.Speed);
         }
 
         private Vector3 TransformDirectionRelativeToCamera(Vector2 input)

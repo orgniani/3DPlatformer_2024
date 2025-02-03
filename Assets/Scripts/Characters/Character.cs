@@ -1,6 +1,7 @@
 using Core.Interactions;
 using Events;
 using UnityEngine;
+using Characters.Health;
 
 namespace Characters
 {
@@ -9,12 +10,33 @@ namespace Characters
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
 
+        [Header("Models")]
+        [SerializeField] private DamageModelContainer damageModelContainer; //TODO: Validate reference
+
         private Rigidbody _rigidBody;
+
+        public DamageModel Model { get; set; }
+
+        public DamageModelContainer DamageModelContainer
+        {
+            get
+            {
+                return damageModelContainer;
+            }
+
+            set
+            {
+                damageModelContainer = value;
+                Model = damageModelContainer.Model;
+            }
+        }
 
         private void Awake()
         {
             if (TryGetComponent<Rigidbody>(out var rigidbody))
                 _rigidBody = rigidbody;
+
+            Model = damageModelContainer.Model;
         }
 
         private void OnEnable()
@@ -39,8 +61,10 @@ namespace Characters
 
         public void ReceiveAttack()
         {
+            if (Model.IsInvincible) return;
+
             if (EventManager<string>.Instance)
-                EventManager<string>.Instance.InvokeEvent(GameEvents.LoseAction, true);
+                EventManager<string>.Instance.InvokeEvent(GameEvents.LoseAction);
 
             if (enableLogs) Debug.Log($"<color=red> {name}: received an attack! </color>");
         }

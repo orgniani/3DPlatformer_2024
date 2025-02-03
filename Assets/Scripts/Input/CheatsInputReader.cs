@@ -2,6 +2,8 @@ using Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Player.Brain; //TODO: Check if there's a better way to do this :)
+using Characters.Health; //TODO: Check if there's a better way to do this also
+using Gameplay; //TODO: Check if there's a better way to do this also
 
 namespace Input
 {
@@ -11,8 +13,12 @@ namespace Input
         [Header("Inputs")]
         [SerializeField] private string actionMapName = "Cheats";
 
+        [Header("Tags")]
+        [SerializeField] private string tagToSearch = "EndOfLevel"; //TODO: find a better way to do this
+
         [Header("Replacers")]
         [SerializeField] private BrainModelReplacer brainModelReplacer;
+        [SerializeField] private DamageModelReplacer damageModelReplacer;
 
         private InputReader _inputReader;
 
@@ -81,10 +87,16 @@ namespace Input
 
         private void HandleNextLevelInput(InputAction.CallbackContext ctx)
         {
-            //Debug.Log("NEXT LEVEL INPUT");
+            var target = GameObject.FindGameObjectWithTag(tagToSearch);
+            if (!target) return;
 
             if (ctx.phase == InputActionPhase.Started)
             {
+                if (target.TryGetComponent(out EndOfLevelManager endOfLevel))
+                {
+                    endOfLevel.InvokeOnWinAction();
+                }
+
                 Debug.Log("NEXT LEVEL INPUT");
             }
         }
@@ -93,6 +105,7 @@ namespace Input
         {
             if (ctx.phase == InputActionPhase.Started)
             {
+                damageModelReplacer.ReplaceDamageModelContainer();
                 Debug.Log("GOD MODE INPUT");
             }
         }
@@ -127,6 +140,14 @@ namespace Input
             if (!brainModelReplacer)
             {
                 Debug.LogError($"{name}: {nameof(brainModelReplacer)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!damageModelReplacer)
+            {
+                Debug.LogError($"{name}: {nameof(damageModelReplacer)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

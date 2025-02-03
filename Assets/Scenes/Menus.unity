@@ -1442,6 +1442,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionMapName: Cheats
   brainModelReplacer: {fileID: 11400000, guid: 5dd6a5aff201f514284a810eb552fdde, type: 2}
+  damageModelReplacer: {fileID: 11400000, guid: 27b2694d16ef40245b1bc854831efb2a,
+    type: 2}
 --- !u!1 &1064642935
 GameObject:
   m_ObjectHideFlags: 0

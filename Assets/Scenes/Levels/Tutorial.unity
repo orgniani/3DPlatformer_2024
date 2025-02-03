@@ -4367,7 +4367,7 @@ GameObject:
   - component: {fileID: 1239852697}
   m_Layer: 0
   m_Name: LevelEnd
-  m_TagString: Untagged
+  m_TagString: EndOfLevel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4403,7 +4403,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  winAudio: {fileID: 11400000, guid: 2762ff0a4fa263a44949d30e8e573d7f, type: 2}
   enableLogs: 1
 --- !u!65 &1239852698
 BoxCollider:
@@ -7388,6 +7387,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   enableLogs: 1
+  idleAudio: {fileID: 0}
 --- !u!1 &3027866379473439289
 GameObject:
   m_ObjectHideFlags: 0

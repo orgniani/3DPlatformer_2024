@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player.Brain
 {
-    [CreateAssetMenu(menuName = "Models/PlayerBrainReplacer", fileName = "BRM_Replacer")]
+    [CreateAssetMenu(menuName = "Models/PlayerBrain/BrainReplacer", fileName = "BRM_Replacer")]
     public class BrainModelReplacer : ScriptableObject
     {
         [SerializeField] private BrainModelContainer flashBrainModelContainer;
@@ -21,7 +21,7 @@ namespace Player.Brain
 
             if (!target) return;
 
-            //TODO: Try get component??
+            //TODO: Try get component?? There must be a better way --> Character data source?
             if (target.TryGetComponent(out PlayerSetup setup))
             {
                 if (replacement == setup.BrainModelContainer)

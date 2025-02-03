@@ -6,7 +6,6 @@ using Player.Rotation;
 using Characters;
 using UnityEngine;
 using Camera;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Player
 {

@@ -7419,7 +7419,7 @@ GameObject:
   - component: {fileID: 1239852697}
   m_Layer: 0
   m_Name: LevelEnd
-  m_TagString: Untagged
+  m_TagString: EndOfLevel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12394,6 +12394,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   enableLogs: 1
+  idleAudio: {fileID: 0}
 --- !u!1 &4884995156174571335
 GameObject:
   m_ObjectHideFlags: 0
