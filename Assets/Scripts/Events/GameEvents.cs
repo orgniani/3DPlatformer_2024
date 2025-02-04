@@ -19,5 +19,6 @@ namespace Events
         public const string NextLevelAction = "NextLevel";
         public const string GodModeAction = "GodMode";
         public const string FlashAction = "Flash";
+        public const string FlightAction = "Flight";
     }
 }

@@ -301,7 +301,6 @@ GameObject:
   - component: {fileID: 995108185}
   - component: {fileID: 995108186}
   - component: {fileID: 995108184}
-  - component: {fileID: 995108187}
   m_Layer: 0
   m_Name: InputReader
   m_TagString: Untagged
@@ -457,23 +456,74 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &995108187
+--- !u!1 &1679316098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1679316101}
+  - component: {fileID: 1679316100}
+  - component: {fileID: 1679316099}
+  m_Layer: 0
+  m_Name: CheatsInputReader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1679316099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 995108183}
+  m_GameObject: {fileID: 1679316098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d05b9858393184289b4f13c88fbfa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBrain: {fileID: 4933663981859690958}
+  playerRigidbody: {fileID: 5192752803812427469}
+  flightSpeed: 10
+  verticalSpeed: 5
+--- !u!114 &1679316100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679316098}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e39f13849271dfe46b619b61c8ea016e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputReader: {fileID: 995108184}
   actionMapName: Cheats
   tagToSearch: EndOfLevel
   brainModelReplacer: {fileID: 11400000, guid: 5dd6a5aff201f514284a810eb552fdde, type: 2}
   damageModelReplacer: {fileID: 11400000, guid: 27b2694d16ef40245b1bc854831efb2a,
     type: 2}
+  flightController: {fileID: 1679316099}
+--- !u!4 &1679316101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679316098}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &887430369453249681
 Transform:
   m_ObjectHideFlags: 0
@@ -1103,4 +1153,5 @@ SceneRoots:
   - {fileID: 339995408}
   - {fileID: 611914881}
   - {fileID: 995108185}
+  - {fileID: 1679316101}
   - {fileID: 7177138258443646272}

@@ -119,6 +119,5 @@ namespace Input
                     EventManager<string>.Instance.InvokeEvent(GameEvents.PauseAction, _pauseAction);
             }
         }
-
     }
 }

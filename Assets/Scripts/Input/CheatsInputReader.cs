@@ -7,10 +7,10 @@ using Gameplay; //TODO: Check if there's a better way to do this also
 
 namespace Input
 {
-    [RequireComponent((typeof(InputReader)))]
     public class CheatsInputReader : MonoBehaviour
     {
         [Header("Inputs")]
+        [SerializeField] private InputReader inputReader; //TODO: Validate
         [SerializeField] private string actionMapName = "Cheats";
 
         [Header("Tags")]
@@ -20,7 +20,8 @@ namespace Input
         [SerializeField] private BrainModelReplacer brainModelReplacer;
         [SerializeField] private DamageModelReplacer damageModelReplacer;
 
-        private InputReader _inputReader;
+        [Header("God Mode Components")]
+        [SerializeField] private GodModeFlightController flightController; //TODO: Change so it is a get component on awake
 
         private InputActionAsset _inputActions;
         private InputActionMap _cheatsActionMap;
@@ -29,10 +30,11 @@ namespace Input
         private InputAction _godModeAction;
         private InputAction _flashAction;
 
+        private InputAction _flightAction;
+
         private void Awake()
         {
-            _inputReader = GetComponent<InputReader>();
-            _inputActions = _inputReader.InputActions;
+            _inputActions = inputReader.InputActions;
 
             _cheatsActionMap = _inputActions.FindActionMap(actionMapName, true);
             ValidateReferences();
@@ -62,6 +64,13 @@ namespace Input
                 _flashAction.started += HandleFlashInput;
                 _flashAction.canceled += HandleFlashInput;
             }
+
+            _flightAction = _inputActions.FindAction(GameEvents.FlightAction);
+            if (_flightAction != null)
+            {
+                _flightAction.performed += HandleFlightInput;
+                _flightAction.canceled += HandleFlightInput;
+            }
         }
 
         private void OnDisable()
@@ -83,6 +92,12 @@ namespace Input
                 _flashAction.started -= HandleFlashInput;
                 _flashAction.canceled -= HandleFlashInput;
             }
+
+            if (_flightAction != null)
+            {
+                _flightAction.performed -= HandleFlightInput;
+                _flightAction.canceled -= HandleFlightInput;
+            }
         }
 
         private void HandleNextLevelInput(InputAction.CallbackContext ctx)
@@ -92,6 +107,8 @@ namespace Input
 
             if (ctx.phase == InputActionPhase.Started)
             {
+                Debug.Log("NEXTLEVEL INPUT SELECTED"); //TODO: Enable logs
+
                 if (target.TryGetComponent(out EndOfLevelManager endOfLevel))
                     endOfLevel.InvokeOnWinAction();
             }
@@ -100,13 +117,36 @@ namespace Input
         private void HandleGodModeInput(InputAction.CallbackContext ctx)
         {
             if (ctx.phase == InputActionPhase.Started)
+            {
+                Debug.Log("GODMODE  INPUT SELECTED"); //TODO: Enable logs
+
+                // Replace damage model
                 damageModelReplacer.ReplaceDamageModelContainer();
+
+                if (flightController != null)
+                {
+                    flightController.enabled = !flightController.enabled;  // Toggle flight controller enabled state
+                    if (!flightController.enabled)
+                    {
+                        flightController.StopFlight();  // Stop flight if disabling
+                    }
+                }
+            }
         }
 
         private void HandleFlashInput(InputAction.CallbackContext ctx)
         {
+            Debug.Log("FLASH INPUT SELECTED"); //TODO: Enable logs
+
             if (ctx.phase == InputActionPhase.Started)
                 brainModelReplacer.ReplaceBrainModelContainer();
+        }
+
+        private void HandleFlightInput(InputAction.CallbackContext ctx)
+        {
+            Vector2 flightInput = ctx.ReadValue<Vector2>();
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.FlightAction, flightInput);
         }
 
         private void ValidateReferences()
