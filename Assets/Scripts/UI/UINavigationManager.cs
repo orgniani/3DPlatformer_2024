@@ -4,7 +4,6 @@ using UnityEngine;
 using DataSources;
 using Gameplay;
 using Events;
-using Core;
 using System.Linq;
 using Audio;
 
@@ -31,6 +30,7 @@ namespace UI
         [SerializeField] private bool enableLogs = true;
 
         private int _currentMenuIndex = 0;
+        private GameManager _gameManager;
 
         private void Awake()
         {
@@ -43,6 +43,7 @@ namespace UI
             {
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.WinAction, HandleOpenWinMenu);
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.LoseAction, HandleOpenLoseMenu);
+                EventManager<string>.Instance.SubscribeToEvent(GameEvents.PauseAction, HandleOpenPauseMenu);
             }
         }
 
@@ -66,6 +67,8 @@ namespace UI
             }
 
             menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(true);
+
+            if (gameManagerDataSource.Value != null) _gameManager = gameManagerDataSource.Value;
         }
 
         private void OnDisable()
@@ -74,18 +77,28 @@ namespace UI
             {
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.WinAction, HandleOpenWinMenu);
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.LoseAction, HandleOpenLoseMenu);
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.PauseAction, HandleOpenPauseMenu);
             }
         }
 
         private void HandleOpenWinMenu(params object[] args)
         {
-            if (gameManagerDataSource.Value.IsFinalLevel)
+            if (_gameManager && _gameManager.IsFinalLevel)
                 HandleMenuOptions(GameEvents.WinAction);
         }
 
         private void HandleOpenLoseMenu(params object[] args)
         {
             HandleMenuOptions(GameEvents.LoseAction);
+        }
+
+        private void HandleOpenPauseMenu(params object[] args)
+        {
+            if (_gameManager.IsGamePaused)
+                HandleMenuOptions(GameEvents.PauseAction);
+
+            else
+                menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
         }
 
         private void HandleMenuOptions(string id)
@@ -100,13 +113,23 @@ namespace UI
 
             PlayClickButtonAudio();
 
-            if (buttonConfig != null && gameManagerDataSource.Value != null)
+            HandleClickPlayButton(buttonConfig);
+
+            HandleClickMenuButton(id);
+        }
+
+        private void HandleClickPlayButton(UIButtonConfig buttonConfig)
+        {
+            if (buttonConfig != null && _gameManager)
             {
                 //TODO: Check so that this doesnt replay the TUTORIAL level
-                gameManagerDataSource.Value.HandlePlayGame();
+                _gameManager.HandlePlayGame();
                 menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
             }
+        }
 
+        private void HandleClickMenuButton(string id)
+        {
             for (var i = 0; i < menusWithId.Count; i++)
             {
                 var menuWithId = menusWithId[i];
@@ -122,11 +145,36 @@ namespace UI
                     menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
                     menuWithId.MenuScript.gameObject.SetActive(true);
                     _currentMenuIndex = i;
+
                     break;
                 }
             }
+
+            HandlePauseMenuButtons(id);
         }
 
+        private void HandlePauseMenuButtons(string id)
+        {
+            // TODO: Avoid hardcoded names --> The id should probably be a buttonconfig thing
+            if (id == "Resume")
+            {
+                _gameManager.HandlePauseGame();
+                menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
+            }
+
+            // TODO: Avoid hardcoded names --> The id should probably be a buttonconfig thing
+            else if (id == "Main Menu" && _gameManager.IsGamePaused)
+            {
+                _gameManager.OnGameOver();
+                _gameManager.HandlePauseGame(); // Unpause the game
+
+                //TODO: This gets repeated too many times --> Cursor logic
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+
+        //TODO: Should this be moved? --> PLAY CICK BUTTON AUDIO
         private void PlayClickButtonAudio()
         {
             if (EventManager<string>.Instance)

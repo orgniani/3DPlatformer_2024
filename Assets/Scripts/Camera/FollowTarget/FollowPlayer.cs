@@ -14,7 +14,7 @@ namespace Camera.FollowTarget
         //TODO: CHANGE THIS TO COROUTINE!!!
         private void FixedUpdate()
         {
-            if (!Target) return; //TODO: Find a better way to do this!
+            if (!Target) return; //TODO: Find a better way to do this! Make it a Coroutine called by the CameraSetup :)
 
             Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0); //TODO: Research quaternions
 

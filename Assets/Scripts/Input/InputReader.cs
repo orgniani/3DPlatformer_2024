@@ -13,6 +13,7 @@ namespace Input
         private InputAction _moveAction;
         private InputAction _jumpAction;
         private InputAction _lookAction;
+        private InputAction _pauseAction;
 
         public InputActionAsset InputActions => inputActions;
 
@@ -49,6 +50,13 @@ namespace Input
                 _lookAction.started += HandleCameraInput;
                 _lookAction.canceled += HandleCameraInput;
             }
+
+            _pauseAction = inputActions.FindAction(GameEvents.PauseAction);
+            if (_pauseAction != null)
+            {
+                _pauseAction.started += HandlePauseInput;
+                _pauseAction.canceled += HandlePauseInput;
+            }
         }
 
         private void OnDisable()
@@ -69,6 +77,12 @@ namespace Input
             {
                 _lookAction.started -= HandleCameraInput;
                 _lookAction.canceled -= HandleCameraInput;
+            }
+
+            if (_pauseAction != null)
+            {
+                _pauseAction.started -= HandlePauseInput;
+                _pauseAction.canceled -= HandlePauseInput;
             }
         }
 
@@ -95,6 +109,15 @@ namespace Input
 
             if (EventManager<string>.Instance)
                 EventManager<string>.Instance.InvokeEvent(GameEvents.LookAction, cameraInput);
+        }
+
+        private void HandlePauseInput(InputAction.CallbackContext ctx)
+        {
+            if (ctx.phase == InputActionPhase.Started)
+            {
+                if (EventManager<string>.Instance)
+                    EventManager<string>.Instance.InvokeEvent(GameEvents.PauseAction, _pauseAction);
+            }
         }
 
     }

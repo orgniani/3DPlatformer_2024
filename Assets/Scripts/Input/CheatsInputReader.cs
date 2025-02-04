@@ -93,30 +93,20 @@ namespace Input
             if (ctx.phase == InputActionPhase.Started)
             {
                 if (target.TryGetComponent(out EndOfLevelManager endOfLevel))
-                {
                     endOfLevel.InvokeOnWinAction();
-                }
-
-                Debug.Log("NEXT LEVEL INPUT");
             }
         }
 
         private void HandleGodModeInput(InputAction.CallbackContext ctx)
         {
             if (ctx.phase == InputActionPhase.Started)
-            {
                 damageModelReplacer.ReplaceDamageModelContainer();
-                Debug.Log("GOD MODE INPUT");
-            }
         }
 
         private void HandleFlashInput(InputAction.CallbackContext ctx)
         {
             if (ctx.phase == InputActionPhase.Started)
-            {
                 brainModelReplacer.ReplaceBrainModelContainer();
-                Debug.Log("FLASH INPUT");
-            }
         }
 
         private void ValidateReferences()
