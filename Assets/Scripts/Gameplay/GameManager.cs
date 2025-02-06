@@ -170,8 +170,21 @@ namespace Gameplay
 
             _sceneryManager.ResetIdsToIndex0();
 
-            _currentLevelIndex = 0; //TODO: Check so that this doesnt replay the TUTORIAL level
-            //TODO: Maybe with a TUTORIALDONE flag in here that the endOfTutorial can turn to true using the data source? Mayhaps.
+            _currentLevelIndex = 0;
+            InvokeLoadSceneryEvent(secondBatch.SceneIndexes);
+            InvokeLoadSceneryEvent(levels[_currentLevelIndex].SceneIndexes);
+        }
+
+        public void HandleRestartLevel()
+        {
+            //TODO: Repeated too many times!
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            IsFinalLevel = false;
+
+            _sceneryManager.ResetIdsToIndex0();
+
             InvokeLoadSceneryEvent(secondBatch.SceneIndexes);
             InvokeLoadSceneryEvent(levels[_currentLevelIndex].SceneIndexes);
         }

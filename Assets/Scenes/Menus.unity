@@ -2732,8 +2732,8 @@ MonoBehaviour:
     type: 3}
   buttonParent: {fileID: 442808003}
   buttonConfigs:
-  - {fileID: 11400000, guid: 6a558f917fc03664d887b1e457cf79b6, type: 2}
   - {fileID: 11400000, guid: 176098d7ce7b6214a819449bfc2065bd, type: 2}
+  - {fileID: 11400000, guid: 6a558f917fc03664d887b1e457cf79b6, type: 2}
   enableLogs: 1
 --- !u!114 &2132303014
 MonoBehaviour:

@@ -127,8 +127,9 @@ namespace UI
         {
             if (buttonConfig != null && _gameManager)
             {
-                //TODO: Check so that this doesnt replay the TUTORIAL level
-                _gameManager.HandlePlayGame();
+                if(buttonConfig.IsRestartButton) _gameManager.HandleRestartLevel();
+
+                else _gameManager.HandlePlayGame();
                 menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
             }
         }
