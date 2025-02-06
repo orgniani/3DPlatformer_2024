@@ -7,7 +7,6 @@ using Gameplay;
 using Events;
 using System.Linq;
 using Audio;
-using System.Collections;
 
 namespace UI
 {
@@ -130,6 +129,7 @@ namespace UI
                 if(buttonConfig.IsRestartButton) _gameManager.HandleRestartLevel();
 
                 else _gameManager.HandlePlayGame();
+
                 menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
             }
         }

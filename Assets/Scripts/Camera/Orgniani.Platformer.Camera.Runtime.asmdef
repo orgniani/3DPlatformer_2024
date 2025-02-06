@@ -2,7 +2,8 @@
     "name": "Orgniani.Platformer.Camera.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:ac5028d33b9ef2f40887e4add30c4149"
+        "GUID:ac5028d33b9ef2f40887e4add30c4149",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
