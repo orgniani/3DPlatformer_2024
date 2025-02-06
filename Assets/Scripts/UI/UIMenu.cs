@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace UI
 {
@@ -17,6 +19,9 @@ namespace UI
 
         private List<string> _addedButtonLabels = new List<string>();
 
+        private EventSystem _eventSystem;
+        private GameObject _firstButton = null;
+
         public event Action<string> OnChangeMenu;
 
         private void Awake()
@@ -24,8 +29,22 @@ namespace UI
             ValidateReferences();
         }
 
-        public void Setup()
+        private void OnEnable()
         {
+            if (_firstButton)
+                StartCoroutine(SetSelectedButton());
+        }
+
+        private IEnumerator SetSelectedButton()
+        {
+            yield return null;
+            _eventSystem.SetSelectedGameObject(_firstButton);
+        }
+
+        public void Setup(EventSystem eventSystem)
+        {
+            _eventSystem = eventSystem;
+
             foreach (var config in buttonConfigs)
             {
                 if (config == null)
@@ -46,7 +65,14 @@ namespace UI
                 newButton.name = $"{config.Label}_Btn";
                 newButton.Setup(config, HandleButtonClick);
                 _addedButtonLabels.Add(config.Label);
+
+                if (!_firstButton) _firstButton = newButton.gameObject;
             }
+        }
+
+        public GameObject GetFirstSelectableButton()
+        {
+            return _firstButton;
         }
 
         private void HandleButtonClick(string id)

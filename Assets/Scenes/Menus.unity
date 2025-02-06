@@ -774,6 +774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManagerDataSource: {fileID: 11400000, guid: 0d38be2b62de75343b110859e58f1d84,
     type: 2}
+  eventSystem: {fileID: 1902799778}
   menusWithId:
   - <ID>k__BackingField: Main Menu
     <MenuScript>k__BackingField: {fileID: 35789866}

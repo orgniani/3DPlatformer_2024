@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using DataSources;
 using Gameplay;
 using Events;
 using System.Linq;
 using Audio;
+using System.Collections;
 
 namespace UI
 {
@@ -14,6 +16,9 @@ namespace UI
         [Header("References")]
         [Header("Data Sources")]
         [SerializeField] private DataSource<GameManager> gameManagerDataSource;
+
+        [Header("Systems")]
+        [SerializeField] private EventSystem eventSystem;
 
         [Header("Menus")]
         [Tooltip("The first item on this list will be set as the default")]
@@ -61,7 +66,7 @@ namespace UI
                 }
                 menuIds.Add(menu.ID);
 
-                menu.MenuScript.Setup();
+                menu.MenuScript.Setup(eventSystem);
                 menu.MenuScript.OnChangeMenu += HandleMenuOptions;
                 menu.MenuScript.gameObject.SetActive(false);
             }
@@ -202,6 +207,14 @@ namespace UI
             if (!gameManagerDataSource)
             {
                 Debug.LogError($"{name}: {nameof(gameManagerDataSource)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!eventSystem)
+            {
+                Debug.LogError($"{name}: {nameof(eventSystem)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
