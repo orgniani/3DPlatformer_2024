@@ -5,7 +5,7 @@ using Characters.Health;
 
 namespace Characters
 {
-    public class Character : MonoBehaviour, ITarget
+    public class Character : MonoBehaviour, ITarget //TODO: is the interface necessary?
     {
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;

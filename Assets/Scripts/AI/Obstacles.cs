@@ -24,7 +24,6 @@ namespace AI
 
         //TODO: ITARGET??
         private Character _target;
-        private bool _shouldCollide = true;
 
         private void Awake()
         {
@@ -44,15 +43,11 @@ namespace AI
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!_shouldCollide) return;
-
             if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
             {
                 _target.ReceiveAttack();
 
                 if (enableLogs) Debug.Log($"{name}: <color=orange> Player has died! </color>");
-
-                _shouldCollide = false;
             }
         }
 

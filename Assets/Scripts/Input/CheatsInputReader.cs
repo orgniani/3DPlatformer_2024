@@ -10,7 +10,7 @@ namespace Input
     public class CheatsInputReader : MonoBehaviour
     {
         [Header("Inputs")]
-        [SerializeField] private InputReader inputReader; //TODO: Validate
+        [SerializeField] private InputReader inputReader;
         [SerializeField] private string actionMapName = "Cheats";
 
         [Header("Tags")]
@@ -20,8 +20,8 @@ namespace Input
         [SerializeField] private BrainModelReplacer brainModelReplacer;
         [SerializeField] private DamageModelReplacer damageModelReplacer;
 
-        [Header("God Mode Components")]
-        [SerializeField] private GodModeFlightController flightController; //TODO: Change so it is a get component on awake
+        [Header("Logs")]
+        [SerializeField] private bool enableLogs;
 
         private InputActionAsset _inputActions;
         private InputActionMap _cheatsActionMap;
@@ -31,10 +31,12 @@ namespace Input
         private InputAction _flashAction;
 
         private InputAction _flightAction;
+        private GodModeFlightController _flightController;
 
         private void Awake()
         {
             _inputActions = inputReader.InputActions;
+            _flightController = GetComponent<GodModeFlightController>();
 
             _cheatsActionMap = _inputActions.FindActionMap(actionMapName, true);
             ValidateReferences();
@@ -107,7 +109,7 @@ namespace Input
 
             if (ctx.phase == InputActionPhase.Started)
             {
-                Debug.Log("NEXTLEVEL INPUT SELECTED"); //TODO: Enable logs
+                if (enableLogs) Debug.Log($"{name}: <color=cyan> Next Level input selected! </color>");
 
                 if (target.TryGetComponent(out EndOfLevelManager endOfLevel))
                     endOfLevel.InvokeOnWinAction();
@@ -118,42 +120,42 @@ namespace Input
         {
             if (ctx.phase == InputActionPhase.Started)
             {
-                Debug.Log("GODMODE  INPUT SELECTED"); //TODO: Enable logs
+                if (enableLogs) Debug.Log($"{name}: <color=cyan> God Mode input selected! </color>");
 
-                // Replace damage model
                 damageModelReplacer.ReplaceDamageModelContainer();
 
-                if (flightController != null)
-                {
-                    flightController.enabled = !flightController.enabled;  // Toggle flight controller enabled state
-                    if (!flightController.enabled)
-                    {
-                        flightController.StopFlight();  // Stop flight if disabling
-                    }
-                }
+                _flightController.enabled = !_flightController.enabled;
+
+                if (!_flightController.enabled)
+                    _flightController.StopFlight();
             }
         }
 
         private void HandleFlashInput(InputAction.CallbackContext ctx)
         {
-            Debug.Log("FLASH INPUT SELECTED"); //TODO: Enable logs
-
             if (ctx.phase == InputActionPhase.Started)
+            {
+                if (enableLogs) Debug.Log($"{name}: <color=cyan> Flash Mode input selected! </color>");
+
                 brainModelReplacer.ReplaceBrainModelContainer();
+            }
         }
 
         private void HandleFlightInput(InputAction.CallbackContext ctx)
         {
+            if (!_flightController.enabled) return;
+
             Vector2 flightInput = ctx.ReadValue<Vector2>();
+
             if (EventManager<string>.Instance)
                 EventManager<string>.Instance.InvokeEvent(GameEvents.FlightAction, flightInput);
         }
 
         private void ValidateReferences()
         {
-            if (!_inputActions)
+            if (!inputReader)
             {
-                Debug.LogError($"{name}: {nameof(_inputActions)} is null!" +
+                Debug.LogError($"{name}: {nameof(inputReader)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
@@ -178,6 +180,14 @@ namespace Input
             if (!damageModelReplacer)
             {
                 Debug.LogError($"{name}: {nameof(damageModelReplacer)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!_flightController)
+            {
+                Debug.LogError($"{name}: the {nameof(_flightController)} component was not found!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

@@ -2,19 +2,22 @@ using Events;
 using UnityEngine;
 using Player.Brain;
 using Camera; // TODO: There must be a better way
-
+using System.Collections;
 namespace Input
 {
     public class GodModeFlightController : MonoBehaviour
     {
         //TODO: REVISIT WHOLE SCRIPT!!! --> GOD MODE
         [SerializeField] private PlayerBrain playerBrain;
-        [SerializeField] private Rigidbody playerRigidbody;  // Assign your player here
+        [SerializeField] private Rigidbody playerRigidbody;
+
         [SerializeField] private float flightSpeed = 10f;
         [SerializeField] private float verticalSpeed = 5f;
 
-        private Vector2 _moveInput;  // Stores horizontal movement input (WASD)
-        private float _verticalInput;  // Stores vertical movement input (Q/E)
+        private Vector2 _movementInput;
+        private float _flightInput;
+
+        private Coroutine _flightCoroutine;
 
         private void Awake()
         {
@@ -23,11 +26,16 @@ namespace Input
 
         private void OnEnable()
         {
+            ValidateReferences();
+
             if (EventManager<string>.Instance)
             {
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.FlightAction, HandleFlightInput);
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.MoveAction, HandleMoveInput);
             }
+
+            if (_flightCoroutine == null)
+                _flightCoroutine = StartCoroutine(FlightLoop());
         }
 
         private void OnDisable()
@@ -37,49 +45,44 @@ namespace Input
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.FlightAction, HandleFlightInput);
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.MoveAction, HandleMoveInput);
             }
-
         }
 
         private void HandleFlightInput(params object[] args)
         {
             if (args.Length > 0 && args[0] is Vector2 flightInput)
-                _verticalInput = flightInput.y;  // Store Q/E input (vertical movement)
+                _flightInput = flightInput.y;
         }
 
-        // Handle horizontal movement (WASD for forward, backward, side-to-side)
         private void HandleMoveInput(params object[] args)
         {
-            if (args.Length > 0 && args[0] is Vector2 moveInput)
-                _moveInput = moveInput;  // Store WASD input (horizontal movement)
+            if (args.Length > 0 && args[0] is Vector2 movementInput)
+                _movementInput = movementInput;
         }
 
-        private void FixedUpdate()
+        private IEnumerator FlightLoop()
         {
-            if (playerRigidbody == null || !enabled) return;  // Only process if enabled
+            while (enabled)
+            {
+                Vector3 horizontalMovement = TransformDirectionRelativeToCamera(_movementInput);
 
-            // Apply horizontal movement (WASD) relative to the camera's direction
-            Vector3 horizontalMovement = TransformDirectionRelativeToCamera(_moveInput);
+                Vector3 velocity = playerRigidbody.velocity;
+                velocity.x = horizontalMovement.x * flightSpeed;
+                velocity.z = horizontalMovement.z * flightSpeed;
+                velocity.y = _flightInput * verticalSpeed;
 
-            // Apply vertical movement (Q/E)
-            Vector3 velocity = playerRigidbody.velocity;
-            velocity.x = horizontalMovement.x * flightSpeed;  // Side-to-side movement
-            velocity.z = horizontalMovement.z * flightSpeed;  // Forward/backward movement
-            velocity.y = _verticalInput * verticalSpeed;  // Ascend/Descend (Q/E)
+                if(!playerRigidbody.isKinematic) playerRigidbody.velocity = velocity;
 
-            playerRigidbody.velocity = velocity;
+                yield return new WaitForFixedUpdate();
+            }
         }
 
-        // Transform horizontal input into camera-relative movement direction
         private Vector3 TransformDirectionRelativeToCamera(Vector2 input)
         {
-            // Create a direction vector (X = left/right, Z = forward/back)
-            Vector3 direction = new Vector3(input.x, 0, input.y);  // Ignore Y for horizontal movement
+            Vector3 direction = new Vector3(input.x, 0, input.y);
 
-            // Get the camera's forward direction and zero out its Y component
             Vector3 cameraForward = playerBrain.Camera.transform.forward;
-            cameraForward.y = 0;  // Ignore the vertical (Y) component
+            cameraForward.y = 0;
 
-            // Apply camera rotation to the direction vector
             direction = Quaternion.LookRotation(cameraForward) * direction;
 
             return direction.normalized;
@@ -87,11 +90,33 @@ namespace Input
 
         public void StopFlight()
         {
-            if (playerRigidbody != null)
+            if (!playerRigidbody) return;
+            if (_flightCoroutine == null) return;
+
+            playerRigidbody.velocity = Vector3.zero;
+            playerRigidbody.useGravity = true;
+
+            StopCoroutine(_flightCoroutine);
+            _flightCoroutine = null;
+
+            enabled = false;
+        }
+
+        private void ValidateReferences()
+        {
+            if (!playerBrain)
             {
-                playerRigidbody.velocity = Vector3.zero;
-                playerRigidbody.useGravity = true;
+                Debug.LogError($"{name}: {nameof(playerBrain)} is null!" +
+                               $"\nDisabling component to avoid errors.");
                 enabled = false;
+                return;
+            }
+            if (!playerRigidbody)
+            {
+                Debug.LogError($"{name}: {nameof(playerRigidbody)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
             }
         }
     }

@@ -488,7 +488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBrain: {fileID: 4933663981859690958}
   playerRigidbody: {fileID: 5192752803812427469}
-  flightSpeed: 10
+  flightSpeed: 5
   verticalSpeed: 5
 --- !u!114 &1679316100
 MonoBehaviour:
@@ -508,7 +508,7 @@ MonoBehaviour:
   brainModelReplacer: {fileID: 11400000, guid: 5dd6a5aff201f514284a810eb552fdde, type: 2}
   damageModelReplacer: {fileID: 11400000, guid: 27b2694d16ef40245b1bc854831efb2a,
     type: 2}
-  flightController: {fileID: 1679316099}
+  enableLogs: 1
 --- !u!4 &1679316101
 Transform:
   m_ObjectHideFlags: 0
