@@ -5,7 +5,6 @@ using Events;
 
 namespace AI
 {
-    //TODO: Change name --> be more specific
     public class ObstacleMovementController : MonoBehaviour
     {
         [Header("References")]
@@ -42,7 +41,7 @@ namespace AI
         {
             float lastPingPongValue = 0f;
 
-            while (true) //TODO: NOT WHILE(TRUE), find alternative
+            while (enabled)
             {
                 //TODO: Pingpong value???
                 float pingPongValue = Mathf.PingPong(Time.time * moveSpeed, 1f);

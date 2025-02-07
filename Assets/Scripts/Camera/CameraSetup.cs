@@ -14,19 +14,9 @@ namespace Camera
 
         private void OnEnable()
         {
+            ValidateReferences();
+
             cameraDataSource.Value = this;
-
-            if (followPlayer && followPlayerModelContainer)
-            {
-                followPlayer.Model = followPlayerModelContainer.Model;
-                followPlayer.enabled = true;
-            }
-
-            else
-            {
-                Debug.LogError($"{name}: {nameof(followPlayer)} or {nameof(followPlayerModelContainer)} is null!" +
-                   $"\nDisabling component to avoid errors.");
-            }
         }
 
         private void OnDisable()
@@ -42,7 +32,7 @@ namespace Camera
                 followPlayer.Model = followPlayerModelContainer.Model;
                 followPlayer.enabled = true;
 
-                followPlayer.Target = target;
+                followPlayer.StartFollowingTarget(target);
             }
         }
 
@@ -50,6 +40,31 @@ namespace Camera
         {
             followPlayer.SetInputRotation(input);
         }
-    }
 
+
+        private void ValidateReferences()
+        {
+            if (!cameraDataSource)
+            {
+                Debug.LogError($"{name}: {nameof(cameraDataSource)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (followPlayer && followPlayerModelContainer)
+            {
+                followPlayer.Model = followPlayerModelContainer.Model;
+                followPlayer.enabled = true;
+            }
+
+            else
+            {
+                Debug.LogError($"{name}: {nameof(followPlayer)} or {nameof(followPlayerModelContainer)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+        }
+    }
 }

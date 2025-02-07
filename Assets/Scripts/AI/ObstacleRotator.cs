@@ -6,11 +6,12 @@ namespace AI
 {
     public class ObstacleRotator : MonoBehaviour
     {
+        [Header("References")]
+        [SerializeField] private AudioEvent rotationAudio;
+        
         [Header("Parameters")]
         [SerializeField] private float speedMultiplier = 1f;
         [SerializeField] private Vector3 rotationAxis = Vector3.up;
-
-        [SerializeField] private AudioEvent rotationAudio;
 
         [SerializeField] private AnimationCurve rotationCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
@@ -23,12 +24,11 @@ namespace AI
             _initialRotation = transform.localRotation;
         }
 
-        //TODO: Change UPDATE to COROUTINE
         private void Update()
         {
             _elapsedTime += Time.deltaTime * speedMultiplier;
 
-            //TODO: Revisit logic
+            //TODO: Revisit logic --> check that it matches other animation curves
             int currentCycle = Mathf.FloorToInt(_elapsedTime);
 
             if (currentCycle > _lastCycle)

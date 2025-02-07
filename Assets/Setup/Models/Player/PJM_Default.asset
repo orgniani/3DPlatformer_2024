@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Model>k__BackingField:
     <Force>k__BackingField: 5
-    <FloorAngle>k__BackingField: 45
+    <FloorAngle>k__BackingField: 60
     <JumpAcceleration>k__BackingField: 8
     <BrakeMultiplier>k__BackingField: 0.5
     <Cooldown>k__BackingField: 1

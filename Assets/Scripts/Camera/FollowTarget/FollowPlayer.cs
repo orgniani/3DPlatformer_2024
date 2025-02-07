@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Camera.FollowTarget
@@ -6,25 +7,41 @@ namespace Camera.FollowTarget
     {
         private float _currentX = 0f;
         private float _currentY = 0f;
+        private Transform _target;
 
-        public Transform Target { get; set; }
+        private Coroutine _followCoroutine;
 
         public FollowPlayerModel Model { get; set; }
 
-        //TODO: CHANGE THIS TO COROUTINE!!!
-        private void FixedUpdate()
+        public void StartFollowingTarget(Transform target)
         {
-            if (!Target) return; //TODO: Find a better way to do this! Make it a Coroutine called by the CameraSetup :)
+            _target = target;
 
-            Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0); //TODO: Research quaternions
+            if (_followCoroutine != null)
+                StopCoroutine(_followCoroutine);
 
-            Vector3 offset = Vector3.up * Model.OffsetUp;
+            _followCoroutine = StartCoroutine(FollowTargetCoroutine());
+        }
 
-            Vector3 negDistance = new Vector3(0.0f, 0.0f, -Model.Distance);
-            Vector3 position = rotation * negDistance + Target.position + offset;
+        //TODO: Check that all coroutines are consistent
+        private IEnumerator FollowTargetCoroutine()
+        {
+            while(_target)
+            {
+                Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0); //TODO: Research quaternions
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Model.RotationSpeed * Time.deltaTime);
-            transform.position = Vector3.Lerp(transform.position, position, Model.Speed * Time.deltaTime); //TODO: Research lerp
+                Vector3 offset = Vector3.up * Model.OffsetUp;
+
+                Vector3 negDistance = new Vector3(0.0f, 0.0f, -Model.Distance);
+                Vector3 position = rotation * negDistance + _target.position + offset;
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Model.RotationSpeed * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, position, Model.Speed * Time.deltaTime); //TODO: Research lerp
+
+                yield return new WaitForFixedUpdate();
+            }
+
+            _followCoroutine = null;
         }
 
         public void SetInputRotation(Vector2 input)

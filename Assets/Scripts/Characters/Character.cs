@@ -69,9 +69,9 @@ namespace Characters
             if (enableLogs) Debug.Log($"<color=red> {name}: received an attack! </color>");
         }
 
-        public void SetStartPosition(Vector3 levelStartPosition)
+        public void SetStartPosition(Vector3 levelStartPosition, Quaternion levelStartRotation)
         {
-            transform.position = levelStartPosition;
+            transform.SetPositionAndRotation(levelStartPosition, levelStartRotation);
             if (_rigidBody) _rigidBody.isKinematic = false;
         }
     }

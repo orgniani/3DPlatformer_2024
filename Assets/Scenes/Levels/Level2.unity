@@ -5815,6 +5815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataSource: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09, type: 2}
+  cameraDataSource: {fileID: 11400000, guid: 77ecb0daac2db2c4f8db600817e09348, type: 2}
   levelStart: {fileID: 1310282102}
 --- !u!4 &915736411
 Transform:

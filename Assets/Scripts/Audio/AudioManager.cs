@@ -6,6 +6,7 @@ namespace Audio
 {
     public class AudioManager : MonoBehaviour
     {
+        //TODO: Maybe i can save this in a string list of gameobject names.
         private Dictionary<GameObject, AudioSource> audioSources = new Dictionary<GameObject, AudioSource>();
         [SerializeField] private AudioEvent loseAudio;
         [SerializeField] private AudioEvent winAudio;

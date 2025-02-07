@@ -117,7 +117,9 @@ namespace Player
             else
             {
                 Debug.LogError($"{name}: {nameof(playerJump)} or {nameof(jumpModelContainer)} is null!" +
-                   $"\nDisabling component to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
             }
 
             // BODY
@@ -130,7 +132,9 @@ namespace Player
             else
             {
                 Debug.LogError($"{name}: {nameof(playerBody)} or {nameof(bodyModelContainer)} is null!" +
-                   $"\nDisabling component to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
             }
 
             // BRAIN
@@ -146,7 +150,9 @@ namespace Player
             else
             {
                 Debug.LogError($"{name}: {nameof(playerBrain)} or {nameof(brainModelContainer)} is null!" +
-                   $"\nDisabling component to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
             }
 
             // ROTATION
@@ -159,7 +165,9 @@ namespace Player
             else
             {
                 Debug.LogError($"{name}: {nameof(playerRotation)} or {nameof(rotationModelContainer)} is null!" +
-                   $"\nDisabling component to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
             }
         }
     }
