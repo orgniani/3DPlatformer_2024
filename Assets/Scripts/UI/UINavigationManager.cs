@@ -126,11 +126,18 @@ namespace UI
         {
             if (buttonConfig != null && _gameManager)
             {
-                if(buttonConfig.IsRestartButton) _gameManager.HandleRestartLevel();
-
-                else _gameManager.HandlePlayGame();
-
                 menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
+
+                if (buttonConfig.IsRestartButton) _gameManager.HandleRestartLevel();
+
+                else
+                {
+                    _gameManager.HandlePlayGame();
+
+                    //TODO: This is hardcoded! make sure you find a different way to open the instructions menu on tutorial
+                    _currentMenuIndex = menusWithId.Count - 1;
+                    menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(true);
+                }
             }
         }
 
@@ -169,12 +176,22 @@ namespace UI
             }
 
             // TODO: Avoid hardcoded names --> The id should probably be a buttonconfig thing
+            if (id == "Close")
+            {
+                menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
+
+                //TODO: This gets repeated too many times --> Cursor logic locked
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+
+            // TODO: Avoid hardcoded names --> The id should probably be a buttonconfig thing
             else if (id == "Main Menu" && _gameManager.IsGamePaused)
             {
                 _gameManager.OnGameOver();
                 _gameManager.HandlePauseGame(); // Unpause the game
 
-                //TODO: This gets repeated too many times --> Cursor logic
+                //TODO: This gets repeated too many times --> Cursor logic none
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }

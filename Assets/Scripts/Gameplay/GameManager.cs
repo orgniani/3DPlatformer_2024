@@ -163,9 +163,6 @@ namespace Gameplay
 
         public void HandlePlayGame()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
             IsFinalLevel = false;
 
             _sceneryManager.ResetIdsToIndex0();
