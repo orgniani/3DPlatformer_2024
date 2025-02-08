@@ -4,7 +4,7 @@ using Audio;
 
 namespace AI
 {
-    public class ObstacleRotator : MonoBehaviour
+    public class SimpleRotation : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private AudioEvent rotationAudio;

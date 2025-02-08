@@ -5,7 +5,7 @@ using Events;
 
 namespace AI
 {
-    public class ObstacleMovementController : MonoBehaviour
+    public class SimpleMovementController : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private GameObject obstacle;

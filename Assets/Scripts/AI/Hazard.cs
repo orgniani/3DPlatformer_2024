@@ -6,7 +6,7 @@ using Events;
 
 namespace AI
 {
-    public class Obstacle : MonoBehaviour
+    public class Hazard : MonoBehaviour
     {
         [Header("References")]
         [Header("Data Sources")]

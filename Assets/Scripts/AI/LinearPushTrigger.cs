@@ -4,10 +4,10 @@ using Events;
 
 namespace AI
 {
-    public class ObstacleMovementTrigger : MonoBehaviour
+    public class LinearPushTrigger : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private ObstacleMovement[] obstacles;
+        [SerializeField] private LinearPush[] obstacles;
         [SerializeField] private LayerMask targetLayer;
         [SerializeField] private AudioEvent triggerAudio;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace AI
 {
     [RequireComponent((typeof(Rigidbody)))]
-    public class ObstacleMovement : MonoBehaviour
+    public class LinearPush : MonoBehaviour
     {
         [Header("Parameters")]
         [SerializeField] private Vector3 targetOffset = new Vector3(0, 0, 0.2f);
@@ -48,7 +48,7 @@ namespace AI
 
         private void OnMovementComplete()
         {
-            if (enableLogs) Debug.Log($"{name}: Movement complete.");
+            if (enableLogs) Debug.Log($"{name}: Push complete!");
             enabled = false;
         }
     }
