@@ -32,8 +32,6 @@ namespace Scenery
         //TODO: There might be a better way to do this
         public float FakeLoadingTime => fakeLoadingTime;
 
-        public bool IsLoading { get; private set; } = false;
-
         private void Awake()
         {
             if (!sceneryManagerDataSource)
@@ -81,8 +79,6 @@ namespace Scenery
 
         private void HandleLoadScenery(params object[] args)
         {
-            IsLoading = true;
-
             if (args.Length > 0 && args[0] is int[] newSceneIndexes)
             {
                 if (_currentLevelIds != null)
@@ -146,7 +142,6 @@ namespace Scenery
 
             yield return new WaitForSeconds(fakeLoadingTime);
             OnLoadEnd?.Invoke();
-            IsLoading = false;
 
             StopAllCoroutines();
         }

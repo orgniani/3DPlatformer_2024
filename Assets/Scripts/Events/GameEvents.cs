@@ -12,8 +12,6 @@ namespace Events
         public const string JumpAction = "Jump";
         public const string LookAction = "Look";
 
-        public const string PauseAction = "Pause";
-
         public const string PlayAudioAction = "PlayAudio";
 
         public const string NextLevelAction = "NextLevel";

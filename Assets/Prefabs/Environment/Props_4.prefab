@@ -120,8 +120,8 @@ GameObject:
   - component: {fileID: 5847300028950260507}
   - component: {fileID: 5907741347030846902}
   - component: {fileID: 2904593087290849882}
-  - component: {fileID: 6072646577286182709}
   - component: {fileID: 8427925799309135280}
+  - component: {fileID: 4591338130171381954}
   - component: {fileID: 7202420950237313829}
   m_Layer: 3
   m_Name: Trampoline
@@ -199,27 +199,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6072646577286182709
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8122050685830729847}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 2.38, z: 2}
-  m_Center: {x: -5.9806827e-24, y: 1.2050337, z: -0.0000038146973}
 --- !u!65 &8427925799309135280
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -241,6 +220,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5, y: 0.1, z: 1.5}
   m_Center: {x: -5.9806827e-24, y: 2.44, z: -0.0000038146973}
+--- !u!64 &4591338130171381954
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8122050685830729847}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7159946465811131861, guid: 32812f864ffc68f45aa97b19014b7867, type: 3}
 --- !u!114 &7202420950237313829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   depressionAmount: 0.3
   upAmount: 1.5
-  bounceSpeed: 5
+  bounceSpeed: 3
   backToInitialPositionSpeed: 1
   launchForceUp: 5
   bounceCurve:
@@ -285,3 +286,4 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
+  trampolineAudio: {fileID: 11400000, guid: 4bdaeba7221ebd846a6ba0c9bb6b49e9, type: 2}

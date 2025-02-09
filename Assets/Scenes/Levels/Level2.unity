@@ -1274,7 +1274,7 @@ PrefabInstance:
     - target: {fileID: 6768743221385502464, guid: de3df4a73a200dd4aab4b967d8702018,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6799998
+      value: -0.2800002
       objectReference: {fileID: 0}
     - target: {fileID: 6768743221385502464, guid: de3df4a73a200dd4aab4b967d8702018,
         type: 3}
@@ -1315,6 +1315,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326217628176927618, guid: de3df4a73a200dd4aab4b967d8702018,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1834,7 +1839,7 @@ PrefabInstance:
     - target: {fileID: 6768743221385502464, guid: de3df4a73a200dd4aab4b967d8702018,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6799998
+      value: -0.2800002
       objectReference: {fileID: 0}
     - target: {fileID: 6768743221385502464, guid: de3df4a73a200dd4aab4b967d8702018,
         type: 3}
@@ -5815,7 +5820,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataSource: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09, type: 2}
-  cameraDataSource: {fileID: 11400000, guid: 77ecb0daac2db2c4f8db600817e09348, type: 2}
   levelStart: {fileID: 1310282102}
 --- !u!4 &915736411
 Transform:
@@ -13952,12 +13956,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trampoline
       objectReference: {fileID: 0}
-    - target: {fileID: 7202420950237313829, guid: 04a77e7e43a79ed478e212e4f5ede12d,
-        type: 3}
-      propertyPath: trampolineAudio
-      value: 
-      objectReference: {fileID: 11400000, guid: 4bdaeba7221ebd846a6ba0c9bb6b49e9,
-        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

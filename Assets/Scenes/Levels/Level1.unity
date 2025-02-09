@@ -5692,7 +5692,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataSource: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09, type: 2}
-  cameraDataSource: {fileID: 11400000, guid: 77ecb0daac2db2c4f8db600817e09348, type: 2}
   levelStart: {fileID: 1310282102}
 --- !u!4 &915736411
 Transform:
@@ -7840,7 +7839,7 @@ PrefabInstance:
     - target: {fileID: 1242528905608908957, guid: e898f64f4bb313b4093714a7f5141831,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1242528905608908957, guid: e898f64f4bb313b4093714a7f5141831,
         type: 3}
@@ -12220,7 +12219,7 @@ PrefabInstance:
     - target: {fileID: 1242528905608908957, guid: e898f64f4bb313b4093714a7f5141831,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 1242528905608908957, guid: e898f64f4bb313b4093714a7f5141831,
         type: 3}

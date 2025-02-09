@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6768743221385502464}
   - component: {fileID: 2021245808634072236}
   - component: {fileID: 5673348229918235069}
-  - component: {fileID: 8326217628176927618}
+  - component: {fileID: 5196869637932300208}
   - component: {fileID: 464575957149835461}
   m_Layer: 0
   m_Name: Props_7
@@ -90,8 +90,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8326217628176927618
-MeshCollider:
+--- !u!65 &5196869637932300208
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -108,10 +108,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -8070298290176478403, guid: 32812f864ffc68f45aa97b19014b7867, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 2.003325, y: 1.2248101, z: 1.3744254}
+  m_Center: {x: 0.0016407487, y: -3.331088, z: 0.27011693}
 --- !u!114 &464575957149835461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f794a3a44b5404496446c0d344f5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationAudio: {fileID: 0}
   speedMultiplier: 0.3
   rotationAxis: {x: 0, y: 0, z: 1}
   rotationCurve:

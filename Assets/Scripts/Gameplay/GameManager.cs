@@ -3,7 +3,6 @@ using DataSources;
 using Scenery;
 using Events;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace Gameplay
 {
@@ -33,7 +32,6 @@ namespace Gameplay
         private int _currentLevelIndex = 0;
 
         public bool IsFinalLevel { get; private set; }
-        public bool IsGamePaused { get; private set; }
 
         private void Awake()
         {
@@ -73,7 +71,6 @@ namespace Gameplay
             {
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.WinAction, OnWinLevel);
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.LoseAction, OnGameOver);
-                EventManager<string>.Instance.SubscribeToEvent(GameEvents.PauseAction, HandlePauseGame);
             }
         }
 
@@ -102,7 +99,6 @@ namespace Gameplay
             {
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.WinAction, OnWinLevel);
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.LoseAction, OnGameOver);
-                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.PauseAction, HandlePauseGame);
             }
         }
 
@@ -136,29 +132,6 @@ namespace Gameplay
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-        }
-
-        public void HandlePauseGame(params object[] args)
-        {
-            if (_sceneryManager.IsLoading) return; //TODO: Is there a better way to code this?
-
-            IsGamePaused = !IsGamePaused;
-            if (IsGamePaused)
-            {
-                Time.timeScale = 0f;
-
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-
-            }
-            else
-            {
-                Time.timeScale = 1f;
-
-                //TODO: Check if this works on build :)
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
         }
 
         public void HandlePlayGame()
