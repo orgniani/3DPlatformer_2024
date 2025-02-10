@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0b2b1949a9dfa459528238f1dd2067, type: 3}
   m_Name: AudioCfg_Lose
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 62183752b1d2e43478e8678f3aeeec94, type: 3}
-  loop: 0
-  playOnAwake: 0
-  volume: 1
-  spatialBlend: 0
+  <Clip>k__BackingField: {fileID: 8300000, guid: 62183752b1d2e43478e8678f3aeeec94,
+    type: 3}
+  <Loop>k__BackingField: 0
+  <Volume>k__BackingField: 1
+  <SpatialBlend>k__BackingField: 0
+  <MinDistance>k__BackingField: 10
+  <MaxDistance>k__BackingField: 300

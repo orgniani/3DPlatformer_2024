@@ -66,7 +66,7 @@ namespace Player.Jump
         }
 
         //TODO: Check if this can be improved
-        public IEnumerator TriggerJump(Vector3 extraForce)
+        public IEnumerator TrampolineJump(Vector3 extraForce)
         {
             OnJump?.Invoke();
 

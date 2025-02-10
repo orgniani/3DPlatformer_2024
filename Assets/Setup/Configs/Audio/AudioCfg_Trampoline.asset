@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0b2b1949a9dfa459528238f1dd2067, type: 3}
   m_Name: AudioCfg_Trampoline
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 249a6126c3c7bd346a089049a67e00a6, type: 3}
-  loop: 0
-  volume: 1
-  spatialBlend: 1
-  minDistance: 1
-  maxDistance: 10
+  <Clip>k__BackingField: {fileID: 8300000, guid: 249a6126c3c7bd346a089049a67e00a6,
+    type: 3}
+  <Loop>k__BackingField: 0
+  <Volume>k__BackingField: 1
+  <SpatialBlend>k__BackingField: 1
+  <MinDistance>k__BackingField: 1
+  <MaxDistance>k__BackingField: 10

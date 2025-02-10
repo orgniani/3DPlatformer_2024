@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
-using Audio;
 using Events;
 
-namespace AI
+namespace AI.Movement
 {
     public class SimpleMovementController : MonoBehaviour
     {
@@ -12,14 +11,9 @@ namespace AI
         [SerializeField] private Transform position1;
         [SerializeField] private Transform position2;
 
-        [Header("Audio")]
-        [SerializeField] private AudioEvent impactAudio;
-
-        [Header("Parameters")]
-        [SerializeField] private float moveSpeed = 2f;
-        [SerializeField] private AnimationCurve movementCurve;
-
         private Coroutine _movementCoroutine;
+
+        public SimpleMovementModel Model { get; set; }
 
         private void Awake()
         {
@@ -39,24 +33,23 @@ namespace AI
 
         private IEnumerator MoveSideToSide()
         {
-            float lastPingPongValue = 0f;
+            float elapsedTime = 0f;
+            float lastFrameCurveValue = 0f;
 
             while (enabled)
             {
-                //TODO: Pingpong value???
-                float pingPongValue = Mathf.PingPong(Time.time * moveSpeed, 1f);
-                float curveValue = movementCurve.Evaluate(pingPongValue);
+                elapsedTime += Time.deltaTime * Model.Speed;
+                float curveValue = Model.MovementCurve.Evaluate(elapsedTime);
 
-                //TODO: Get rid of hardcoded values
-                if (lastPingPongValue < 0.95f && pingPongValue >= 0.95f)
+                if (lastFrameCurveValue < Model.ImpactThreshold && curveValue >= Model.ImpactThreshold)
                 {
                     if (EventManager<string>.Instance)
-                        EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, impactAudio, gameObject);
+                        EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, Model.ImpactAudio, gameObject);
                 }
 
                 obstacle.transform.position = Vector3.Lerp(position1.position, position2.position, curveValue);
+                lastFrameCurveValue = curveValue;
 
-                lastPingPongValue = pingPongValue;
                 yield return new WaitForFixedUpdate();
             }
         }

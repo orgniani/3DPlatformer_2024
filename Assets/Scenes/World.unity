@@ -521,7 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBrain: {fileID: 4933663981859690958}
   playerRigidbody: {fileID: 5192752803812427469}
-  flightSpeed: 5
+  flightSpeed: 10
   verticalSpeed: 5
 --- !u!114 &1679316100
 MonoBehaviour:

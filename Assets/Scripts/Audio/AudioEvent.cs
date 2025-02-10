@@ -5,14 +5,16 @@ namespace Audio
     [CreateAssetMenu(menuName = "Config/Audio", fileName = "AudioCfg", order = 0)]
     public class AudioEvent : ScriptableObject
     {
-        public AudioClip clip;
-        public bool loop = false;
-        [Range(0f, 1f)] public float volume = 1f;
+        [field: SerializeField] public AudioClip Clip { get; private set; }
 
-        [Header("3D SOUND SETTING")]
-        [Range(0f, 1f)] public float spatialBlend = 0f;
+        [field: SerializeField] public bool Loop { get; private set; }
 
-        public float minDistance = 10f;
-        public float maxDistance = 300f;
+        [field: SerializeField, Range(0f, 1f)] public float Volume { get; private set; } = 1f;
+
+        [field: SerializeField, Range(0f, 1f)] public float SpatialBlend { get; private set; } = 0f;
+
+        [field: SerializeField] public float MinDistance { get; private set; } = 10f;
+
+        [field: SerializeField] public float MaxDistance { get; private set; } = 300f;
     }
 }

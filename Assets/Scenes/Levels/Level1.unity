@@ -11141,20 +11141,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1637215584}
     m_Modifications:
-    - target: {fileID: 464575957149835461, guid: de3df4a73a200dd4aab4b967d8702018,
-        type: 3}
-      propertyPath: rotationAudio
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5003257899507768075, guid: de3df4a73a200dd4aab4b967d8702018,
         type: 3}
       propertyPath: m_Name
       value: Hammer
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003257899507768075, guid: de3df4a73a200dd4aab4b967d8702018,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6768743221385502464, guid: de3df4a73a200dd4aab4b967d8702018,
         type: 3}
@@ -12262,6 +12252,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
         type: 2}
+    - target: {fileID: 4032094541106080986, guid: e898f64f4bb313b4093714a7f5141831,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032094541106080986, guid: e898f64f4bb313b4093714a7f5141831,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032094541106080986, guid: e898f64f4bb313b4093714a7f5141831,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032094541106080986, guid: e898f64f4bb313b4093714a7f5141831,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032094541106080986, guid: e898f64f4bb313b4093714a7f5141831,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12394,7 +12409,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   enableLogs: 1
-  idleAudio: {fileID: 0}
 --- !u!1 &4884995156174571335
 GameObject:
   m_ObjectHideFlags: 0

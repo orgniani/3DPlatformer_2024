@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0b2b1949a9dfa459528238f1dd2067, type: 3}
   m_Name: AudioCfg_Footstep2
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 24e96b124dc98a649b0741bda0d7351f, type: 3}
-  loop: 0
-  volume: 0.8
-  spatialBlend: 1
-  minDistance: 1
-  maxDistance: 300
+  <Clip>k__BackingField: {fileID: 8300000, guid: 24e96b124dc98a649b0741bda0d7351f,
+    type: 3}
+  <Loop>k__BackingField: 0
+  <Volume>k__BackingField: 0.8
+  <SpatialBlend>k__BackingField: 1
+  <MinDistance>k__BackingField: 5
+  <MaxDistance>k__BackingField: 300

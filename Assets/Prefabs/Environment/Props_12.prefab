@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2997936898113133483}
   - component: {fileID: 405163997307867730}
   - component: {fileID: 3976842589219181722}
+  - component: {fileID: 8492613735173899913}
   m_Layer: 3
   m_Name: Props_12
   m_TagString: Untagged
@@ -118,34 +119,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8118714852897901293}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06f794a3a44b5404496446c0d344f5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMultiplier: 0.05
   rotationAxis: {x: -1, y: 0, z: 0}
-  rotationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 1
-    m_RotationOrder: 4
+--- !u!114 &8492613735173899913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8118714852897901293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27427165d12105442806700770ff2df8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleRotationModelContainer: {fileID: 11400000, guid: 5de4edd6ab5224043b24993f2a99ece0,
+    type: 2}

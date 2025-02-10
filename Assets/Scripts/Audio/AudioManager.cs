@@ -35,7 +35,7 @@ namespace Audio
         {
             if (args.Length == 2 && args[0] is AudioEvent audioEvent && args[1] is GameObject caller)
             {
-                if (audioEvent == null || audioEvent.clip == null || caller == null) return;
+                if (audioEvent == null || audioEvent.Clip == null || caller == null) return;
 
                 //TODO: Revise logic --> TryGetValue?
                 if (!audioSources.TryGetValue(caller, out AudioSource source))
@@ -52,13 +52,13 @@ namespace Audio
 
                 source.playOnAwake = false;
 
-                source.clip = audioEvent.clip;
-                source.loop = audioEvent.loop;
-                source.volume = audioEvent.volume;
+                source.clip = audioEvent.Clip;
+                source.loop = audioEvent.Loop;
+                source.volume = audioEvent.Volume;
 
-                source.spatialBlend = audioEvent.spatialBlend;
-                source.maxDistance = audioEvent.maxDistance;
-                source.minDistance = audioEvent.minDistance;
+                source.spatialBlend = audioEvent.SpatialBlend;
+                source.maxDistance = audioEvent.MaxDistance;
+                source.minDistance = audioEvent.MinDistance;
 
                 source.Play();
             }

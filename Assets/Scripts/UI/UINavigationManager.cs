@@ -19,8 +19,10 @@ namespace UI
         [Header("Systems")]
         [SerializeField] private EventSystem eventSystem;
 
+        //TODO: Maybe the tutorial instructions should be less hardcoded...
         [Header("Menus")]
-        [Tooltip("The first item on this list will be set as the default")]
+        [Tooltip("The first item on this list will be set as the default /n" +
+                 "The last item will be set as the tutorial instructions")]
         [SerializeField] private List<MenuWithId> menusWithId;
 
         [Header("Buttons")]

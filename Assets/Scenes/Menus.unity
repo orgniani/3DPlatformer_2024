@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &35789862
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1470,6 +1470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 848305523}
   - component: {fileID: 848305524}
+  - component: {fileID: 848305525}
   m_Layer: 5
   m_Name: Rotator
   m_TagString: Player
@@ -1506,33 +1507,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f794a3a44b5404496446c0d344f5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationAudio: {fileID: 0}
-  speedMultiplier: 0.1
   rotationAxis: {x: 0, y: 1, z: 0}
-  rotationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+--- !u!114 &848305525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848305522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27427165d12105442806700770ff2df8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleRotationModelContainer: {fileID: 11400000, guid: 67ee4754ae27cad409eeef2e4c15a791,
+    type: 2}
 --- !u!1 &873539519
 GameObject:
   m_ObjectHideFlags: 0

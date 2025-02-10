@@ -1,10 +1,7 @@
 using UnityEngine;
-using Characters;
 using DataSources;
-using Audio;
-using Events;
 
-namespace AI
+namespace Characters.Health
 {
     public class Hazard : MonoBehaviour
     {
@@ -18,18 +15,10 @@ namespace AI
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
 
-        [Header("Audio")]
-        [SerializeField] private AudioEvent idleAudio;
-
-
-        //TODO: ITARGET??
         private Character _target;
 
         private void Awake()
         {
-            if (EventManager<string>.Instance)
-                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, idleAudio, gameObject);
-
             ValidateReferences();
         }
 
@@ -45,7 +34,8 @@ namespace AI
         {
             if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
             {
-                _target.ReceiveAttack();
+                //TODO: What does the "?" before the dot means?
+                _target?.ReceiveAttack(); //TODO: Is this checking if its the _TARGET specifically?
 
                 if (enableLogs) Debug.Log($"{name}: <color=orange> Player has died! </color>");
             }
