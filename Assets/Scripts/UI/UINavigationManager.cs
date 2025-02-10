@@ -47,8 +47,10 @@ namespace UI
             {
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.WinAction, HandleOpenWinMenu);
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.LoseAction, HandleOpenLoseMenu);
+                EventManager<string>.Instance.SubscribeToEvent(GameEvents.PauseAction, HandleOpenPauseMenu);
             }
         }
+
 
         private void Start()
         {
@@ -80,8 +82,10 @@ namespace UI
             {
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.WinAction, HandleOpenWinMenu);
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.LoseAction, HandleOpenLoseMenu);
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.PauseAction, HandleOpenPauseMenu);
             }
         }
+
 
         private void HandleOpenWinMenu(params object[] args)
         {
@@ -92,6 +96,16 @@ namespace UI
         private void HandleOpenLoseMenu(params object[] args)
         {
             HandleMenuOptions(GameEvents.LoseAction);
+        }
+
+        private void HandleOpenPauseMenu(params object[] args)
+        {
+            //TODO: im pretty sure this isnt doing anything --> the id sent is "Pause"
+            if (_gameManager.IsGamePaused)
+                HandleMenuOptions(GameEvents.PauseAction);
+
+            else
+                menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
         }
 
         private void HandleMenuOptions(string id)
@@ -152,6 +166,22 @@ namespace UI
                 }
             }
 
+            HandlePauseMenuButtons(id);
+        }
+
+        private void HandlePauseMenuButtons(string id)
+        {
+            // TODO: Avoid hardcoded names --> The id should probably be a buttonconfig thing
+            if (id == "Resume")
+            {
+                _gameManager.HandlePauseGame();
+                menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
+
+                //TODO: This gets repeated too many times --> Cursor logic locked
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+
             // TODO: Avoid hardcoded names --> The id should probably be a buttonconfig thing
             if (id == "Close")
             {
@@ -161,7 +191,19 @@ namespace UI
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+
+            // TODO: Avoid hardcoded names --> The id should probably be a buttonconfig thing
+            else if (id == "Main Menu" && _gameManager.IsGamePaused)
+            {
+                _gameManager.OnGameOver();
+                _gameManager.HandlePauseGame(); // Unpause the game
+
+                //TODO: This gets repeated too many times --> Cursor logic none
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
+
 
         //TODO: Should this be moved? --> PLAY CICK BUTTON AUDIO
         private void PlayClickButtonAudio()
