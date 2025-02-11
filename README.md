@@ -11,3 +11,6 @@ Scenes in the game are loaded additively using `LoadSceneMode.Additive`.
 <br><br>
 #### Player Movement
 The player’s movements are handled using Unity’s **Rigidbody physics system**.
+
+<br><br>
+You can find my game on [itch.io](https://lapiedranumerodos.itch.io/bouncy-paws).
