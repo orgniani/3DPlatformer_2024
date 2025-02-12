@@ -1095,6 +1095,7 @@ MonoBehaviour:
   body: {fileID: 6542788559946240025}
   brain: {fileID: 4933663981859690958}
   jumpAudio: {fileID: 11400000, guid: d6553e164714c7240aa1413e42e7571d, type: 2}
+  footCollider: {fileID: 3080216278612013484}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

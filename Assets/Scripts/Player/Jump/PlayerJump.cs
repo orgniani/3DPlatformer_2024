@@ -15,7 +15,7 @@ namespace Player.Jump
         [SerializeField] private PlayerBody body;
         [SerializeField] private PlayerBrain brain; //TODO: is this really necessary?
 
-        [SerializeField] private AudioEvent jumpAudio;
+        [SerializeField] private Collider footCollider;
 
         private bool _shouldJump = true;
         private bool _shouldJumpOnRamp = true;
@@ -54,7 +54,7 @@ namespace Player.Jump
             OnJump?.Invoke();
 
             if (EventManager<string>.Instance)
-                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, jumpAudio, gameObject);
+                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, Model.JumpAudio, gameObject);
 
             yield return new WaitForSeconds(Model.WaitToJump);
 
@@ -82,11 +82,16 @@ namespace Player.Jump
             //TODO: Check if this is truly necesary
             if (!body.IsOnLand) return;
 
+            //TODO: Add summary explaing how this should only calculate the collisions with the collider used for the characters feet rather than both feet and body.!
+            if (collision.GetContact(0).thisCollider != footCollider) return;
+
             var contact = collision.contacts[0];
             var contactAngle = Vector3.Angle(contact.normal, Vector3.up); //TODO: Research vector3.angle
 
             if (contactAngle >= 90)
                 contactAngle = 0;
+
+            Debug.Log("CONTACT ANGLE: " + contactAngle);
 
             if (contactAngle <= Model.FloorAngle)
             {

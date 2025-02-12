@@ -14,7 +14,7 @@ namespace AI.Rotation
 
         public SimpleRotationModel Model { get; set; }
 
-        private void Start()
+        private void OnEnable()
         { 
             _initialRotation = transform.localRotation;
             _rotationCoroutine = StartCoroutine(Rotate());
