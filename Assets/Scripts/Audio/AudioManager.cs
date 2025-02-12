@@ -6,7 +6,6 @@ namespace Audio
 {
     public class AudioManager : MonoBehaviour
     {
-        //TODO: Maybe i can save this in a string list of gameobject names.
         private Dictionary<GameObject, AudioSource> audioSources = new Dictionary<GameObject, AudioSource>();
         [SerializeField] private AudioEvent loseAudio;
         [SerializeField] private AudioEvent winAudio;
@@ -39,18 +38,7 @@ namespace Audio
 
                 //TODO: Revise logic --> TryGetValue?
                 if (!audioSources.TryGetValue(caller, out AudioSource source))
-                {
-                    GameObject audioObj = new GameObject("AudioSource_" + caller.name);
-                    audioObj.transform.SetParent(caller.transform);
-                    audioObj.transform.localPosition = Vector3.zero;
-                    source = audioObj.AddComponent<AudioSource>();
-                    audioSources[caller] = source;
-                }
-
-                //TODO: it might not be necessary to check on all of this each time
-                //TODO: what if i need a game object to produce 2 sounds at once? can this happen?
-
-                source.playOnAwake = false;
+                    source = CreateAudioSource(caller, audioEvent, source);
 
                 source.clip = audioEvent.Clip;
                 source.loop = audioEvent.Loop;
@@ -62,6 +50,17 @@ namespace Audio
 
                 source.Play();
             }
+        }
+
+        private AudioSource CreateAudioSource(GameObject caller, AudioEvent audioEvent, AudioSource source)
+        {
+            GameObject audioObj = new GameObject("AudioSource_" + caller.name);
+            audioObj.transform.SetParent(caller.transform);
+            audioObj.transform.localPosition = Vector3.zero;
+            source = audioObj.AddComponent<AudioSource>();
+            audioSources[caller] = source;
+
+            return source;
         }
 
         private void PlayWinAudio(params object[] args)

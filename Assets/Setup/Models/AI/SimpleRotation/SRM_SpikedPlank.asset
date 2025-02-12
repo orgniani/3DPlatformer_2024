@@ -41,3 +41,4 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 1
       m_RotationOrder: 4
+    <AudioPlaysPerCycle>k__BackingField: 2

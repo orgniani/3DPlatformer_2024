@@ -3,7 +3,8 @@ using UnityEngine;
 using Player.Brain;
 using Camera; // TODO: There must be a better way
 using System.Collections;
-namespace Input
+
+namespace Input.Cheats
 {
     public class GodModeFlightController : MonoBehaviour
     {

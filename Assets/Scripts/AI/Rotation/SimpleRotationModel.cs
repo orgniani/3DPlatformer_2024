@@ -14,5 +14,7 @@ namespace AI.Rotation
         [field: SerializeField] public Vector3 RotationAxis { get; private set; } = Vector3.up;
 
         [field: SerializeField] public AnimationCurve RotationCurve { get; private set; }
+
+        [field: SerializeField] public float AudioPlaysPerCycle { get; private set; } = 1f;
     }
 }

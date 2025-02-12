@@ -1,13 +1,11 @@
 using UnityEngine;
 using Player.Jump;
 using Player.Body;
-using Audio;
-using Events;
 
 namespace Player
 {
     //TODO: Perhaps this could be improved --> ANIMATOR VIEW
-    public class AnimatorView : MonoBehaviour
+    public class PlayerAnimatorView : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private Animator animator;
@@ -15,9 +13,7 @@ namespace Player
 
         [SerializeField] private PlayerJump jump;
         [SerializeField] private PlayerBody body;
-
-        //TODO: Should this be moved?
-        [SerializeField] private AudioEvent[] footstepsAudioClips;
+        [SerializeField] private PlayerSound sound;
 
         [Header("Animator Parameters")]
         [SerializeField] private string jumpTriggerParameter = "jump";
@@ -54,19 +50,15 @@ namespace Player
             animator.SetTrigger(jumpTriggerParameter);
         }
 
-        //TODO: Add a summary to this :)
+        /// <summary>
+        /// Triggered by an Animation Event in the player's animation clips that require footstep sound effects.  
+        /// This method ensures the event is fired with sufficient weight (above 0.5)  
+        /// before delegating the footstep sound handling to the PlayerSound component.
+        /// </summary>
         private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                //TODO: Make a check in the validate references :) --> FOOTSTEPS
-                if (footstepsAudioClips.Length > 0)
-                {
-                    var index = Random.Range(0, footstepsAudioClips.Length);
-                    if (EventManager<string>.Instance)
-                        EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, footstepsAudioClips[index], gameObject);
-                }
-            }
+                sound.HandleFootstepsAudio();
         }
 
         private void ValidateReferences()
@@ -98,6 +90,14 @@ namespace Player
             if (!body)
             {
                 Debug.LogError($"{name}: {nameof(body)} is null!" +
+                               $"\nDisabling object to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!sound)
+            {
+                Debug.LogError($"{name}: {nameof(sound)} is null!" +
                                $"\nDisabling object to avoid errors.");
                 enabled = false;
                 return;

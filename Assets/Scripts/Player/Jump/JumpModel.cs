@@ -1,4 +1,3 @@
-using Audio;
 using System;
 using UnityEngine;
 
@@ -18,7 +17,5 @@ namespace Player.Jump
         [field: SerializeField] public float Cooldown { get; private set; } = 1f;
 
         [field: SerializeField] public float WaitToJump { get; private set; } = 0.3f;
-
-        [field: SerializeField] public AudioEvent JumpAudio { get; private set; }
     }
 }

@@ -2,7 +2,8 @@
     "name": "Orgniani.Platformer.Audio.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:0c41ecabeae71c142b8374dd60c94134"
+        "GUID:0c41ecabeae71c142b8374dd60c94134",
+        "GUID:0950dede9ce59a6439f3b0bded86077c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

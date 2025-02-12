@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using Player.Jump; //TODO: Figure out if theres a better way than Player.Jump
 using Events;
+using Core.Interactions;
 
 namespace AI.Trampoline
 {
@@ -21,21 +21,20 @@ namespace AI.Trampoline
         {
             if (((1 << other.gameObject.layer) & Model.PlayerLayer.value) != 0 && !isBouncing)
             {
-                //TODO: There must be a better way than TryGetComponent --> SEARCH!
-                if (other.TryGetComponent(out PlayerJump playerJump))
-                    StartCoroutine(TrampolineBounce(playerJump));
+                if (other.TryGetComponent(out IBounceable bounceable))
+                    StartCoroutine(TrampolineBounce(bounceable));
             }
         }
 
-        private IEnumerator TrampolineBounce(PlayerJump playerJump)
+        private IEnumerator TrampolineBounce(IBounceable bounceable)
         {
             isBouncing = true;
 
             Vector3 downPosition = initialPosition - new Vector3(0, Model.DepressionAmount, 0);
             yield return MoveTrampoline(Model.BounceSpeed, downPosition);
 
-            Vector3 extraForce = Vector3.up * Model.LaunchForce;
-            yield return playerJump.TrampolineJump(extraForce);
+            Vector3 bounceForce = Vector3.up * Model.LaunchForce;
+            yield return bounceable.TrampolineBounce(bounceForce);
 
             if (EventManager<string>.Instance)
                 EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, Model.BounceAudio, gameObject);

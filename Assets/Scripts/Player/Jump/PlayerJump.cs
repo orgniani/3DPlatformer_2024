@@ -1,15 +1,13 @@
 using Player.Body;
 using Player.Brain;
-using Events;
-using Audio;
-
+using Core.Interactions;
 using System;
 using System.Collections;
 using UnityEngine;
 
 namespace Player.Jump
 {
-    public class PlayerJump : MonoBehaviour
+    public class PlayerJump : MonoBehaviour, IBounceable
     {
         [Header("Player")]
         [SerializeField] private PlayerBody body;
@@ -53,9 +51,6 @@ namespace Player.Jump
 
             OnJump?.Invoke();
 
-            if (EventManager<string>.Instance)
-                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, Model.JumpAudio, gameObject);
-
             yield return new WaitForSeconds(Model.WaitToJump);
 
             body.RequestImpulse(new ImpulseRequest(Vector3.up, Model.Force));
@@ -66,15 +61,16 @@ namespace Player.Jump
         }
 
         //TODO: Check if this can be improved
-        public IEnumerator TrampolineJump(Vector3 extraForce)
+        public IEnumerator TrampolineBounce(Vector3 bounceForce)
         {
+            _shouldJump = false;
+            body.RequestBrake(Model.BrakeMultiplier);
+
             OnJump?.Invoke();
 
-            //TODO: Get rid of hardcoded value
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(Model.WaitToJump);
 
-            _shouldJump = false;
-            body.RequestImpulse(new ImpulseRequest(Vector3.up, Model.Force + extraForce.magnitude));
+            body.RequestImpulse(new ImpulseRequest(Vector3.up, Model.Force + bounceForce.magnitude));
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -90,8 +86,6 @@ namespace Player.Jump
 
             if (contactAngle >= 90)
                 contactAngle = 0;
-
-            Debug.Log("CONTACT ANGLE: " + contactAngle);
 
             if (contactAngle <= Model.FloorAngle)
             {

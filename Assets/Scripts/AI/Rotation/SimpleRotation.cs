@@ -1,28 +1,29 @@
 using UnityEngine;
 using Events;
 using System.Collections;
+using Audio;
 
 namespace AI.Rotation
 {
     public class SimpleRotation : MonoBehaviour
     {
         private Quaternion _initialRotation;
-        private int _lastCycle = 0;
-        private float _fullRotationAngle = 360;
-
+        private AudioEvent _audio;
         private Coroutine _rotationCoroutine;
 
         public SimpleRotationModel Model { get; set; }
+
+        private void Awake()
+        {
+            _audio = Model.RotationAudio;
+        }
 
         private void OnEnable()
         { 
             _initialRotation = transform.localRotation;
             _rotationCoroutine = StartCoroutine(Rotate());
 
-            if (Model.RotationAudio)
-            {
-                if (Model.RotationAudio.Loop) PlayRotationSound();
-            }
+            if (_audio && _audio.Loop) PlayRotationSound();
         }
 
         private void OnDisable()
@@ -34,28 +35,26 @@ namespace AI.Rotation
         private IEnumerator Rotate()
         {
             float elapsedTime = 0f;
+            int lastCycle = 0;
+            int fullAngleRotation = 360;
 
             while (enabled)
             {
                 elapsedTime += Time.deltaTime * Model.Speed;
 
-                //TODO: Get rid of nested IFS!
-                if (Model.RotationAudio)
+                if (_audio && !_audio.Loop)
                 {
-                    if (!Model.RotationAudio.Loop)
-                    {
-                        int currentCycle = Mathf.FloorToInt(elapsedTime);
+                    int currentCycle = Mathf.FloorToInt(elapsedTime * Model.AudioPlaysPerCycle);
 
-                        if (currentCycle > _lastCycle)
-                        {
-                            _lastCycle = currentCycle;
-                            PlayRotationSound();
-                        }
+                    if (currentCycle > lastCycle)
+                    {
+                        lastCycle = currentCycle;
+                        PlayRotationSound();
                     }
                 }
 
                 float curveValue = Model.RotationCurve.Evaluate(elapsedTime);
-                Vector3 rotationAngles = Model.RotationAxis.normalized * curveValue * _fullRotationAngle;
+                Vector3 rotationAngles = Model.RotationAxis.normalized * curveValue * fullAngleRotation;
                 transform.localRotation = _initialRotation * Quaternion.Euler(rotationAngles);
 
                 yield return new WaitForFixedUpdate();
@@ -65,7 +64,7 @@ namespace AI.Rotation
         private void PlayRotationSound()
         {
             if (EventManager<string>.Instance)
-                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, Model.RotationAudio, gameObject);
+                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, _audio, gameObject);
         }
     }
 }

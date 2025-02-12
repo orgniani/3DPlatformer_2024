@@ -5,7 +5,7 @@ using Player.Brain; //TODO: Check if there's a better way to do this :)
 using Characters.Health; //TODO: Check if there's a better way to do this also
 using Gameplay; //TODO: Check if there's a better way to do this also
 
-namespace Input
+namespace Input.Cheats
 {
     public class CheatsInputReader : MonoBehaviour
     {

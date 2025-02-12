@@ -15,7 +15,7 @@ MonoBehaviour:
   <Model>k__BackingField:
     <RotationAudio>k__BackingField: {fileID: 11400000, guid: a77aa46e0edb7254091db70b5f1180e9,
       type: 2}
-    <Speed>k__BackingField: 0.5
+    <Speed>k__BackingField: 0.8
     <RotationAxis>k__BackingField: {x: 0, y: 1, z: 0}
     <RotationCurve>k__BackingField:
       serializedVersion: 2

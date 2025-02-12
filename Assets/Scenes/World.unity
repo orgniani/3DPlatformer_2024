@@ -323,6 +323,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &625221912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 625221913}
+  - component: {fileID: 625221914}
+  m_Layer: 6
+  m_Name: Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &625221913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625221912}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7177138258443646272}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &625221914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625221912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ab8c64da60257439e9ffe6dafc72a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jump: {fileID: 7736302452335031559}
+  footstepsAudio:
+  - {fileID: 11400000, guid: 8452fc0f77b0cb54d9652a387b69462a, type: 2}
+  - {fileID: 11400000, guid: 0b7a85bd533536a45b445a8a936a64bf, type: 2}
+  - {fileID: 11400000, guid: 05c773d7a5449734a94b4b99bcc204dd, type: 2}
+  jumpAudio: {fileID: 11400000, guid: d6553e164714c7240aa1413e42e7571d, type: 2}
 --- !u!1 &995108183
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,10 +751,7 @@ MonoBehaviour:
   rigidBody: {fileID: 5192752803812427469}
   jump: {fileID: 7736302452335031559}
   body: {fileID: 6542788559946240025}
-  footstepsAudioClips:
-  - {fileID: 11400000, guid: 8452fc0f77b0cb54d9652a387b69462a, type: 2}
-  - {fileID: 11400000, guid: 0b7a85bd533536a45b445a8a936a64bf, type: 2}
-  - {fileID: 11400000, guid: 05c773d7a5449734a94b4b99bcc204dd, type: 2}
+  sound: {fileID: 625221914}
   jumpTriggerParameter: jump
   isOnLandParameter: on_land
   horSpeedParameter: hor_speed
@@ -1078,6 +1125,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 887430369453249681}
+  - {fileID: 625221913}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7736302452335031559
@@ -1094,7 +1142,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 6542788559946240025}
   brain: {fileID: 4933663981859690958}
-  jumpAudio: {fileID: 11400000, guid: d6553e164714c7240aa1413e42e7571d, type: 2}
   footCollider: {fileID: 3080216278612013484}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
