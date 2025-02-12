@@ -3443,6 +3443,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6.4799995, y: 10.8454895, z: 6.4799995}
   m_Center: {x: 2.5, y: -4.349777, z: -2.5}
+--- !u!1 &788498119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 788498120}
+  - component: {fileID: 788498121}
+  m_Layer: 0
+  m_Name: Ground_G1 (23)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &788498120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788498119}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.3990116, y: 0, z: 5.370001}
+  m_LocalScale: {x: 2.4996, y: 2.4687, z: 0.5028034}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 915707620}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &788498121
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788498119}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.3999996, y: 5.62, z: 5.3999996}
+  m_Center: {x: 2.5, y: 2.96, z: 2.5}
 --- !u!1 &790390670
 GameObject:
   m_ObjectHideFlags: 0
@@ -4051,6 +4104,7 @@ Transform:
   m_Children:
   - {fileID: 5176805309812362877}
   - {fileID: 1399455186}
+  - {fileID: 788498120}
   - {fileID: 3152776099394097588}
   - {fileID: 1370505298}
   - {fileID: 1373663985829528149}
@@ -8114,24 +8168,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 155.9589, y: 1.785138, z: 155.9589}
   m_Center: {x: 0.0000038144635, y: 0.8925685, z: 0.000004053116}
---- !u!114 &2504031411408720013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4884995156174571335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4517e2e64cfdbb44879b172d2970c08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetDataSource: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09, type: 2}
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  enableLogs: 1
-  idleAudio: {fileID: 0}
 --- !u!1 &3027866379473439289
 GameObject:
   m_ObjectHideFlags: 0
@@ -8264,7 +8300,6 @@ GameObject:
   - component: {fileID: 7726063018552953497}
   - component: {fileID: 6573656129015732942}
   - component: {fileID: 62912173174244334}
-  - component: {fileID: 2504031411408720013}
   - component: {fileID: 2504031411408720012}
   m_Layer: 3
   m_Name: Ocean

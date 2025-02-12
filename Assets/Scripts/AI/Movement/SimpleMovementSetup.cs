@@ -16,7 +16,7 @@ namespace AI.Movement
 
         private void ValidateAndAssignValues()
         {
-            if (_simpleMovement && simpleMovementModelContainer)
+            if (simpleMovementModelContainer)
             {
                 _simpleMovement.Model = simpleMovementModelContainer.Model;
                 _simpleMovement.enabled = true;
@@ -24,7 +24,7 @@ namespace AI.Movement
 
             else
             {
-                Debug.LogError($"{name}: {nameof(_simpleMovement)} or {nameof(simpleMovementModelContainer)} is null!" +
+                Debug.LogError($"{name}: {nameof(simpleMovementModelContainer)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

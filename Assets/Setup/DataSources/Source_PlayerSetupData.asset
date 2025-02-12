@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4387a2445685cce49843c886d2107be6, type: 3}
-  m_Name: DM_Replacer
+  m_Script: {fileID: 11500000, guid: b34d948e210d5bd4cad2df8fe6debab5, type: 3}
+  m_Name: Source_PlayerSetupData
   m_EditorClassIdentifier: 
-  invincibleModelContainer: {fileID: 11400000, guid: 0a5648287b99a904d9f383bb2c28ec04,
-    type: 2}
-  characterDataSource: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09,
-    type: 2}

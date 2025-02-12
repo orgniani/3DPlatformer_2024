@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashBrainModelContainer: {fileID: 11400000, guid: a088fe0fbeb33b64e818498767df5b69,
     type: 2}
-  tagToSearch: Player
+  playerDataSource: {fileID: 11400000, guid: 57d8389c127ad5640ab3d61f8d38a598, type: 2}

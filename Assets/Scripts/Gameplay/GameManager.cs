@@ -154,7 +154,7 @@ namespace Gameplay
             {
                 Time.timeScale = 1f;
 
-                //TODO: Check if this works on build :)
+                //TODO: Avoid repeating this so much
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }

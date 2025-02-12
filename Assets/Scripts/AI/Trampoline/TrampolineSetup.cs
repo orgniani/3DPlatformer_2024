@@ -16,7 +16,7 @@ namespace AI.Trampoline
 
         private void ValidateAndAssignValues()
         {
-            if (_trampoline && trampolineModelContainer)
+            if (trampolineModelContainer)
             {
                 _trampoline.Model = trampolineModelContainer.Model;
                 _trampoline.enabled = true;
@@ -24,7 +24,7 @@ namespace AI.Trampoline
 
             else
             {
-                Debug.LogError($"{name}: {nameof(_trampoline)} or {nameof(trampolineModelContainer)} is null!" +
+                Debug.LogError($"{name}: {nameof(trampolineModelContainer)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

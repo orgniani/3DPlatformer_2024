@@ -16,7 +16,7 @@ namespace AI.Rotation
 
         private void ValidateAndAssignValues()
         {
-            if (_simpleRotation && simpleRotationModelContainer)
+            if (simpleRotationModelContainer)
             {
                 _simpleRotation.Model = simpleRotationModelContainer.Model;
                 _simpleRotation.enabled = true;
@@ -24,7 +24,7 @@ namespace AI.Rotation
 
             else
             {
-                Debug.LogError($"{name}: {nameof(_simpleRotation)} or {nameof(simpleRotationModelContainer)} is null!" +
+                Debug.LogError($"{name}: {nameof(simpleRotationModelContainer)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

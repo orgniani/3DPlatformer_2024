@@ -7,31 +7,30 @@ using Characters;
 using UnityEngine;
 using Camera;
 
-namespace Player
+namespace Player.Setup
 {
     [RequireComponent(typeof(Character))]
+    [RequireComponent(typeof(PlayerBody))]
+    [RequireComponent(typeof(PlayerBrain))]
+    [RequireComponent(typeof(PlayerJump))]
+    [RequireComponent(typeof(PlayerRotation))]
     public class PlayerSetup : MonoBehaviour
     {
         [Header("Data Sources")]
+        [SerializeField] private DataSource<PlayerSetup> playerDataSource;
         [SerializeField] private DataSource<Character> characterDataSource;
         [SerializeField] private DataSource<CameraSetup> cameraDataSource;
 
-        //TODO: Check if these should just be data sources?? who's to say.
-        [Header("Character Body")]
+        [Header("Model Containers")]
         [SerializeField] private BodyModelContainer bodyModelContainer;
-        [SerializeField] private PlayerBody playerBody;
-
-        [Header("Character Brain")]
         [SerializeField] private BrainModelContainer brainModelContainer;
-        [SerializeField] private PlayerBrain playerBrain;
-
-        [Header("Jump")]
         [SerializeField] private JumpModelContainer jumpModelContainer;
-        [SerializeField] private PlayerJump playerJump;
-
-        [Header("Rotation")]
         [SerializeField] private RotationModelContainer rotationModelContainer;
-        [SerializeField] private PlayerRotation playerRotation;
+
+        private PlayerBody _playerBody;
+        private PlayerBrain _playerBrain;
+        private PlayerJump _playerJump;
+        private PlayerRotation _playerRotation;
 
         private Character _character;
         private CameraSetup _camera;
@@ -46,8 +45,8 @@ namespace Player
             set
             {
                 brainModelContainer = value;
-                playerBrain.Model = brainModelContainer.Model;
-                playerBrain.Acceleration = brainModelContainer.Model.Acceleration;
+                _playerBrain.Model = brainModelContainer.Model;
+                _playerBrain.Acceleration = brainModelContainer.Model.Acceleration;
             }
         }
 
@@ -60,26 +59,38 @@ namespace Player
         {
             //TODO: What does ??= mean?
             _character ??= GetComponent<Character>();
+
+            _playerBody = GetComponent<PlayerBody>();
+            _playerBrain = GetComponent<PlayerBrain>();
+            _playerJump = GetComponent<PlayerJump>();
+            _playerRotation = GetComponent<PlayerRotation>();
         }
 
         private void OnEnable()
         {
             ValidateReferences();
+
+            SetDataSourcesValues();
+
             ValidateAndAssignValues();
-
-            if (characterDataSource.Value == null)
-                characterDataSource.Value = _character;
-
         }
 
         private void OnDisable()
         {
+            if (playerDataSource != null && playerDataSource.Value == this)
+                playerDataSource.Value = null;
+
             if (characterDataSource.Value == _character)
                 characterDataSource.Value = null;
         }
 
-        private void Start()
+        private void SetDataSourcesValues()
         {
+            playerDataSource.Value = this;
+
+            if (characterDataSource.Value == null)
+                characterDataSource.Value = _character;
+
             if (cameraDataSource.Value != null)
             {
                 _camera = cameraDataSource.Value;
@@ -89,6 +100,14 @@ namespace Player
 
         private void ValidateReferences()
         {
+            if (!playerDataSource)
+            {
+                Debug.LogError($"{name}: {nameof(playerDataSource)} is null!" +
+                               $"\nDisabling object to avoid errors.");
+                enabled = false;
+                return;
+            }
+
             if (!characterDataSource)
             {
                 Debug.LogError($"{name}: {nameof(characterDataSource)} is null!" +
@@ -105,66 +124,67 @@ namespace Player
                 return;
             }
         }
+
         private void ValidateAndAssignValues()
         {
             // JUMP
-            if (playerJump && jumpModelContainer)
+            if (jumpModelContainer)
             {
-                playerJump.Model = jumpModelContainer.Model;
-                playerJump.enabled = true;
+                _playerJump.Model = jumpModelContainer.Model;
+                _playerJump.enabled = true;
             }
 
             else
             {
-                Debug.LogError($"{name}: {nameof(playerJump)} or {nameof(jumpModelContainer)} is null!" +
+                Debug.LogError($"{name}: {nameof(jumpModelContainer)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }
 
             // BODY
-            if (playerBody && bodyModelContainer)
+            if (bodyModelContainer)
             {
-                playerBody.Model = bodyModelContainer.Model;
-                playerBody.enabled = true;
+                _playerBody.Model = bodyModelContainer.Model;
+                _playerBody.enabled = true;
             }
 
             else
             {
-                Debug.LogError($"{name}: {nameof(playerBody)} or {nameof(bodyModelContainer)} is null!" +
+                Debug.LogError($"{name}: {nameof(bodyModelContainer)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }
 
             // BRAIN
-            if (playerBrain && brainModelContainer)
+            if (brainModelContainer)
             {
-                playerBrain.Model = brainModelContainer.Model;
-                playerBrain.Camera = cameraDataSource.Value;
+                _playerBrain.Model = brainModelContainer.Model;
+                _playerBrain.Camera = cameraDataSource.Value;
 
-                playerBrain.enabled = true;
-                playerBrain.Acceleration = brainModelContainer.Model.Acceleration;
+                _playerBrain.enabled = true;
+                _playerBrain.Acceleration = brainModelContainer.Model.Acceleration;
             }
 
             else
             {
-                Debug.LogError($"{name}: {nameof(playerBrain)} or {nameof(brainModelContainer)} is null!" +
+                Debug.LogError($"{name}: {nameof(brainModelContainer)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }
 
             // ROTATION
-            if (playerRotation && rotationModelContainer)
+            if (rotationModelContainer)
             {
-                playerRotation.Model = rotationModelContainer.Model;
-                playerRotation.enabled = true;
+                _playerRotation.Model = rotationModelContainer.Model;
+                _playerRotation.enabled = true;
             }
 
             else
             {
-                Debug.LogError($"{name}: {nameof(playerRotation)} or {nameof(rotationModelContainer)} is null!" +
+                Debug.LogError($"{name}: {nameof(rotationModelContainer)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

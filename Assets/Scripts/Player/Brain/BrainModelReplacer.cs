@@ -1,39 +1,58 @@
+using DataSources;
 using UnityEngine;
+using Player.Setup;
 
 namespace Player.Brain
 {
-    [CreateAssetMenu(menuName = "Models/PlayerBrain/BrainReplacer", fileName = "BRM_Replacer")]
+    [CreateAssetMenu(menuName = "Models/Player/Brain/BrainReplacer", fileName = "BRM_Replacer")]
     public class BrainModelReplacer : ScriptableObject
     {
         [SerializeField] private BrainModelContainer flashBrainModelContainer;
-        [SerializeField] private string tagToSearch = "Player"; //TODO: find a better way to do this
+        [SerializeField] private DataSource<PlayerSetup> playerDataSource;
 
         private BrainModelContainer replacement;
+        private PlayerSetup _player;
 
         private void OnEnable()
         {
+            if (!AreReferencesValidated()) return;
+
             replacement = flashBrainModelContainer;
+
+            if (playerDataSource.Value != null)
+                _player = playerDataSource.Value;
         }
 
         public void ReplaceBrainModelContainer()
         {
-            var target = GameObject.FindGameObjectWithTag(tagToSearch);
+            if (!_player) return;
 
-            if (!target) return;
-
-            //TODO: Try get component?? There must be a better way --> Character data source?
-            if (target.TryGetComponent(out PlayerSetup setup))
+            if (replacement == _player.BrainModelContainer)
             {
-                if (replacement == setup.BrainModelContainer)
-                {
-                    replacement = flashBrainModelContainer;
-                }
-
-                var temp = setup.BrainModelContainer;
-
-                setup.BrainModelContainer = replacement;
-                replacement = temp;
+                replacement = flashBrainModelContainer;
             }
+
+            var temp = _player.BrainModelContainer;
+
+            _player.BrainModelContainer = replacement;
+            replacement = temp;
+        }
+
+        private bool AreReferencesValidated()
+        {
+            if (!flashBrainModelContainer)
+            {
+                Debug.LogError($"{name}: {nameof(flashBrainModelContainer)} is null!");
+                return false;
+            }
+
+            if (!playerDataSource)
+            {
+                Debug.LogError($"{name}: {nameof(playerDataSource)} is null!");
+                return false;
+            }
+
+            return true;
         }
     }
 }

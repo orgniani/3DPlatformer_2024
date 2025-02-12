@@ -11,7 +11,7 @@ namespace Characters
         [SerializeField] private bool enableLogs = true;
 
         [Header("Models")]
-        [SerializeField] private DamageModelContainer damageModelContainer; //TODO: Validate reference
+        [SerializeField] private DamageModelContainer damageModelContainer;
 
         private Rigidbody _rigidBody;
 
@@ -33,8 +33,17 @@ namespace Characters
 
         private void Awake()
         {
+            //TODO: RESEARCH IF THERE'S A BETTER WAY TO DO THIS --> TRYGETCOMPONENT
             if (TryGetComponent<Rigidbody>(out var rigidbody))
                 _rigidBody = rigidbody;
+
+            if (!damageModelContainer)
+            {
+                Debug.LogError($"{name}: {nameof(damageModelContainer)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
 
             Model = damageModelContainer.Model;
         }

@@ -6,6 +6,7 @@ namespace Audio
 {
     public class AudioManager : MonoBehaviour
     {
+        //TODO: Should be able to create various audio source for the same game object!
         private Dictionary<GameObject, AudioSource> audioSources = new Dictionary<GameObject, AudioSource>();
         [SerializeField] private AudioEvent loseAudio;
         [SerializeField] private AudioEvent winAudio;

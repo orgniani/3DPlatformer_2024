@@ -1,3 +1,4 @@
+using DataSources;
 using UnityEngine;
 
 namespace Characters.Health
@@ -6,34 +7,51 @@ namespace Characters.Health
     public class DamageModelReplacer : ScriptableObject
     {
         [SerializeField] private DamageModelContainer invincibleModelContainer;
-        [SerializeField] private string tagToSearch = "Player"; //TODO: find a better way to do this
+        [SerializeField] private DataSource<Character> characterDataSource;
 
-        private DamageModelContainer replacement;
+        private DamageModelContainer _replacement;
+        private Character _target;
 
         private void OnEnable()
         {
-            replacement = invincibleModelContainer;
+            if (!AreReferencesValidated()) return;
+
+            _replacement = invincibleModelContainer;
+
+            if (characterDataSource.Value != null)
+                _target = characterDataSource.Value;
         }
 
         public void ReplaceDamageModelContainer()
         {
-            var target = GameObject.FindGameObjectWithTag(tagToSearch);
+            if (!_target) return;
 
-            if (!target) return;
-
-            //TODO: Try get component?? There must be a better way --> Character data source?
-            if (target.TryGetComponent(out Character character))
+            if (_replacement == _target.DamageModelContainer)
             {
-                if (replacement == character.DamageModelContainer)
-                {
-                    replacement = invincibleModelContainer;
-                }
-
-                var temp = character.DamageModelContainer;
-
-                character.DamageModelContainer = replacement;
-                replacement = temp;
+                _replacement = invincibleModelContainer;
             }
+
+            var temp = _target.DamageModelContainer;
+
+            _target.DamageModelContainer = _replacement;
+            _replacement = temp;
+        }
+
+        private bool AreReferencesValidated()
+        {
+            if (!invincibleModelContainer)
+            {
+                Debug.LogError($"{name}: {nameof(invincibleModelContainer)} is null!");
+                return false;
+            }
+
+            if (!characterDataSource)
+            {
+                Debug.LogError($"{name}: {nameof(characterDataSource)} is null!");
+                return false;
+            }
+
+            return true;
         }
     }
 }
