@@ -1,7 +1,6 @@
 using Audio;
 using Events;
 using Player.Jump;
-using Unity.VisualScripting.YamlDotNet.Serialization.ValueDeserializers;
 using UnityEngine;
 
 namespace Player
@@ -11,9 +10,9 @@ namespace Player
         [Header("Player")]
         [SerializeField] private PlayerJump jump;
 
-        [Header("Audio Events")]
-        [SerializeField] private AudioEvent[] footstepsAudio;
-        [SerializeField] private AudioEvent jumpAudio;
+        [Header("Audio Configs")]
+        [SerializeField] private AudioConfig[] footstepsAudio;
+        [SerializeField] private AudioConfig jumpAudio;
 
         private void Awake()
         {

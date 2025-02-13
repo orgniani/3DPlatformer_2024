@@ -7,7 +7,7 @@ namespace AI.Rotation
     [Serializable]
     public class SimpleRotationModel
     {
-        [field: SerializeField] public AudioEvent RotationAudio { get; private set; }
+        [field: SerializeField] public AudioConfig RotationAudio { get; private set; }
 
         [field: SerializeField] public float Speed { get; private set; } = 1f;
 

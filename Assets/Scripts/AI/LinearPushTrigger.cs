@@ -9,7 +9,7 @@ namespace AI
         [Header("References")]
         [SerializeField] private LinearPush[] obstacles;
         [SerializeField] private LayerMask targetLayer;
-        [SerializeField] private AudioEvent triggerAudio;
+        [SerializeField] private AudioConfig triggerAudio;
 
         private bool _shouldCollide = true;
 

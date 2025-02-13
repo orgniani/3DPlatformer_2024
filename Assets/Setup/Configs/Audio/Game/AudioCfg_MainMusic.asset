@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d73f4c2df8952924394c13061a5114b4, type: 3}
-  m_Name: AudioCfg_Footstep2
+  m_Name: AudioCfg_MainMusic
   m_EditorClassIdentifier: 
-  <Clip>k__BackingField: {fileID: 8300000, guid: 24e96b124dc98a649b0741bda0d7351f,
+  <Clip>k__BackingField: {fileID: 8300000, guid: 5d6e42b338547477aa7a88708f894463,
     type: 3}
-  <Loop>k__BackingField: 0
-  <Volume>k__BackingField: 0.5
-  <SpatialBlend>k__BackingField: 1
-  <MinDistance>k__BackingField: 5
-  <MaxDistance>k__BackingField: 10
+  <Loop>k__BackingField: 1
+  <Volume>k__BackingField: 0.1
+  <SpatialBlend>k__BackingField: 0
+  <MinDistance>k__BackingField: 10
+  <MaxDistance>k__BackingField: 300

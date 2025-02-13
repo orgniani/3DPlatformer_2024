@@ -6387,16 +6387,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Props_2 (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1342774651384427630, guid: bd95c52d6828fdf42b8081bed36bc037,
-        type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1342774651384427630, guid: bd95c52d6828fdf42b8081bed36bc037,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6162736052093975989, guid: bd95c52d6828fdf42b8081bed36bc037,
         type: 3}
       propertyPath: m_LocalPosition.x

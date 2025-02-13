@@ -14,10 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Model>k__BackingField:
     <Force>k__BackingField: 5
-    <FloorAngle>k__BackingField: 60
+    <FloorAngle>k__BackingField: 70
     <JumpAcceleration>k__BackingField: 8
     <BrakeMultiplier>k__BackingField: 0.5
     <Cooldown>k__BackingField: 1
     <WaitToJump>k__BackingField: 0.1
-    <JumpAudio>k__BackingField: {fileID: 11400000, guid: d6553e164714c7240aa1413e42e7571d,
-      type: 2}

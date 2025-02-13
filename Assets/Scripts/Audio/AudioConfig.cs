@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Audio
 {
     [CreateAssetMenu(menuName = "Config/Audio", fileName = "AudioCfg", order = 0)]
-    public class AudioEvent : ScriptableObject
+    public class AudioConfig : ScriptableObject
     {
         [field: SerializeField] public AudioClip Clip { get; private set; }
 

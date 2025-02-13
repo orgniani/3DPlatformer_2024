@@ -13,8 +13,8 @@ namespace UI
     {
         [SerializeField] private TMP_Text buttonText;
 
-        [SerializeField] private AudioEvent clickAudio;
-        [SerializeField] private AudioEvent hoverAudio;
+        [SerializeField] private AudioConfig clickAudio;
+        [SerializeField] private AudioConfig hoverAudio;
 
         private string _id;
         private Button _button;

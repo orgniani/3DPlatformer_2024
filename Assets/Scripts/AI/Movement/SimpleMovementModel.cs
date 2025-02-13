@@ -7,7 +7,7 @@ namespace AI.Movement
     [Serializable]
     public class SimpleMovementModel
     {
-        [field: SerializeField] public AudioEvent ImpactAudio { get; private set; }
+        [field: SerializeField] public AudioConfig ImpactAudio { get; private set; }
 
         [field: SerializeField] public float Speed { get; private set; } = 2f;
 

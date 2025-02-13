@@ -17,14 +17,16 @@ namespace Characters.Health
             if (!AreReferencesValidated()) return;
 
             _replacement = invincibleModelContainer;
-
-            if (characterDataSource.Value != null)
-                _target = characterDataSource.Value;
+            TryFindTarget();
         }
 
         public void ReplaceDamageModelContainer()
         {
-            if (!_target) return;
+            if (!_target)
+            {
+                TryFindTarget();
+                if (!_target) return;
+            }
 
             if (_replacement == _target.DamageModelContainer)
             {
@@ -35,6 +37,12 @@ namespace Characters.Health
 
             _target.DamageModelContainer = _replacement;
             _replacement = temp;
+        }
+
+        private void TryFindTarget()
+        {
+            if (characterDataSource.Value != null)
+                _target = characterDataSource.Value;
         }
 
         private bool AreReferencesValidated()

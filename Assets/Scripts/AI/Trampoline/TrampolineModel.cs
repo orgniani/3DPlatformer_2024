@@ -21,6 +21,6 @@ namespace AI.Trampoline
 
         [field: SerializeField] public LayerMask PlayerLayer { get; private set; }
 
-        [field: SerializeField] public AudioEvent BounceAudio { get; private set; }
+        [field: SerializeField] public AudioConfig BounceAudio { get; private set; }
     }
 }

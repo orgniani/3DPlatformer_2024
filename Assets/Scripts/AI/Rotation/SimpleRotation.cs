@@ -8,7 +8,7 @@ namespace AI.Rotation
     public class SimpleRotation : MonoBehaviour
     {
         private Quaternion _initialRotation;
-        private AudioEvent _audio;
+        private AudioConfig _audio;
         private Coroutine _rotationCoroutine;
 
         public SimpleRotationModel Model { get; set; }

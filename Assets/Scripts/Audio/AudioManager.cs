@@ -6,13 +6,17 @@ namespace Audio
 {
     public class AudioManager : MonoBehaviour
     {
-        //TODO: Should be able to create various audio source for the same game object!
-        private Dictionary<GameObject, AudioSource> audioSources = new Dictionary<GameObject, AudioSource>();
-        [SerializeField] private AudioEvent loseAudio;
-        [SerializeField] private AudioEvent winAudio;
+        private Dictionary<GameObject, Dictionary<AudioClip, AudioSource>> audioSources = new();
+
+        [SerializeField] private AudioConfig mainMusic;
+
+        [SerializeField] private AudioConfig loseAudio;
+        [SerializeField] private AudioConfig winAudio;
 
         private void OnEnable()
         {
+            PlayAudio(mainMusic, gameObject);
+
             if (EventManager<string>.Instance)
             {
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.PlayAudioAction, PlayAudio);
@@ -33,35 +37,49 @@ namespace Audio
 
         private void PlayAudio(params object[] args)
         {
-            if (args.Length == 2 && args[0] is AudioEvent audioEvent && args[1] is GameObject caller)
+            if (args.Length == 2 && args[0] is AudioConfig audioConfig && args[1] is GameObject caller)
             {
-                if (audioEvent == null || audioEvent.Clip == null || caller == null) return;
+                if (audioConfig == null || audioConfig.Clip == null || caller == null) return;
 
-                //TODO: Revise logic --> TryGetValue?
-                if (!audioSources.TryGetValue(caller, out AudioSource source))
-                    source = CreateAudioSource(caller, audioEvent, source);
-
-                source.clip = audioEvent.Clip;
-                source.loop = audioEvent.Loop;
-                source.volume = audioEvent.Volume;
-
-                source.spatialBlend = audioEvent.SpatialBlend;
-                source.maxDistance = audioEvent.MaxDistance;
-                source.minDistance = audioEvent.MinDistance;
-
+                AudioSource source = GetOrCreateAudioSource(caller, audioConfig);
                 source.Play();
             }
         }
 
-        private AudioSource CreateAudioSource(GameObject caller, AudioEvent audioEvent, AudioSource source)
+        private AudioSource GetOrCreateAudioSource(GameObject caller, AudioConfig audioConfig)
         {
-            GameObject audioObj = new GameObject("AudioSource_" + caller.name);
+            if (!audioSources.TryGetValue(caller, out var clipMap))
+            {
+                clipMap = new Dictionary<AudioClip, AudioSource>();
+                audioSources[caller] = clipMap;
+            }
+
+            if (clipMap.TryGetValue(audioConfig.Clip, out AudioSource existingSource))
+                return existingSource;
+
+            AudioSource newSource = CreateNewAudioSource(caller, audioConfig);
+            clipMap[audioConfig.Clip] = newSource;
+
+            return newSource;
+        }
+
+        private AudioSource CreateNewAudioSource(GameObject caller, AudioConfig audioConfig)
+        {
+            GameObject audioObj = new GameObject($"AudioSource_{caller.name}_{audioConfig.Clip.name}");
             audioObj.transform.SetParent(caller.transform);
             audioObj.transform.localPosition = Vector3.zero;
-            source = audioObj.AddComponent<AudioSource>();
-            audioSources[caller] = source;
 
-            return source;
+            AudioSource newSource = audioObj.AddComponent<AudioSource>();
+
+            newSource.clip = audioConfig.Clip;
+            newSource.loop = audioConfig.Loop;
+            newSource.volume = audioConfig.Volume;
+
+            newSource.spatialBlend = audioConfig.SpatialBlend;
+            newSource.maxDistance = audioConfig.MaxDistance;
+            newSource.minDistance = audioConfig.MinDistance;
+
+            return newSource;
         }
 
         private void PlayWinAudio(params object[] args)

@@ -18,14 +18,16 @@ namespace Player.Brain
             if (!AreReferencesValidated()) return;
 
             replacement = flashBrainModelContainer;
-
-            if (playerDataSource.Value != null)
-                _player = playerDataSource.Value;
+            TryFindPlayer();
         }
 
         public void ReplaceBrainModelContainer()
         {
-            if (!_player) return;
+            if (!_player)
+            {
+                TryFindPlayer();
+                if (!_player) return;
+            }
 
             if (replacement == _player.BrainModelContainer)
             {
@@ -36,6 +38,12 @@ namespace Player.Brain
 
             _player.BrainModelContainer = replacement;
             replacement = temp;
+        }
+
+        private void TryFindPlayer()
+        {
+            if (playerDataSource.Value != null)
+                _player = playerDataSource.Value;
         }
 
         private bool AreReferencesValidated()

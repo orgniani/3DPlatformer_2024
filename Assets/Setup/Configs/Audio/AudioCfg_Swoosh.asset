@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c0b2b1949a9dfa459528238f1dd2067, type: 3}
+  m_Script: {fileID: 11500000, guid: d73f4c2df8952924394c13061a5114b4, type: 3}
   m_Name: AudioCfg_Swoosh
   m_EditorClassIdentifier: 
   <Clip>k__BackingField: {fileID: 8300000, guid: a0fcc5cbebf6f09408885949658baabc,

@@ -30,7 +30,7 @@ namespace UI
 
         [Header("Audio")]
         //TODO: Should this be moved? --> CLICK BUTTON AUDIO
-        [SerializeField] private AudioEvent clickButtonAudio;
+        [SerializeField] private AudioConfig clickButtonAudio;
 
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
