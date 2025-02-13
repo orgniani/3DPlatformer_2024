@@ -132,9 +132,6 @@ namespace Gameplay
         {
             InvokeUnloadSceneryEvent(levels[_currentLevelIndex].SceneIndexes);
             InvokeUnloadSceneryEvent(secondBatch.SceneIndexes);
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
         }
 
         public void HandlePauseGame(params object[] args)
@@ -143,21 +140,10 @@ namespace Gameplay
 
             IsGamePaused = !IsGamePaused;
             if (IsGamePaused)
-            {
                 Time.timeScale = 0f;
 
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-
-            }
             else
-            {
                 Time.timeScale = 1f;
-
-                //TODO: Avoid repeating this so much
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
         }
 
         public void HandlePlayGame()
@@ -173,10 +159,6 @@ namespace Gameplay
 
         public void HandleRestartLevel()
         {
-            //TODO: Repeated too many times!
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
             IsFinalLevel = false;
 
             _sceneryManager.ResetIdsToIndex0();

@@ -4,7 +4,6 @@ using Player.Body;
 
 namespace Player
 {
-    //TODO: Perhaps this could be improved --> ANIMATOR VIEW
     public class PlayerAnimatorView : MonoBehaviour
     {
         [Header("References")]

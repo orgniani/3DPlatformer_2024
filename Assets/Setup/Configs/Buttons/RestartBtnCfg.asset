@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: RestartBtnCfg
   m_EditorClassIdentifier: 
   <Label>k__BackingField: Restart
-  <IsExitButton>k__BackingField: 0
-  <IsRestartButton>k__BackingField: 1
+  <Action>k__BackingField: 5

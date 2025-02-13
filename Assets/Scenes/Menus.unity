@@ -1243,20 +1243,29 @@ MonoBehaviour:
   menusWithId:
   - <ID>k__BackingField: Main Menu
     <MenuScript>k__BackingField: {fileID: 35789866}
+    <IsTutorialMenu>k__BackingField: 0
   - <ID>k__BackingField: Credits
     <MenuScript>k__BackingField: {fileID: 1388089929}
+    <IsTutorialMenu>k__BackingField: 0
   - <ID>k__BackingField: Win
     <MenuScript>k__BackingField: {fileID: 1850539987}
+    <IsTutorialMenu>k__BackingField: 0
   - <ID>k__BackingField: Lose
     <MenuScript>k__BackingField: {fileID: 2132303013}
+    <IsTutorialMenu>k__BackingField: 0
   - <ID>k__BackingField: Pause
     <MenuScript>k__BackingField: {fileID: 1951761623}
-  - <ID>k__BackingField: Instructions
+    <IsTutorialMenu>k__BackingField: 0
+  - <ID>k__BackingField: Tutorial
     <MenuScript>k__BackingField: {fileID: 1758390977}
+    <IsTutorialMenu>k__BackingField: 1
   buttonConfigs:
   - {fileID: 11400000, guid: 5cc16f59b6e85a140bb82bcd82a54804, type: 2}
   - {fileID: 11400000, guid: 176098d7ce7b6214a819449bfc2065bd, type: 2}
   - {fileID: 11400000, guid: db9f5728951eb5d4e9675c08870cf78c, type: 2}
+  - {fileID: 11400000, guid: 0e90be999cccf7a4199c2474444ca79d, type: 2}
+  - {fileID: 11400000, guid: 8574c4087e11b744b9e2732422e6636e, type: 2}
+  - {fileID: 11400000, guid: d9474b405273109439c2f5a20b20f362, type: 2}
   clickButtonAudio: {fileID: 11400000, guid: 3a18c246e42a44343b864141927d225a, type: 2}
   enableLogs: 1
 --- !u!1 &747658390
@@ -1507,7 +1516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f794a3a44b5404496446c0d344f5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationAxis: {x: 0, y: 1, z: 0}
 --- !u!114 &848305525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3132,7 +3140,7 @@ GameObject:
   - component: {fileID: 1758390978}
   - component: {fileID: 1758390977}
   m_Layer: 0
-  m_Name: Intructions
+  m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3720,7 +3728,7 @@ MonoBehaviour:
   buttonParent: {fileID: 999677910}
   buttonConfigs:
   - {fileID: 11400000, guid: 8574c4087e11b744b9e2732422e6636e, type: 2}
-  - {fileID: 11400000, guid: 6a558f917fc03664d887b1e457cf79b6, type: 2}
+  - {fileID: 11400000, guid: d9474b405273109439c2f5a20b20f362, type: 2}
   enableLogs: 1
 --- !u!114 &1951761624
 MonoBehaviour:

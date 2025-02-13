@@ -23,10 +23,9 @@ namespace Camera.FollowTarget
             _followCoroutine = StartCoroutine(FollowTargetCoroutine());
         }
 
-        //TODO: Check that all coroutines are consistent
         private IEnumerator FollowTargetCoroutine()
         {
-            while(_target)
+            while (_target)
             {
                 Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0); //TODO: Research quaternions
 

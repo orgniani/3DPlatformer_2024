@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayBtnCfg
   m_EditorClassIdentifier: 
   <Label>k__BackingField: Play
-  <IsExitButton>k__BackingField: 0
+  <Action>k__BackingField: 4

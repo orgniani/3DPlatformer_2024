@@ -7,11 +7,13 @@ using Gameplay;
 using Events;
 using System.Linq;
 using Audio;
+using UI.Buttons;
 
 namespace UI
 {
     public class UINavigationManager : MonoBehaviour
     {
+        //TODO: Revisit script --> UINAVIGATIONMANAGER
         [Header("References")]
         [Header("Data Sources")]
         [SerializeField] private DataSource<GameManager> gameManagerDataSource;
@@ -19,10 +21,8 @@ namespace UI
         [Header("Systems")]
         [SerializeField] private EventSystem eventSystem;
 
-        //TODO: Maybe the tutorial instructions should be less hardcoded...
         [Header("Menus")]
-        [Tooltip("The first item on this list will be set as the default /n" +
-                 "The last item will be set as the tutorial instructions")]
+        [Tooltip("The first item on this list will be set as the default")]
         [SerializeField] private List<MenuWithId> menusWithId;
 
         [Header("Buttons")]
@@ -38,9 +38,12 @@ namespace UI
         private int _currentMenuIndex = 0;
         private GameManager _gameManager;
 
+        private Dictionary<UIButtonAction, Action> _buttonActions;
+
         private void Awake()
         {
             ValidateReferences();
+            InitializeButtonActions();
         }
 
         private void OnEnable()
@@ -56,6 +59,37 @@ namespace UI
 
         private void Start()
         {
+            InitializeMenus();
+
+            if (gameManagerDataSource.Value != null) 
+                _gameManager = gameManagerDataSource.Value;
+        }
+
+        private void OnDisable()
+        {
+            if (EventManager<string>.Instance)
+            {
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.WinAction, HandleOpenWinMenu);
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.LoseAction, HandleOpenLoseMenu);
+                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.PauseAction, HandleOpenPauseMenu);
+            }
+        }
+
+        private void InitializeButtonActions()
+        {
+            _buttonActions = new Dictionary<UIButtonAction, Action>
+        {
+            { UIButtonAction.Resume, ResumeGame },
+            { UIButtonAction.Close, CloseMenu },
+            { UIButtonAction.Quit, QuitGame },
+            { UIButtonAction.Play, PlayGame },
+            { UIButtonAction.Restart, RestartGame },
+            { UIButtonAction.Exit, ExitGame }
+            };
+        }
+
+        private void InitializeMenus()
+        {
             var menuIds = new List<string>();
 
             foreach (var menu in menusWithId)
@@ -69,143 +103,105 @@ namespace UI
                 menuIds.Add(menu.ID);
 
                 menu.MenuScript.Setup(eventSystem);
-                menu.MenuScript.OnChangeMenu += HandleMenuOptions;
+                menu.MenuScript.OnChangeMenu += HandleMenuNavigation;
                 menu.MenuScript.gameObject.SetActive(false);
             }
 
             menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(true);
-
-            if (gameManagerDataSource.Value != null) _gameManager = gameManagerDataSource.Value;
         }
-
-        private void OnDisable()
-        {
-            if (EventManager<string>.Instance)
-            {
-                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.WinAction, HandleOpenWinMenu);
-                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.LoseAction, HandleOpenLoseMenu);
-                EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.PauseAction, HandleOpenPauseMenu);
-            }
-        }
-
 
         private void HandleOpenWinMenu(params object[] args)
         {
             if (_gameManager && _gameManager.IsFinalLevel)
-                HandleMenuOptions(GameEvents.WinAction);
+            {
+                OpenMenu(GameEvents.WinAction);
+                UnlockCursor();
+            }
         }
 
         private void HandleOpenLoseMenu(params object[] args)
         {
-            HandleMenuOptions(GameEvents.LoseAction);
+            OpenMenu(GameEvents.LoseAction);
+            UnlockCursor();
         }
 
         private void HandleOpenPauseMenu(params object[] args)
         {
-            //TODO: im pretty sure this isnt doing anything --> the id sent is "Pause"
             if (_gameManager.IsGamePaused)
-                HandleMenuOptions(GameEvents.PauseAction);
+            {
+                OpenMenu(GameEvents.PauseAction);
+                UnlockCursor();
+            }
 
             else
+            {
                 menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
+                LockCursor();
+            }
         }
 
-        private void HandleMenuOptions(string id)
+        private void HandleMenuNavigation(string id)
         {
+            PlayClickButtonAudio(); 
+
             var buttonConfig = buttonConfigs.FirstOrDefault(config => config.Label == id);
-
-            if (buttonConfig != null && buttonConfig.IsExitButton)
-            {
-                ExitGame();
-                return;
-            }
-
-            PlayClickButtonAudio();
-
-            HandleClickPlayButton(buttonConfig);
-
-            HandleClickMenuButton(id);
-        }
-
-        private void HandleClickPlayButton(UIButtonConfig buttonConfig)
-        {
-            if (buttonConfig != null && _gameManager)
+            if (buttonConfig != null && _buttonActions.TryGetValue(buttonConfig.Action, out var action))
             {
                 menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
-
-                if (buttonConfig.IsRestartButton) _gameManager.HandleRestartLevel();
-
-                else
-                {
-                    _gameManager.HandlePlayGame();
-
-                    //TODO: This is hardcoded! make sure you find a different way to open the instructions menu on tutorial
-                    _currentMenuIndex = menusWithId.Count - 1;
-                    menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(true);
-                }
+                action.Invoke();
             }
+
+            else OpenMenu(id);
         }
 
-        private void HandleClickMenuButton(string id)
+        private void OpenMenu(string id)
         {
-            for (var i = 0; i < menusWithId.Count; i++)
-            {
-                var menuWithId = menusWithId[i];
+            var menu = menusWithId.FirstOrDefault(menu => menu.ID == id);
+            if (menu.MenuScript == null) return;
 
-                if (menuWithId.ID == id)
-                {
-                    if (_currentMenuIndex >= menusWithId.Count)
-                    {
-                        if (enableLogs) Debug.Log($"{name}: Current menu index {_currentMenuIndex} is out of bounds.");
-                        return;
-                    }
+            menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
 
-                    menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
-                    menuWithId.MenuScript.gameObject.SetActive(true);
-                    _currentMenuIndex = i;
-
-                    break;
-                }
-            }
-
-            HandlePauseMenuButtons(id);
+            menu.MenuScript.gameObject.SetActive(true);
+            _currentMenuIndex = menusWithId.IndexOf(menu);
         }
 
-        private void HandlePauseMenuButtons(string id)
+        private void ResumeGame()
         {
-            // TODO: Avoid hardcoded names --> The id should probably be a buttonconfig thing
-            if (id == "Resume")
+            LockCursor();
+            _gameManager.HandlePauseGame();
+        }
+
+        private void CloseMenu()
+        {
+            LockCursor();
+        }
+
+        private void QuitGame()
+        {
+            _gameManager.OnGameOver();
+            _gameManager.HandlePauseGame();
+
+            _currentMenuIndex = 0;
+            menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(true);
+        }
+
+        private void PlayGame()
+        {
+            _gameManager.HandlePlayGame();
+
+            var tutorialMenu = menusWithId.FirstOrDefault(menu => menu.IsTutorialMenu);
+            if (tutorialMenu.MenuScript != null)
             {
-                _gameManager.HandlePauseGame();
-                menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
-
-                //TODO: This gets repeated too many times --> Cursor logic locked
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-
-            // TODO: Avoid hardcoded names --> The id should probably be a buttonconfig thing
-            if (id == "Close")
-            {
-                menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
-
-                //TODO: This gets repeated too many times --> Cursor logic locked
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-
-            // TODO: Avoid hardcoded names --> The id should probably be a buttonconfig thing
-            else if (id == "Main Menu" && _gameManager.IsGamePaused)
-            {
-                _gameManager.OnGameOver();
-                _gameManager.HandlePauseGame(); // Unpause the game
-
-                //TODO: This gets repeated too many times --> Cursor logic none
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                _currentMenuIndex = menusWithId.IndexOf(tutorialMenu);
+                tutorialMenu.MenuScript.gameObject.SetActive(true);
             }
         }
 
+        private void RestartGame()
+        {
+            LockCursor();
+            _gameManager.HandleRestartLevel();
+        }
 
         //TODO: Should this be moved? --> PLAY CICK BUTTON AUDIO
         private void PlayClickButtonAudio()
@@ -223,11 +219,25 @@ namespace UI
 #endif
         }
 
+        private void LockCursor()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        private void UnlockCursor()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+
         [Serializable]
         public struct MenuWithId
         {
             [field: SerializeField] public string ID { get; set; }
             [field: SerializeField] public UIMenu MenuScript { get; set; }
+            [field: SerializeField] public bool IsTutorialMenu { get; set; }
         }
 
         private void ValidateReferences()

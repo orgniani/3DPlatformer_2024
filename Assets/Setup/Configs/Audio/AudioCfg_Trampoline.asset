@@ -16,6 +16,6 @@ MonoBehaviour:
     type: 3}
   <Loop>k__BackingField: 0
   <Volume>k__BackingField: 0.5
-  <SpatialBlend>k__BackingField: 0
-  <MinDistance>k__BackingField: 10
-  <MaxDistance>k__BackingField: 300
+  <SpatialBlend>k__BackingField: 1
+  <MinDistance>k__BackingField: 1
+  <MaxDistance>k__BackingField: 5

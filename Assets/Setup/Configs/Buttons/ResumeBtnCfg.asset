@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ResumeBtnCfg
   m_EditorClassIdentifier: 
   <Label>k__BackingField: Resume
-  <IsExitButton>k__BackingField: 0
+  <Action>k__BackingField: 1

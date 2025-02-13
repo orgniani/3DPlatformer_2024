@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b21fd88cb42ce54d91a5b4c4017beee, type: 3}
-  m_Name: TM_Default
+  m_Name: TM_Level2
   m_EditorClassIdentifier: 
   <Model>k__BackingField:
     <DepressionAmount>k__BackingField: 0.3
@@ -41,7 +41,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     <BounceSpeed>k__BackingField: 5
     <RecoverySpeed>k__BackingField: 1
-    <LaunchForce>k__BackingField: 5
+    <LaunchForce>k__BackingField: 3
     <PlayerLayer>k__BackingField:
       serializedVersion: 2
       m_Bits: 64

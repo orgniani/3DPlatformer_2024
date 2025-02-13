@@ -42,6 +42,7 @@ namespace Audio
                 if (audioConfig == null || audioConfig.Clip == null || caller == null) return;
 
                 AudioSource source = GetOrCreateAudioSource(caller, audioConfig);
+                
                 source.Play();
             }
         }

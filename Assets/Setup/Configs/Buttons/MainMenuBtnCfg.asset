@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MainMenuBtnCfg
   m_EditorClassIdentifier: 
   <Label>k__BackingField: Main Menu
-  <IsExitButton>k__BackingField: 0
+  <Action>k__BackingField: 0

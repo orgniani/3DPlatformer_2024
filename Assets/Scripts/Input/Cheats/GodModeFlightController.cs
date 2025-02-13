@@ -94,7 +94,6 @@ namespace Input.Cheats
             if (!playerRigidbody) return;
             if (_flightCoroutine == null) return;
 
-            playerRigidbody.velocity = Vector3.zero;
             playerRigidbody.useGravity = true;
 
             StopCoroutine(_flightCoroutine);

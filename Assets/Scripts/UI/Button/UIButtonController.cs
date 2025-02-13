@@ -6,7 +6,7 @@ using Audio;
 using Events;
 using UnityEngine.EventSystems;
 
-namespace UI
+namespace UI.Buttons
 {
     [RequireComponent(typeof(Button))]
     public sealed class UIButtonController : MonoBehaviour, IPointerEnterHandler, ISelectHandler
