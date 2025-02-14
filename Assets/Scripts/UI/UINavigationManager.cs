@@ -142,16 +142,22 @@ namespace UI
 
         private void HandleMenuNavigation(string id)
         {
-            PlayClickButtonAudio(); 
-
             var buttonConfig = buttonConfigs.FirstOrDefault(config => config.Label == id);
             if (buttonConfig != null && _buttonActions.TryGetValue(buttonConfig.Action, out var action))
             {
+                if(buttonConfig.Action == UIButtonAction.Exit)
+                {
+                    ExitGame();
+                    return; //TODO: Check if this works on build
+                }
+
                 menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
-                action.Invoke();
+                action?.Invoke();
             }
 
             else OpenMenu(id);
+
+            PlayClickButtonAudio();
         }
 
         private void OpenMenu(string id)

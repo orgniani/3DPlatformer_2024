@@ -405,6 +405,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: ded9c9c2499a7514cb987926e72b2b64,
     type: 3}
+  cameraModelReplacer: {fileID: 11400000, guid: 6489573680b63de4b83285a33b7c9262,
+    type: 2}
 --- !u!4 &995108185
 Transform:
   m_ObjectHideFlags: 0

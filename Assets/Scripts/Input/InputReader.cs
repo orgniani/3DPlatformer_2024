@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Events;
+using System.Collections;
+using Camera;
+using Camera.FollowTarget;
 
 namespace Input
 {
@@ -9,12 +12,19 @@ namespace Input
         [Header("Inputs")]
         [SerializeField] protected InputActionAsset inputActions;
 
+        [Header("Replacers")]
+        [SerializeField] private FollowPlayerModelReplacer cameraModelReplacer;
+
         private InputAction _moveAction;
         private InputAction _jumpAction;
         private InputAction _lookAction;
         private InputAction _pauseAction;
 
         public InputActionAsset InputActions => inputActions;
+
+        private Vector2 _controllerCameraInput; //TODO: Is this necessary?
+        private bool _isListeningForStickInput = false;
+        private bool _isUsingController = false;
 
         private void Awake()
         {
@@ -46,7 +56,7 @@ namespace Input
             _lookAction = inputActions.FindAction(GameEvents.LookAction);
             if (_lookAction != null)
             {
-                _lookAction.started += HandleCameraInput;
+                _lookAction.performed += HandleCameraInput;
                 _lookAction.canceled += HandleCameraInput;
             }
 
@@ -74,7 +84,7 @@ namespace Input
 
             if (_lookAction != null)
             {
-                _lookAction.started -= HandleCameraInput;
+                _lookAction.performed -= HandleCameraInput;
                 _lookAction.canceled -= HandleCameraInput;
             }
 
@@ -102,12 +112,67 @@ namespace Input
             }
         }
 
+        //TODO: Revisit logic --> Handle camera input for CONTROLLER
         private void HandleCameraInput(InputAction.CallbackContext ctx)
         {
             Vector2 cameraInput = ctx.ReadValue<Vector2>();
+            bool isGamepad = ctx.control.device is Gamepad;
 
+            if (isGamepad != _isUsingController)
+            {
+                _isUsingController = isGamepad;
+                cameraModelReplacer.ReplaceCameraModelContainer();
+            }
+
+            if (isGamepad)
+            {
+                HandleControllerInput(cameraInput);
+                return;
+            }
+
+            HandleMouseInput(cameraInput);
+        }
+
+        private void HandleMouseInput(Vector2 cameraInput)
+        {
             if (EventManager<string>.Instance)
                 EventManager<string>.Instance.InvokeEvent(GameEvents.LookAction, cameraInput);
+        }
+
+        private void HandleControllerInput(Vector2 cameraInput)
+        {
+            if (cameraInput.magnitude <= 0.01f)
+            {
+                _isListeningForStickInput = false;
+                return;
+            }
+
+            _controllerCameraInput = cameraInput;
+
+            if (!_isListeningForStickInput)
+            {
+                _isListeningForStickInput = true;
+                StartCoroutine(ProcessControllerLook());
+            }
+        }
+
+        private IEnumerator ProcessControllerLook()
+        {
+            while (_isListeningForStickInput)
+            {
+                if (EventManager<string>.Instance)
+                    EventManager<string>.Instance.InvokeEvent(GameEvents.LookAction, _controllerCameraInput);
+
+
+                if (_controllerCameraInput.magnitude <= 0.01f)
+                {
+                    _isListeningForStickInput = false;
+                    break;
+                }
+
+
+                yield return null;
+            }
         }
 
         private void HandlePauseInput(InputAction.CallbackContext ctx)

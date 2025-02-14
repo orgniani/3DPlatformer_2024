@@ -4,13 +4,34 @@ using UnityEngine;
 
 namespace Camera
 {
+    [RequireComponent(typeof(FollowPlayer))]
     public class CameraSetup : MonoBehaviour
     {
         [Header("Follow Player")]
         [SerializeField] private DataSource<CameraSetup> cameraDataSource;
 
         [SerializeField] private FollowPlayerModelContainer followPlayerModelContainer;
-        [SerializeField] private FollowPlayer followPlayer;
+        private FollowPlayer _followPlayer;
+
+        public FollowPlayerModelContainer FollowPlayerModelContainer
+        {
+            get
+            {
+                return followPlayerModelContainer;
+            }
+
+            set
+            {
+                followPlayerModelContainer = value;
+                _followPlayer.Model = followPlayerModelContainer.Model;
+            }
+        }
+
+
+        private void Awake()
+        {
+            _followPlayer = GetComponent<FollowPlayer>();
+        }
 
         private void OnEnable()
         {
@@ -27,18 +48,18 @@ namespace Camera
 
         public void SetUp(Transform target)
         {
-            if (followPlayer && followPlayerModelContainer)
+            if (_followPlayer && followPlayerModelContainer)
             {
-                followPlayer.Model = followPlayerModelContainer.Model;
-                followPlayer.enabled = true;
+                _followPlayer.Model = followPlayerModelContainer.Model;
+                _followPlayer.enabled = true;
 
-                followPlayer.StartFollowingTarget(target);
+                _followPlayer.StartFollowingTarget(target);
             }
         }
 
         public void SetInputRotation(Vector2 input)
         {
-            followPlayer.SetInputRotation(input);
+            _followPlayer.SetInputRotation(input);
         }
 
 
@@ -52,15 +73,15 @@ namespace Camera
                 return;
             }
 
-            if (followPlayer && followPlayerModelContainer)
+            if (followPlayerModelContainer)
             {
-                followPlayer.Model = followPlayerModelContainer.Model;
-                followPlayer.enabled = true;
+                _followPlayer.Model = followPlayerModelContainer.Model;
+                _followPlayer.enabled = true;
             }
 
             else
             {
-                Debug.LogError($"{name}: {nameof(followPlayer)} or {nameof(followPlayerModelContainer)} is null!" +
+                Debug.LogError($"{name}: {nameof(followPlayerModelContainer)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
