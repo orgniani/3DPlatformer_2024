@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UI.Buttons;
+using Input;
 
 namespace UI
 {
@@ -42,7 +43,7 @@ namespace UI
             _eventSystem.SetSelectedGameObject(_firstButton);
         }
 
-        public void Setup(EventSystem eventSystem)
+        public void Setup(EventSystem eventSystem, InputReader inputReader)
         {
             _eventSystem = eventSystem;
 
@@ -64,7 +65,7 @@ namespace UI
 
                 var newButton = Instantiate(buttonPrefab, buttonParent);
                 newButton.name = $"{config.Label}_Btn";
-                newButton.Setup(config, HandleButtonClick);
+                newButton.Setup(config, HandleButtonClick, inputReader);
                 _addedButtonLabels.Add(config.Label);
 
                 if (!_firstButton) _firstButton = newButton.gameObject;

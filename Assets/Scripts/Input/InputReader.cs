@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Events;
 using System.Collections;
-using Camera;
 using Camera.FollowTarget;
 
 namespace Input

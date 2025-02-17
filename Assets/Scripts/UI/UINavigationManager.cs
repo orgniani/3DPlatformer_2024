@@ -8,6 +8,7 @@ using Events;
 using System.Linq;
 using Audio;
 using UI.Buttons;
+using Input;
 
 namespace UI
 {
@@ -20,6 +21,7 @@ namespace UI
 
         [Header("Systems")]
         [SerializeField] private EventSystem eventSystem;
+        [SerializeField] private InputReader inputReader;
 
         [Header("Menus")]
         [Tooltip("The first item on this list will be set as the default")]
@@ -29,7 +31,6 @@ namespace UI
         [SerializeField] private List<UIButtonConfig> buttonConfigs = new();
 
         [Header("Audio")]
-        //TODO: Should this be moved? --> CLICK BUTTON AUDIO
         [SerializeField] private AudioConfig clickButtonAudio;
 
         [Header("Logs")]
@@ -102,7 +103,7 @@ namespace UI
                 }
                 menuIds.Add(menu.ID);
 
-                menu.MenuScript.Setup(eventSystem);
+                menu.MenuScript.Setup(eventSystem, inputReader);
                 menu.MenuScript.OnChangeMenu += HandleMenuNavigation;
                 menu.MenuScript.gameObject.SetActive(false);
             }

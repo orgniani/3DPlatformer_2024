@@ -1,33 +1,50 @@
 using Events;
 using UnityEngine;
-using Player.Brain;
-using Camera; // TODO: There must be a better way
+using Camera;
 using System.Collections;
+using DataSources;
+using Characters;
 
 namespace Input.Cheats
 {
     public class GodModeFlightController : MonoBehaviour
     {
         //TODO: REVISIT WHOLE SCRIPT!!! --> GOD MODE
-        [SerializeField] private PlayerBrain playerBrain;
-        [SerializeField] private Rigidbody playerRigidbody;
+        [Header("Data Sources")]
+        [SerializeField] private DataSource<CameraSetup> cameraDataSource;
+        [SerializeField] private DataSource<Character> playerDataSource;
 
+        [Header("Parameters")]
         [SerializeField] private float flightSpeed = 10f;
         [SerializeField] private float verticalSpeed = 5f;
 
         private Vector2 _movementInput;
         private float _flightInput;
 
+        private CameraSetup _playerCamera;
+        private Rigidbody _playerRigidbody;
+
         private Coroutine _flightCoroutine;
 
         private void Awake()
         {
+            if (cameraDataSource.Value != null)
+                _playerCamera = cameraDataSource.Value;
+
             enabled = false;
         }
 
         private void OnEnable()
         {
             ValidateReferences();
+
+            if (!playerDataSource.Value)
+            {
+                enabled = false;
+                return;
+            }
+
+            _playerRigidbody = playerDataSource.Value.RigidBody;
 
             if (EventManager<string>.Instance)
             {
@@ -66,12 +83,12 @@ namespace Input.Cheats
             {
                 Vector3 horizontalMovement = TransformDirectionRelativeToCamera(_movementInput);
 
-                Vector3 velocity = playerRigidbody.velocity;
+                Vector3 velocity = _playerRigidbody.velocity;
                 velocity.x = horizontalMovement.x * flightSpeed;
                 velocity.z = horizontalMovement.z * flightSpeed;
                 velocity.y = _flightInput * verticalSpeed;
 
-                if(!playerRigidbody.isKinematic) playerRigidbody.velocity = velocity;
+                if(!_playerRigidbody.isKinematic) _playerRigidbody.velocity = velocity;
 
                 yield return new WaitForFixedUpdate();
             }
@@ -81,7 +98,7 @@ namespace Input.Cheats
         {
             Vector3 direction = new Vector3(input.x, 0, input.y);
 
-            Vector3 cameraForward = playerBrain.Camera.transform.forward;
+            Vector3 cameraForward = _playerCamera.transform.forward;
             cameraForward.y = 0;
 
             direction = Quaternion.LookRotation(cameraForward) * direction;
@@ -91,10 +108,10 @@ namespace Input.Cheats
 
         public void StopFlight()
         {
-            if (!playerRigidbody) return;
+            if (!_playerRigidbody) return;
             if (_flightCoroutine == null) return;
 
-            playerRigidbody.useGravity = true;
+            _playerRigidbody.useGravity = true;
 
             StopCoroutine(_flightCoroutine);
             _flightCoroutine = null;
@@ -104,16 +121,16 @@ namespace Input.Cheats
 
         private void ValidateReferences()
         {
-            if (!playerBrain)
+            if (!playerDataSource)
             {
-                Debug.LogError($"{name}: {nameof(playerBrain)} is null!" +
+                Debug.LogError($"{name}: {nameof(playerDataSource)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }
-            if (!playerRigidbody)
+            if (!cameraDataSource)
             {
-                Debug.LogError($"{name}: {nameof(playerRigidbody)} is null!" +
+                Debug.LogError($"{name}: {nameof(cameraDataSource)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

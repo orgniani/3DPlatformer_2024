@@ -13,7 +13,7 @@ namespace Characters
         [Header("Models")]
         [SerializeField] private DamageModelContainer damageModelContainer;
 
-        private Rigidbody _rigidBody;
+        public Rigidbody RigidBody { get; private set; }             //TODO: RESEARCH IF THERE'S A BETTER WAY TO DO THIS --> RIGIDBODY
 
         public DamageModel Model { get; set; }
 
@@ -35,7 +35,7 @@ namespace Characters
         {
             //TODO: RESEARCH IF THERE'S A BETTER WAY TO DO THIS --> TRYGETCOMPONENT
             if (TryGetComponent<Rigidbody>(out var rigidbody))
-                _rigidBody = rigidbody;
+                RigidBody = rigidbody;
 
             if (!damageModelContainer)
             {
@@ -63,7 +63,7 @@ namespace Characters
         //TODO: RESEARCH IF THERE'S A BETTER WAY TO DO THIS
         private void EnableIsKinematic(params object[] args)
         {
-            if (_rigidBody) _rigidBody.isKinematic = true;
+            if (RigidBody) RigidBody.isKinematic = true;
             transform.position = Vector3.zero;
 
         }
@@ -81,7 +81,7 @@ namespace Characters
         public void SetStartPosition(Vector3 levelStartPosition, Quaternion levelStartRotation)
         {
             transform.SetPositionAndRotation(levelStartPosition, levelStartRotation);
-            if (_rigidBody) _rigidBody.isKinematic = false;
+            if (RigidBody) RigidBody.isKinematic = false;
         }
     }
 }
