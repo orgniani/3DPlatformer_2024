@@ -17,8 +17,6 @@ namespace UI.Buttons
         private string _id;
         private Button _button;
 
-        private InputReader _inputReader;
-
         public event Action<string> OnClick;
 
         private void Reset()
@@ -57,7 +55,7 @@ namespace UI.Buttons
             _button.onClick.RemoveListener(HandleButtonClick);
         }
 
-        public void Setup(UIButtonConfig config, Action<string> onClick, InputReader inputReader)
+        public void Setup(UIButtonConfig config, Action<string> onClick)
         {
             if (!buttonText)
             {
@@ -70,8 +68,6 @@ namespace UI.Buttons
             buttonText.SetText(config.Label);
             _id = config.Label;
             OnClick = onClick;
-
-            _inputReader = inputReader;
         }
 
         private void HandleButtonClick()

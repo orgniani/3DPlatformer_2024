@@ -43,7 +43,7 @@ namespace UI
             _eventSystem.SetSelectedGameObject(_firstButton);
         }
 
-        public void Setup(EventSystem eventSystem, InputReader inputReader)
+        public void Setup(EventSystem eventSystem)
         {
             _eventSystem = eventSystem;
 
@@ -65,7 +65,7 @@ namespace UI
 
                 var newButton = Instantiate(buttonPrefab, buttonParent);
                 newButton.name = $"{config.Label}_Btn";
-                newButton.Setup(config, HandleButtonClick, inputReader);
+                newButton.Setup(config, HandleButtonClick);
                 _addedButtonLabels.Add(config.Label);
 
                 if (!_firstButton) _firstButton = newButton.gameObject;
