@@ -10,7 +10,7 @@ namespace UI
     {
         [Header("References")]
         [SerializeField] private Canvas loadingScreen;
-        [SerializeField] private Image loadingBarFill;
+        [SerializeField] private Slider loadBar;
 
         private float _fillDuration;
 
@@ -41,7 +41,7 @@ namespace UI
         private void EnableLoadingScreen()
         {
             loadingScreen.enabled = true;
-            loadingBarFill.fillAmount = 0;
+            loadBar.value = 0;
         }
 
         private void DisableLoadingScreen()
@@ -57,23 +57,23 @@ namespace UI
             if (_currentFillCoroutine != null)
                 StopCoroutine(_currentFillCoroutine);
 
-            _currentFillCoroutine = StartCoroutine(LerpFill(loadingBarFill.fillAmount, percentage));
+            _currentFillCoroutine = StartCoroutine(LerpFill(loadBar.value, percentage));
         }
 
         private IEnumerator LerpFill(float from, float to)
         {
             float startTime = Time.time;
             float endTime = startTime + _fillDuration;
-            float startFillAmount = loadingBarFill.fillAmount;
+            float startFillAmount = loadBar.value;
 
             while (Time.time < endTime)
             {
                 float timeProgress = (Time.time - startTime) / _fillDuration;
-                loadingBarFill.fillAmount = Mathf.Lerp(startFillAmount, to, timeProgress);
+                loadBar.value = Mathf.Lerp(startFillAmount, to, timeProgress);
                 yield return null;
             }
 
-            loadingBarFill.fillAmount = to;
+            loadBar.value = to;
         }
 
         private void ValidateReferences()
@@ -86,9 +86,9 @@ namespace UI
                 return;
             }
 
-            if (!loadingBarFill)
+            if (!loadBar)
             {
-                Debug.LogError($"{name}: {nameof(loadingBarFill)} is null!" +
+                Debug.LogError($"{name}: {nameof(loadBar)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

@@ -150,7 +150,7 @@ namespace UI
                 if(buttonConfig.Action == UIButtonAction.Exit)
                 {
                     ExitGame();
-                    return; //TODO: Check if this works on build
+                    return;
                 }
 
                 menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
