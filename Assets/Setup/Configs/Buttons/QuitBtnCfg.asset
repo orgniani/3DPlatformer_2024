@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a102d7c44527dda4bb3e1db9a0fe9a97, type: 3}
   m_Name: QuitBtnCfg
   m_EditorClassIdentifier: 
-  <Label>k__BackingField: Quit
+  <ID>k__BackingField: Quit
+  <Text>k__BackingField: Main Menu
   <Action>k__BackingField: 3

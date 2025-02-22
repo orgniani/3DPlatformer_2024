@@ -1,10 +1,8 @@
 using Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Player.Brain; //TODO: Check if there's a better way to do this :)
-using Characters.Health; //TODO: Check if there's a better way to do this also
-using Gameplay; //TODO: Check if there's a better way to do this also
-using DataSources;
+using Player.Brain;
+using Characters.Health;
 
 namespace Input.Cheats
 {

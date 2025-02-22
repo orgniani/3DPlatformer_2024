@@ -65,8 +65,8 @@ namespace UI.Buttons
                 return;
             }
 
-            buttonText.SetText(config.Label);
-            _id = config.Label;
+            buttonText.SetText(config.Text);
+            _id = config.ID;
             OnClick = onClick;
         }
 

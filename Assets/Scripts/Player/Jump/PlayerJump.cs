@@ -11,7 +11,7 @@ namespace Player.Jump
     {
         [Header("Player")]
         [SerializeField] private PlayerBody body;
-        [SerializeField] private PlayerBrain brain; //TODO: is this really necessary?
+        [SerializeField] private PlayerBrain brain;
 
         [SerializeField] private Collider footCollider;
 
@@ -29,12 +29,8 @@ namespace Player.Jump
 
         public bool TryJump(float normalAcceleration)
         {
-            //TODO: There MUST be a better way to do this
-            if (!_shouldJump) return false;
-
-            if (!_shouldJumpOnRamp) return false;
-
-            if (!body.IsOnLand) return false;
+            if (!_shouldJump || !_shouldJumpOnRamp || !body.IsOnLand)
+                return false;
 
             _shouldJump = false;
             StartCoroutine(JumpSequence(normalAcceleration));
@@ -60,7 +56,6 @@ namespace Player.Jump
             brain.Acceleration = normalAcceleration;
         }
 
-        //TODO: Check if this can be improved
         public IEnumerator TrampolineBounce(Vector3 bounceForce)
         {
             _shouldJump = false;
@@ -75,10 +70,11 @@ namespace Player.Jump
 
         private void OnCollisionEnter(Collision collision)
         {
-            //TODO: Check if this is truly necesary
-            if (!body.IsOnLand) return;
-
-            //TODO: Add summary explaing how this should only calculate the collisions with the collider used for the characters feet rather than both feet and body.!
+            /// <summary>
+            /// Ensures that collision calculations are only processed when the contact point  
+            /// belongs to the character's foot collider. This prevents unintended interactions  
+            /// from other parts of the body.
+            /// </summary>
             if (collision.GetContact(0).thisCollider != footCollider) return;
 
             var contact = collision.contacts[0];

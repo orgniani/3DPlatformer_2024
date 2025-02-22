@@ -13,7 +13,7 @@ namespace Characters
         [Header("Models")]
         [SerializeField] private DamageModelContainer damageModelContainer;
 
-        public Rigidbody RigidBody { get; private set; }             //TODO: RESEARCH IF THERE'S A BETTER WAY TO DO THIS --> RIGIDBODY
+        public Rigidbody RigidBody { get; private set; } //TODO: RESEARCH IF THERE'S A BETTER WAY TO DO THIS --> RIGIDBODY
 
         public DamageModel Model { get; set; }
 

@@ -34,8 +34,7 @@ namespace Characters.Health
         {
             if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
             {
-                //TODO: What does the "?" before the dot means?
-                _target?.ReceiveAttack(); //TODO: Is this checking if its the _TARGET specifically?
+                _target.ReceiveAttack();
 
                 if (enableLogs) Debug.Log($"{name}: <color=orange> Player has died! </color>");
             }

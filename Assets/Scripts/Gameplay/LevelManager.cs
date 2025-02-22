@@ -33,7 +33,6 @@ namespace Gameplay
 
         private IEnumerator Start()
         {
-            //TODO: This could be used in other implementations of data sources
             while (_player == null)
             {
                 if (playerDataSource.Value != null)

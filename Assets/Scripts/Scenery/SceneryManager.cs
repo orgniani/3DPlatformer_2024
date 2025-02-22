@@ -30,7 +30,7 @@ namespace Scenery
         public event Action OnLoadEnd = delegate { };
 
         public float FakeLoadingTime => fakeLoadingTime;
-        public bool IsLoading { get; private set; } = false; //TODO: Might be a better way to do this
+        public bool IsLoading { get; private set; } = false;
 
         private void Awake()
         {

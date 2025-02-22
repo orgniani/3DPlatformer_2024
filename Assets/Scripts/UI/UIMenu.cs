@@ -56,17 +56,17 @@ namespace UI
                     continue;
                 }
 
-                else if (_addedButtonLabels.Contains(config.Label))
+                else if (_addedButtonLabels.Contains(config.ID))
                 {
-                    if (enableLogs) Debug.LogWarning($"{name}: Button with label {config.Label} has already been added to the menu! " +
+                    if (enableLogs) Debug.LogWarning($"{name}: Button with label {config.ID} has already been added to the menu! " +
                                                      $"\n Ignoring to avoid issues.");
                     continue;
                 }
 
                 var newButton = Instantiate(buttonPrefab, buttonParent);
-                newButton.name = $"{config.Label}_Btn";
+                newButton.name = $"{config.ID}_Btn";
                 newButton.Setup(config, HandleButtonClick);
-                _addedButtonLabels.Add(config.Label);
+                _addedButtonLabels.Add(config.ID);
 
                 if (!_firstButton) _firstButton = newButton.gameObject;
             }

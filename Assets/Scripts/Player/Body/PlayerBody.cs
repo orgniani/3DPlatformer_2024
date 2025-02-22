@@ -13,7 +13,7 @@ namespace Player.Body
         private bool _isBrakeRequested = false;
         private float _brakeMultiplier;
 
-        private readonly List<ImpulseRequest> _impulseRequests = new(); //TODO: Could this be something other than a list?
+        private readonly List<ImpulseRequest> _impulseRequests = new();
 
         private bool _shouldBreak = false;
         private bool _shouldCheckIfOnLand = true;

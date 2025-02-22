@@ -144,7 +144,7 @@ namespace UI
 
         private void HandleMenuNavigation(string id)
         {
-            var buttonConfig = buttonConfigs.FirstOrDefault(config => config.Label == id);
+            var buttonConfig = buttonConfigs.FirstOrDefault(config => config.ID == id);
             if (buttonConfig != null && _buttonActions.TryGetValue(buttonConfig.Action, out var action))
             {
                 if(buttonConfig.Action == UIButtonAction.Exit)
