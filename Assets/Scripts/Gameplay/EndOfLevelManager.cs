@@ -29,18 +29,13 @@ namespace Gameplay
 
             if (((1 << other.gameObject.layer) & playerLayer.value) != 0)
             {
-                InvokeOnWinAction();
+                if (EventManager<string>.Instance)
+                    EventManager<string>.Instance.InvokeEvent(GameEvents.WinAction);
 
                 if (enableLogs) Debug.Log($"{name}: <color=orange> Player touched the flag! </color>");
 
                 _shouldCollide = false;
             }
-        }
-
-        public void InvokeOnWinAction()
-        {
-            if (EventManager<string>.Instance)
-                EventManager<string>.Instance.InvokeEvent(GameEvents.WinAction);
         }
     }
 }

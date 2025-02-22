@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 using Events;
 using System.Collections;
 using Camera.FollowTarget;
+using DataSources;
+using Gameplay;
 
 namespace Input
 {
@@ -10,6 +12,9 @@ namespace Input
     {
         [Header("Inputs")]
         [SerializeField] protected InputActionAsset inputActions;
+
+        [Header("Data Sources")]
+        [SerializeField] private DataSource<LevelManager> levelManagerDataSource;
 
         [Header("Replacers")]
         [SerializeField] private FollowPlayerModelReplacer cameraModelReplacer;
@@ -20,6 +25,7 @@ namespace Input
         private InputAction _pauseAction;
 
         public InputActionAsset InputActions => inputActions;
+        public DataSource<LevelManager> LevelManagerDataSource => levelManagerDataSource;
 
         private Vector2 _controllerCameraInput; //TODO: Is this necessary?
         private bool _isListeningForStickInput = false;
@@ -27,13 +33,7 @@ namespace Input
 
         private void Awake()
         {
-            if (!inputActions)
-            {
-                Debug.LogError($"{name}: {nameof(inputActions)} is null!" +
-                               $"\nDisabling component to avoid errors.");
-                enabled = false;
-                return;
-            }
+            ValidateReferences();
         }
 
         private void OnEnable()
@@ -176,10 +176,38 @@ namespace Input
 
         private void HandlePauseInput(InputAction.CallbackContext ctx)
         {
+            if (!levelManagerDataSource.Value) return;
             if (ctx.phase == InputActionPhase.Started)
             {
                 if (EventManager<string>.Instance)
                     EventManager<string>.Instance.InvokeEvent(GameEvents.PauseAction, _pauseAction);
+            }
+        }
+
+        private void ValidateReferences()
+        {
+            if (!inputActions)
+            {
+                Debug.LogError($"{name}: {nameof(inputActions)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!levelManagerDataSource)
+            {
+                Debug.LogError($"{name}: {nameof(levelManagerDataSource)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!cameraModelReplacer)
+            {
+                Debug.LogError($"{name}: {nameof(cameraModelReplacer)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
             }
         }
     }

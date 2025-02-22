@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using Player.Brain; //TODO: Check if there's a better way to do this :)
 using Characters.Health; //TODO: Check if there's a better way to do this also
 using Gameplay; //TODO: Check if there's a better way to do this also
+using DataSources;
 
 namespace Input.Cheats
 {
@@ -12,9 +13,6 @@ namespace Input.Cheats
         [Header("Inputs")]
         [SerializeField] private InputReader inputReader;
         [SerializeField] private string actionMapName = "Cheats";
-
-        [Header("Tags")]
-        [SerializeField] private string tagToSearch = "EndOfLevel"; //TODO: find a better way to do this
 
         [Header("Replacers")]
         [SerializeField] private BrainModelReplacer brainModelReplacer;
@@ -104,15 +102,14 @@ namespace Input.Cheats
 
         private void HandleNextLevelInput(InputAction.CallbackContext ctx)
         {
-            var target = GameObject.FindGameObjectWithTag(tagToSearch);
-            if (!target) return;
+            if (!inputReader.LevelManagerDataSource.Value) return;
 
             if (ctx.phase == InputActionPhase.Started)
             {
                 if (enableLogs) Debug.Log($"{name}: <color=cyan> Next Level input selected! </color>");
 
-                if (target.TryGetComponent(out EndOfLevelManager endOfLevel))
-                    endOfLevel.InvokeOnWinAction();
+                if (EventManager<string>.Instance)
+                    EventManager<string>.Instance.InvokeEvent(GameEvents.WinAction);
             }
         }
 

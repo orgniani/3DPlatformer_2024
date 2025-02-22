@@ -211,7 +211,6 @@ namespace UI
             _gameManager.HandleRestartLevel();
         }
 
-        //TODO: Should this be moved? --> PLAY CICK BUTTON AUDIO
         private void PlayClickButtonAudio()
         {
             if (EventManager<string>.Instance)

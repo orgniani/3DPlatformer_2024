@@ -136,8 +136,6 @@ namespace Gameplay
 
         public void HandlePauseGame(params object[] args)
         {
-            if (_sceneryManager.IsLoading) return; //TODO: Is there a better way to code this?
-
             IsGamePaused = !IsGamePaused;
             if (IsGamePaused)
                 Time.timeScale = 0f;
@@ -199,6 +197,14 @@ namespace Gameplay
             if (!gameManagerDataSource)
             {
                 Debug.LogError($"{name}: {nameof(gameManagerDataSource)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!sceneryManagerDataSource)
+            {
+                Debug.LogError($"{name}: {nameof(sceneryManagerDataSource)} is null!" +
                                $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;

@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 11949615}
   m_Layer: 0
-  m_Name: Input
+  m_Name: Inputs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1795,6 +1795,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: ded9c9c2499a7514cb987926e72b2b64,
     type: 3}
+  levelManagerDataSource: {fileID: 11400000, guid: b7e3fd14a73f68648b978f935dab8f0e,
+    type: 2}
   cameraModelReplacer: {fileID: 11400000, guid: 6489573680b63de4b83285a33b7c9262,
     type: 2}
 --- !u!4 &995108185
@@ -3220,7 +3222,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputReader: {fileID: 995108184}
   actionMapName: Cheats
-  tagToSearch: EndOfLevel
   brainModelReplacer: {fileID: 11400000, guid: 5dd6a5aff201f514284a810eb552fdde, type: 2}
   damageModelReplacer: {fileID: 11400000, guid: 27b2694d16ef40245b1bc854831efb2a,
     type: 2}

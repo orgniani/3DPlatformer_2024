@@ -9153,6 +9153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c570b5a90007540848a01d7cd715b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelManagerDataSource: {fileID: 11400000, guid: b7e3fd14a73f68648b978f935dab8f0e,
+    type: 2}
+  sceneryManagerDataSource: {fileID: 11400000, guid: 1b99eda2b4b157d4e9fff400706f45d4,
+    type: 2}
   playerDataSource: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09, type: 2}
   levelStart: {fileID: 1310282102}
 --- !u!4 &915736411

@@ -29,11 +29,8 @@ namespace Scenery
         public event Action<float> OnLoadPercentage = delegate { };
         public event Action OnLoadEnd = delegate { };
 
-        //TODO: There might be a better more optimized way to do this
         public float FakeLoadingTime => fakeLoadingTime;
-
-        //TODO: There might be a better more optimized way to do this
-        public bool IsLoading { get; private set; } = false;
+        public bool IsLoading { get; private set; } = false; //TODO: Might be a better way to do this
 
         private void Awake()
         {
@@ -82,9 +79,6 @@ namespace Scenery
 
         private void HandleLoadScenery(params object[] args)
         {
-            //TODO: Find a different way, this one looks ugly!
-            IsLoading = true;
-
             if (args.Length > 0 && args[0] is int[] newSceneIndexes)
             {
                 if (_currentLevelIds != null)
@@ -112,6 +106,8 @@ namespace Scenery
         //is completed operations necessary?
         private IEnumerator UnloadAndLoadScenes(int[] unloadSceneIndexes, int[] loadSceneIndexes)
         {
+            IsLoading = true;
+
             OnLoadStart?.Invoke();
             OnLoadPercentage?.Invoke(0);
 
@@ -148,6 +144,7 @@ namespace Scenery
 
             yield return new WaitForSeconds(fakeLoadingTime);
             OnLoadEnd?.Invoke();
+
             IsLoading = false;
 
             StopAllCoroutines();

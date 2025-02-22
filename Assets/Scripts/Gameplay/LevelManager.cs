@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using DataSources;
 using Characters;
+using Scenery;
 
 namespace Gameplay
 {
@@ -9,16 +10,25 @@ namespace Gameplay
     {
         [Header("References")]
         [Header("Data Sources")]
+        [SerializeField] private DataSource<LevelManager> levelManagerDataSource;
+        [SerializeField] private DataSource<SceneryManager> sceneryManagerDataSource;
         [SerializeField] private DataSource<Character> playerDataSource;
 
         [Header("Transforms")]
         [SerializeField] private Transform levelStart;
 
         private Character _player;
+        private SceneryManager _sceneryManager;
 
         private void Awake()
         {
             ValidateReferences();
+        }
+
+        private void OnEnable()
+        {
+            if (sceneryManagerDataSource.Value != null)
+                _sceneryManager = sceneryManagerDataSource.Value;
         }
 
         private IEnumerator Start()
@@ -33,10 +43,36 @@ namespace Gameplay
             }
 
             _player.SetStartPosition(levelStart.position, levelStart.rotation);
+
+            yield return new WaitUntil(() => !_sceneryManager.IsLoading);
+
+            levelManagerDataSource.Value = this;
+        }
+
+        private void OnDisable()
+        {
+            if (levelManagerDataSource.Value == this)
+                levelManagerDataSource.Value = null;
         }
 
         private void ValidateReferences()
         {
+            if (!levelManagerDataSource)
+            {
+                Debug.LogError($"{name}: {nameof(levelManagerDataSource)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (!sceneryManagerDataSource)
+            {
+                Debug.LogError($"{name}: {nameof(sceneryManagerDataSource)} is null!" +
+                               $"\nDisabling component to avoid errors.");
+                enabled = false;
+                return;
+            }
+
             if (!playerDataSource)
             {
                 Debug.LogError($"{name}: {nameof(playerDataSource)} is null!" +

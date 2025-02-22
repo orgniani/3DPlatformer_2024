@@ -21,6 +21,7 @@ namespace UI
         {
             _sceneryManager = GetComponent<SceneryManager>();
             _fillDuration = _sceneryManager.FakeLoadingTime;
+
             ValidateReferences();
         }
 

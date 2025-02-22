@@ -496,6 +496,8 @@ MonoBehaviour:
     type: 2}
   sceneryManagerDataSource: {fileID: 11400000, guid: 1b99eda2b4b157d4e9fff400706f45d4,
     type: 2}
+  levelManagerDataSource: {fileID: 11400000, guid: b7e3fd14a73f68648b978f935dab8f0e,
+    type: 2}
   firstBatch: {fileID: 11400000, guid: 41a61f7899b3d4c4d989b72a6ff65d4c, type: 2}
   secondBatch: {fileID: 11400000, guid: a477e5c1668fbb445b8a664f3de596e1, type: 2}
   levels:
