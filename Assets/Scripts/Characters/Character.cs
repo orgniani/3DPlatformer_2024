@@ -1,11 +1,10 @@
-using Core.Interactions;
 using Events;
 using UnityEngine;
 using Characters.Health;
 
 namespace Characters
 {
-    public class Character : MonoBehaviour, ITarget, IAttackable //TODO: is the ITarget or IAttackable interface necessary?
+    public class Character : MonoBehaviour
     {
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
@@ -13,7 +12,7 @@ namespace Characters
         [Header("Models")]
         [SerializeField] private DamageModelContainer damageModelContainer;
 
-        public Rigidbody RigidBody { get; private set; } //TODO: RESEARCH IF THERE'S A BETTER WAY TO DO THIS --> RIGIDBODY
+        public Rigidbody CharacterRigidBody { get; private set; }
 
         public DamageModel Model { get; set; }
 
@@ -33,9 +32,8 @@ namespace Characters
 
         private void Awake()
         {
-            //TODO: RESEARCH IF THERE'S A BETTER WAY TO DO THIS --> TRYGETCOMPONENT
             if (TryGetComponent<Rigidbody>(out var rigidbody))
-                RigidBody = rigidbody;
+                CharacterRigidBody = rigidbody;
 
             if (!damageModelContainer)
             {
@@ -50,22 +48,25 @@ namespace Characters
 
         private void OnEnable()
         {
+            if (!CharacterRigidBody) return;
+            EnableIsKinematic();
+
             if (EventManager<string>.Instance)
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.WinAction, EnableIsKinematic);
         }
 
         private void OnDisable()
         {
+            if (!CharacterRigidBody) return;
+
             if (EventManager<string>.Instance)
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.WinAction, EnableIsKinematic);
         }
 
-        //TODO: RESEARCH IF THERE'S A BETTER WAY TO DO THIS
         private void EnableIsKinematic(params object[] args)
         {
-            if (RigidBody) RigidBody.isKinematic = true;
+            CharacterRigidBody.isKinematic = true;
             transform.position = Vector3.zero;
-
         }
 
         public void ReceiveAttack()
@@ -81,7 +82,7 @@ namespace Characters
         public void SetStartPosition(Vector3 levelStartPosition, Quaternion levelStartRotation)
         {
             transform.SetPositionAndRotation(levelStartPosition, levelStartRotation);
-            if (RigidBody) RigidBody.isKinematic = false;
+            if (CharacterRigidBody) CharacterRigidBody.isKinematic = false;
         }
     }
 }

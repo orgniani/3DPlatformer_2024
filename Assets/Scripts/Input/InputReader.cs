@@ -27,7 +27,7 @@ namespace Input
         public InputActionAsset InputActions => inputActions;
         public DataSource<LevelManager> LevelManagerDataSource => levelManagerDataSource;
 
-        private Vector2 _controllerCameraInput; //TODO: Is this necessary?
+        private Vector2 _controllerCameraInput;
         private bool _isListeningForStickInput = false;
         private bool _isUsingController = false;
 
@@ -96,6 +96,8 @@ namespace Input
 
         private void HandleMovementInput(InputAction.CallbackContext ctx)
         {
+            if (!levelManagerDataSource.Value) return;
+
             Vector2 movementInput = ctx.ReadValue<Vector2>();
 
             if (EventManager<string>.Instance)

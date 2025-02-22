@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Core.Interactions
+namespace Core.Interfaces
 {
     public interface IBounceable
     {

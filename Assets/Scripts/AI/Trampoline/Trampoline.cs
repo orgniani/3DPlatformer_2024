@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Events;
-using Core.Interactions;
+using Core.Interfaces;
 
 namespace AI.Trampoline
 {

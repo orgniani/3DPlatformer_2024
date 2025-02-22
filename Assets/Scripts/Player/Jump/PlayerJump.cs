@@ -1,6 +1,6 @@
 using Player.Body;
 using Player.Brain;
-using Core.Interactions;
+using Core.Interfaces;
 using System;
 using System.Collections;
 using UnityEngine;

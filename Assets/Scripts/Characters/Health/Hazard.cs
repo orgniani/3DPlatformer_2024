@@ -9,45 +9,14 @@ namespace Characters.Health
         [Header("Data Sources")]
         [SerializeField] private DataSource<Character> targetDataSource;
 
-        [Header("Layers")]
-        [SerializeField] private LayerMask targetLayer;
-
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
 
         private Character _target;
+        private bool _shouldCollide = true;
 
         private void Awake()
         {
-            ValidateReferences();
-        }
-
-        private void Start()
-        {
-            if (targetDataSource.Value != null)
-            {
-                _target = targetDataSource.Value;
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
-            {
-                _target.ReceiveAttack();
-
-                if (enableLogs) Debug.Log($"{name}: <color=orange> Player has died! </color>");
-            }
-        }
-
-        private void ValidateReferences()
-        {
-            if (targetLayer == 0)
-            {
-                Debug.LogError($"{name}: {nameof(targetLayer)} is not set!");
-                return;
-            }
-
             if (!targetDataSource)
             {
                 Debug.LogError($"{name}: {nameof(targetDataSource)} is null!" +
@@ -55,6 +24,28 @@ namespace Characters.Health
                 enabled = false;
                 return;
             }
+        }
+
+        private void Start()
+        {
+            if (targetDataSource.Value != null)
+                _target = targetDataSource.Value;
+
+            else if (enableLogs) Debug.LogError($"{name}: <color=red> Target not found in level! </color>");
+
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject == _target.gameObject && _shouldCollide)
+            {
+                _shouldCollide = false;
+
+                _target.ReceiveAttack();
+                if (enableLogs) Debug.Log($"{name}: <color=orange> {_target.name} has received an attack! </color>");
+            }
+
+            _shouldCollide = true;
         }
     }
 }

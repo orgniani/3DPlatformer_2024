@@ -44,7 +44,7 @@ namespace Input.Cheats
                 return;
             }
 
-            _playerRigidbody = playerDataSource.Value.RigidBody;
+            _playerRigidbody = playerDataSource.Value.CharacterRigidBody;
 
             if (EventManager<string>.Instance)
             {
@@ -81,6 +81,13 @@ namespace Input.Cheats
         {
             while (enabled)
             {
+                if (!_playerRigidbody)
+                {
+                    enabled = false;
+                    _flightCoroutine = null;
+                    yield break;
+                }
+
                 Vector3 horizontalMovement = TransformDirectionRelativeToCamera(_movementInput);
 
                 Vector3 velocity = _playerRigidbody.velocity;
