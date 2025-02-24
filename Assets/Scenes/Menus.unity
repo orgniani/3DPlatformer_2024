@@ -1511,8 +1511,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 848305523}
-  - component: {fileID: 848305524}
   - component: {fileID: 848305525}
+  - component: {fileID: 848305528}
   m_Layer: 5
   m_Name: Rotator
   m_TagString: Player
@@ -1537,18 +1537,6 @@ Transform:
   - {fileID: 2052708187}
   m_Father: {fileID: 1483657588}
   m_LocalEulerAnglesHint: {x: 6.015, y: 115.537, z: -21.235}
---- !u!114 &848305524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 848305522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06f794a3a44b5404496446c0d344f5a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &848305525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,6 +1551,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleRotationModelContainer: {fileID: 11400000, guid: 67ee4754ae27cad409eeef2e4c15a791,
     type: 2}
+--- !u!114 &848305528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848305522}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5951570b17d5e184ca9f580286b2fbc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1980502974}
+  waveTriggerParameter: on_wave
 --- !u!1 &873539519
 GameObject:
   m_ObjectHideFlags: 0

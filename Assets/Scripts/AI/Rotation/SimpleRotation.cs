@@ -2,26 +2,23 @@ using UnityEngine;
 using Events;
 using System.Collections;
 using Audio;
+using System;
 
 namespace AI.Rotation
 {
     public class SimpleRotation : MonoBehaviour
     {
-        private Quaternion _initialRotation;
+        protected Quaternion _initialRotation;
         private AudioConfig _audio;
         private Coroutine _rotationCoroutine;
-
         public SimpleRotationModel Model { get; set; }
-
-        private void Awake()
-        {
-            _audio = Model.RotationAudio;
-        }
 
         private void OnEnable()
         { 
             _initialRotation = transform.localRotation;
             _rotationCoroutine = StartCoroutine(Rotate());
+
+            _audio = Model.RotationAudio;
 
             if (_audio && _audio.Loop) PlayRotationSound();
         }
@@ -32,7 +29,7 @@ namespace AI.Rotation
                 StopCoroutine(_rotationCoroutine);
         }
 
-        private IEnumerator Rotate()
+        protected virtual IEnumerator Rotate()
         {
             float elapsedTime = 0f;
             int lastCycle = 0;
@@ -61,6 +58,7 @@ namespace AI.Rotation
             }
         }
 
+        //TODO: Maybe this should be part of a CHILD that handles noise when rotating :)
         private void PlayRotationSound()
         {
             if (EventManager<string>.Instance)
