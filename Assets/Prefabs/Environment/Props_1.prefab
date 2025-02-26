@@ -121,10 +121,10 @@ GameObject:
   - component: {fileID: 4032094541106080986}
   - component: {fileID: 3660066286208862951}
   - component: {fileID: 9103166031350798223}
-  - component: {fileID: 3136347679548971029}
   - component: {fileID: 296098110905993534}
   - component: {fileID: 6932101286739879916}
   - component: {fileID: 7560761860583450210}
+  - component: {fileID: 1571338046308137213}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Untagged
@@ -200,19 +200,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3136347679548971029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6391233746760414441}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06f794a3a44b5404496446c0d344f5a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationAxis: {x: 0, y: 1, z: 0}
 --- !u!114 &296098110905993534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,9 +227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDataSource: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09, type: 2}
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
   enableLogs: 1
 --- !u!65 &7560761860583450210
 BoxCollider:
@@ -265,3 +249,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.4448266, y: 0.22537549, z: 0.4}
   m_Center: {x: 0.95828295, y: 0, z: -0.13}
+--- !u!114 &1571338046308137213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6391233746760414441}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2be38e9b729fd64dbcb12e946d0e252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -214,10 +214,10 @@ GameObject:
   - component: {fileID: 7747568234931498996}
   - component: {fileID: 5926079275722729250}
   - component: {fileID: 8911660537784683750}
-  - component: {fileID: 5467848412746588309}
   - component: {fileID: 8009461298031847039}
   - component: {fileID: 4483589721102953442}
   - component: {fileID: 2518349471083031916}
+  - component: {fileID: 6315407476759783954}
   m_Layer: 0
   m_Name: Saw
   m_TagString: Untagged
@@ -306,23 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDataSource: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09, type: 2}
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
   enableLogs: 1
---- !u!114 &5467848412746588309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7458061667951051996}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06f794a3a44b5404496446c0d344f5a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationAxis: {x: 1, y: 0, z: 0}
 --- !u!114 &8009461298031847039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,3 +363,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5785849, y: 0.71, z: 0.72}
   m_Center: {x: 0.23269324, y: 0, z: 0}
+--- !u!114 &6315407476759783954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7458061667951051996}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2be38e9b729fd64dbcb12e946d0e252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

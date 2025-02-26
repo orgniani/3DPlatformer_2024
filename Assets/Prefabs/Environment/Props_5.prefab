@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 7635547889296081803}
   - component: {fileID: 7057707439917732092}
   - component: {fileID: 1517075896863464109}
-  - component: {fileID: 8470771757395233051}
   - component: {fileID: 9060734547593196376}
+  - component: {fileID: 3644357732181626565}
   m_Layer: 0
   m_Name: Planks
   m_TagString: Untagged
@@ -168,23 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDataSource: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09, type: 2}
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
   enableLogs: 1
---- !u!114 &8470771757395233051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6169993613506482392}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06f794a3a44b5404496446c0d344f5a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationAxis: {x: 0, y: -1, z: 0}
 --- !u!114 &9060734547593196376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +183,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleRotationModelContainer: {fileID: 11400000, guid: 5bee2c5f20febc74cb1aa11a11601282,
     type: 2}
+--- !u!114 &3644357732181626565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6169993613506482392}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2be38e9b729fd64dbcb12e946d0e252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7769912462131510987
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,42 +1,69 @@
 using System.Collections;
 using UnityEngine;
+using Scenery;
 
 namespace AI.Rotation
 {
     public class PlayerMenuRotation : SimpleRotation
     {
-        //TODO: Better way to do this?
-        //TODO: Validate References!!!
         [Header("References")]
         [SerializeField] private Animator animator;
+        [SerializeField] private SceneryManagerSource sceneryManagerSource;
 
         [Header("Animator Parameters")]
         [SerializeField] private string waveTriggerParameter = "on_wave";
 
-        protected override IEnumerator Rotate()
+        private SceneryManager _sceneryManager;
+        private Coroutine _waitToStartRotatingCoroutine;
+
+        protected override void Awake()
         {
-            float elapsedTime = 0f;
-            int lastCycle = 0;
-            int fullAngleRotation = 360;
+            base.Awake();
 
-            while (enabled)
+            if (!animator)
             {
-                elapsedTime += Time.deltaTime * Model.Speed;
-
-                int currentCycle = Mathf.FloorToInt(elapsedTime * Model.AudioPlaysPerCycle);
-
-                if (currentCycle > lastCycle)
-                {
-                    lastCycle = currentCycle;
-                    HandleWave();
-                }
-
-                float curveValue = Model.RotationCurve.Evaluate(elapsedTime);
-                Vector3 rotationAngles = Model.RotationAxis.normalized * curveValue * fullAngleRotation;
-                transform.localRotation = _initialRotation * Quaternion.Euler(rotationAngles);
-
-                yield return new WaitForFixedUpdate();
+                Debug.LogError($"{name}: {nameof(animator)} is null!" +
+                               $"\nDisabling object to avoid errors.");
+                enabled = false;
+                return;
             }
+
+            if (!sceneryManagerSource)
+            {
+                Debug.LogError($"{name}: {nameof(sceneryManagerSource)} is null!" +
+                               $"\nDisabling object to avoid errors.");
+                enabled = false;
+                return;
+            }
+        }
+
+        protected override void OnEnable()
+        {
+            if (sceneryManagerSource.Value)
+                _sceneryManager = sceneryManagerSource.Value;
+
+            _waitToStartRotatingCoroutine = StartCoroutine(WaitToStartRotating());
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            if (_waitToStartRotatingCoroutine != null)
+                StopCoroutine(_waitToStartRotatingCoroutine);
+        }
+
+        private IEnumerator WaitToStartRotating()
+        {
+            yield return new WaitUntil(() => !_sceneryManager.IsLoading);
+
+            base.OnEnable();
+            HandleWave();
+        }
+
+        protected override void CompleteRotationAction()
+        {
+            HandleWave();
         }
 
         private void HandleWave()

@@ -21546,9 +21546,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDataSource: {fileID: 11400000, guid: 17467abaf9a396f4aac0e2fb70e89c09, type: 2}
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
   enableLogs: 1
 --- !u!1 &2696746354668333751
 GameObject:

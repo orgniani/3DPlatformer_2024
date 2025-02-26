@@ -96,8 +96,7 @@ namespace Input
 
         private void HandleMovementInput(InputAction.CallbackContext ctx)
         {
-            if (!levelManagerDataSource.Value) return;
-
+            //TODO: Find a way to not read the movementInput when the level is still loading
             Vector2 movementInput = ctx.ReadValue<Vector2>();
 
             if (EventManager<string>.Instance)

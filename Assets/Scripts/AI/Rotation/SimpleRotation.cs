@@ -1,35 +1,32 @@
 using UnityEngine;
-using Events;
 using System.Collections;
-using Audio;
-using System;
 
 namespace AI.Rotation
 {
     public class SimpleRotation : MonoBehaviour
     {
-        protected Quaternion _initialRotation;
-        private AudioConfig _audio;
+        private Quaternion _initialRotation;
         private Coroutine _rotationCoroutine;
         public SimpleRotationModel Model { get; set; }
 
-        private void OnEnable()
-        { 
+        protected virtual void Awake()
+        {
             _initialRotation = transform.localRotation;
-            _rotationCoroutine = StartCoroutine(Rotate());
-
-            _audio = Model.RotationAudio;
-
-            if (_audio && _audio.Loop) PlayRotationSound();
         }
 
-        private void OnDisable()
+        protected virtual void OnEnable()
+        {
+            transform.localRotation = _initialRotation;
+            _rotationCoroutine = StartCoroutine(Rotate());
+        }
+
+        protected virtual void OnDisable()
         {
             if (_rotationCoroutine != null)
                 StopCoroutine(_rotationCoroutine);
         }
 
-        protected virtual IEnumerator Rotate()
+        private IEnumerator Rotate()
         {
             float elapsedTime = 0f;
             int lastCycle = 0;
@@ -39,15 +36,12 @@ namespace AI.Rotation
             {
                 elapsedTime += Time.deltaTime * Model.Speed;
 
-                if (_audio && !_audio.Loop)
-                {
-                    int currentCycle = Mathf.FloorToInt(elapsedTime * Model.AudioPlaysPerCycle);
+                int currentCycle = Mathf.FloorToInt(elapsedTime * Model.AudioPlaysPerCycle);
 
-                    if (currentCycle > lastCycle)
-                    {
-                        lastCycle = currentCycle;
-                        PlayRotationSound();
-                    }
+                if (currentCycle > lastCycle)
+                {
+                    lastCycle = currentCycle;
+                    CompleteRotationAction();
                 }
 
                 float curveValue = Model.RotationCurve.Evaluate(elapsedTime);
@@ -58,11 +52,6 @@ namespace AI.Rotation
             }
         }
 
-        //TODO: Maybe this should be part of a CHILD that handles noise when rotating :)
-        private void PlayRotationSound()
-        {
-            if (EventManager<string>.Instance)
-                EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, _audio, gameObject);
-        }
+        protected virtual void CompleteRotationAction() { }
     }
 }

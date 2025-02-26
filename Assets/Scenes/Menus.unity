@@ -1528,15 +1528,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848305522}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.12814113, y: 0.83542794, z: -0.14175187, w: 0.5153121}
-  m_LocalPosition: {x: 338.10898, y: -61, z: -237}
+  m_LocalRotation: {x: 0.14304894, y: -0.87709486, z: 0.216575, w: -0.4041496}
+  m_LocalPosition: {x: 338.10898, y: -15, z: -237}
   m_LocalScale: {x: 173.75, y: 173.75, z: 173.75}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1162968286350936484}
   - {fileID: 2052708187}
   m_Father: {fileID: 1483657588}
-  m_LocalEulerAnglesHint: {x: 6.015, y: 115.537, z: -21.235}
+  m_LocalEulerAnglesHint: {x: 15.325, y: 486.93298, z: -26.212}
 --- !u!114 &848305525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1564,6 +1564,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1980502974}
+  sceneryManagerSource: {fileID: 11400000, guid: 1b99eda2b4b157d4e9fff400706f45d4,
+    type: 2}
   waveTriggerParameter: on_wave
 --- !u!1 &873539519
 GameObject:
