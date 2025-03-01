@@ -20,6 +20,12 @@ namespace Player.Jump
 
         public event Action OnJump = delegate { };
 
+        /// <summary>
+        /// Property that indicates whether the player is currently bouncing on a trampoline.
+        /// When this property is true, it prevents the player from performing a normal jump.
+        /// This ensures that the player cannot jump while in the process of bouncing.
+        /// </summary>
+        public bool IsBouncing { get ; set ; }
         public JumpModel Model { get; set; }
 
         private void Awake()
@@ -29,7 +35,7 @@ namespace Player.Jump
 
         public bool TryJump(float normalAcceleration)
         {
-            if (!_shouldJump || !_shouldJumpOnRamp || !body.IsOnLand)
+            if (!_shouldJump || !_shouldJumpOnRamp || !body.IsOnLand || IsBouncing)
                 return false;
 
             _shouldJump = false;
@@ -59,6 +65,7 @@ namespace Player.Jump
         public IEnumerator TrampolineBounce(Vector3 bounceForce)
         {
             _shouldJump = false;
+
             body.RequestBrake(Model.BrakeMultiplier);
 
             OnJump?.Invoke();

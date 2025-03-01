@@ -7,7 +7,7 @@ namespace Scenery
     [CreateAssetMenu(menuName = "Models/Scenery load ID", fileName = "SceneryLoadId", order = 0)]
     public class SceneryLoadId : ScriptableObject, IId
     {
-        [SerializeField] private string logName;
+        [field: SerializeField] public string SceneName;
         [field: SerializeField] public int[] SceneIndexes { get; private set; }
         [field: SerializeField] public bool CanUnload { get; set; } = true;
 
@@ -15,7 +15,7 @@ namespace Scenery
         {
             if (SceneIndexes == null || SceneIndexes.Length == 0)
             {
-                Debug.LogError($"{logName}: the array of {nameof(SceneIndexes)} is empty!");
+                Debug.LogError($"{SceneName}: the array of {nameof(SceneIndexes)} is empty!");
                 return;
             }
 
@@ -27,7 +27,7 @@ namespace Scenery
 
             if (duplicates.Count > 0)
             {
-                Debug.LogError($"{logName}: Duplicate scene indexes found: {string.Join(", ", duplicates)}");
+                Debug.LogError($"{SceneName}: Duplicate scene indexes found: {string.Join(", ", duplicates)}");
             }
         }
     }

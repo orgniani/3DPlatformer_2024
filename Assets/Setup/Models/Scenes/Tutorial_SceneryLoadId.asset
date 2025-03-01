@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f2193565c34cf4f983b49da6d064a5, type: 3}
   m_Name: Tutorial_SceneryLoadId
   m_EditorClassIdentifier: 
-  logName: Tutorial Level
+  SceneName: Tutorial
   <SceneIndexes>k__BackingField: 04000000
   <CanUnload>k__BackingField: 1

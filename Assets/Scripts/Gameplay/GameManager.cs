@@ -105,6 +105,11 @@ namespace Gameplay
             }
         }
 
+        public string GetLevelLabel()
+        {
+            return levels[_currentLevelIndex].SceneName;
+        }
+
         private void UnloadAllScenesOnStart()
         {
             foreach (var id in _allSceneIds)
