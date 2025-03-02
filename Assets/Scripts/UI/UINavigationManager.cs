@@ -166,11 +166,18 @@ namespace UI
             var menu = menusWithId.FirstOrDefault(menu => menu.ID == id);
             if (menu.MenuScript == null) return;
 
-            menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
+            //TODO: Fix hardcoded!!
+            if (_gameManager.IsPlaying && id == "Main Menu")
+            {
+                menu = menusWithId.FirstOrDefault(menu => menu.ID == "Pause");
+                if (menu.MenuScript == null) return;
+            }
 
+            menusWithId[_currentMenuIndex].MenuScript.gameObject.SetActive(false);
             menu.MenuScript.gameObject.SetActive(true);
             _currentMenuIndex = menusWithId.IndexOf(menu);
         }
+
 
         private void ResumeGame()
         {

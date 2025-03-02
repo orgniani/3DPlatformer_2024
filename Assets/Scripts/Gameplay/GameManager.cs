@@ -31,6 +31,7 @@ namespace Gameplay
 
         private int _currentLevelIndex = 0;
 
+        public bool IsPlaying { get; private set; }
         public bool IsFinalLevel { get; private set; }
         public bool IsGamePaused { get; private set; }
 
@@ -137,6 +138,8 @@ namespace Gameplay
         {
             InvokeUnloadSceneryEvent(levels[_currentLevelIndex].SceneIndexes);
             InvokeUnloadSceneryEvent(secondBatch.SceneIndexes);
+
+            IsPlaying = false;
         }
 
         public void HandlePauseGame(params object[] args)
@@ -152,6 +155,7 @@ namespace Gameplay
         public void HandlePlayGame()
         {
             IsFinalLevel = false;
+            IsPlaying = true;
 
             _sceneryManager.ResetIdsToIndex0();
 

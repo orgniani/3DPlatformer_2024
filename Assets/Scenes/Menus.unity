@@ -3036,10 +3036,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2114926938}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -72.1}
-  m_SizeDelta: {x: 600, y: 120}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -72}
+  m_SizeDelta: {x: -300, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &999677911
 MonoBehaviour:
@@ -5985,6 +5985,7 @@ MonoBehaviour:
   buttonParent: {fileID: 999677910}
   buttonConfigs:
   - {fileID: 11400000, guid: 8574c4087e11b744b9e2732422e6636e, type: 2}
+  - {fileID: 11400000, guid: 8d87eba1e8e98b0409ca478bb7881d92, type: 2}
   - {fileID: 11400000, guid: d9474b405273109439c2f5a20b20f362, type: 2}
   enableLogs: 1
 --- !u!114 &1951761624

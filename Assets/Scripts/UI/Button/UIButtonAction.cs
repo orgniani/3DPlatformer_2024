@@ -8,6 +8,6 @@ namespace UI.Buttons
         Quit,
         Play,
         Restart,
-        Exit
+        Exit,
     }
 }
