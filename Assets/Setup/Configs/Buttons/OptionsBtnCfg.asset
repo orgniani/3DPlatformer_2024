@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f2193565c34cf4f983b49da6d064a5, type: 3}
-  m_Name: SecondBatch_SceneryLoadId
+  m_Script: {fileID: 11500000, guid: a102d7c44527dda4bb3e1db9a0fe9a97, type: 3}
+  m_Name: OptionsBtnCfg
   m_EditorClassIdentifier: 
-  SceneName: World
-  <SceneIndexes>k__BackingField: 03000000
-  <CanUnload>k__BackingField: 1
+  <ID>k__BackingField: Options
+  <Text>k__BackingField: Options
+  <Action>k__BackingField: 0

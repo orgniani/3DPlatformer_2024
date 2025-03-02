@@ -9,22 +9,21 @@ namespace AI
         [Header("Parameters")]
         [SerializeField] private Vector3 targetOffset = new Vector3(0, 0, 0.2f);
         [SerializeField] private float moveSpeed = 2f;
-
         [SerializeField] private float movementDuration = 1f;
-
-        private Rigidbody _rigidBody;
-        private Vector3 targetPosition;
-        private Vector3 movementDirection;
 
         [Header("Logs")]
         [SerializeField] private bool enableLogs = true;
+        
+        private Rigidbody _rigidBody;
+        private Vector3 _targetPosition;
+        private Vector3 _movementDirection;
 
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody>();
-            targetPosition = transform.position + targetOffset;
+            _targetPosition = transform.position + targetOffset;
 
-            movementDirection = (targetPosition - transform.position).normalized; // Direction towards target
+            _movementDirection = (_targetPosition - transform.position).normalized; // Direction towards target
         }
 
         public IEnumerator PushForward()
@@ -34,7 +33,7 @@ namespace AI
 
             while (elapsedTime < movementDuration)
             {
-                Vector3 force = movementDirection * moveSpeed;
+                Vector3 force = _movementDirection * moveSpeed;
 
                 _rigidBody.AddForce(force, ForceMode.Force);
 

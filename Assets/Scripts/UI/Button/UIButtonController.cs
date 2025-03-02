@@ -2,10 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Audio;
-using Events;
-using UnityEngine.EventSystems;
-using Input;
 
 namespace UI.Buttons
 {

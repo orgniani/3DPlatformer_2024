@@ -16,5 +16,7 @@ namespace Audio
         [field: SerializeField] public float MinDistance { get; private set; } = 10f;
 
         [field: SerializeField] public float MaxDistance { get; private set; } = 300f;
+
+        [field: SerializeField] public bool IsMusic { get; private set; } = false;
     }
 }

@@ -24,12 +24,13 @@ namespace Input
         private InputAction _lookAction;
         private InputAction _pauseAction;
 
-        public InputActionAsset InputActions => inputActions;
-        public DataSource<LevelManager> LevelManagerDataSource => levelManagerDataSource;
-
         private Vector2 _controllerCameraInput;
         private bool _isListeningForStickInput = false;
         private bool _isUsingController = false;
+        
+        public InputActionAsset InputActions => inputActions;
+        
+        public DataSource<LevelManager> LevelManagerDataSource => levelManagerDataSource;
 
         private void Awake()
         {

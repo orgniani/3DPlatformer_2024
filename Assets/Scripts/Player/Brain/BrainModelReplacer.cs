@@ -10,14 +10,14 @@ namespace Player.Brain
         [SerializeField] private BrainModelContainer flashBrainModelContainer;
         [SerializeField] private DataSource<PlayerSetup> playerDataSource;
 
-        private BrainModelContainer replacement;
+        private BrainModelContainer _replacement;
         private PlayerSetup _player;
 
         private void OnEnable()
         {
             if (!AreReferencesValidated()) return;
 
-            replacement = flashBrainModelContainer;
+            _replacement = flashBrainModelContainer;
             TryFindPlayer();
         }
 
@@ -29,15 +29,15 @@ namespace Player.Brain
                 if (!_player) return;
             }
 
-            if (replacement == _player.BrainModelContainer)
+            if (_replacement == _player.BrainModelContainer)
             {
-                replacement = flashBrainModelContainer;
+                _replacement = flashBrainModelContainer;
             }
 
             var temp = _player.BrainModelContainer;
 
-            _player.BrainModelContainer = replacement;
-            replacement = temp;
+            _player.BrainModelContainer = _replacement;
+            _replacement = temp;
         }
 
         private void TryFindPlayer()

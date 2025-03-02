@@ -9,14 +9,14 @@ namespace Camera.FollowTarget
         [SerializeField] private FollowPlayerModelContainer controllerFollowPlayerModelContainer;
         [SerializeField] private DataSource<CameraSetup> cameraDataSource;
 
-        private FollowPlayerModelContainer replacement;
+        private FollowPlayerModelContainer _replacement;
         private CameraSetup _camera;
 
         private void OnEnable()
         {
             if (!AreReferencesValidated()) return;
 
-            replacement = controllerFollowPlayerModelContainer;
+            _replacement = controllerFollowPlayerModelContainer;
             TryFindCamera();
         }
 
@@ -28,15 +28,15 @@ namespace Camera.FollowTarget
                 if (!_camera) return;
             }
 
-            if (replacement == _camera.FollowPlayerModelContainer)
+            if (_replacement == _camera.FollowPlayerModelContainer)
             {
-                replacement = controllerFollowPlayerModelContainer;
+                _replacement = controllerFollowPlayerModelContainer;
             }
 
             var temp = _camera.FollowPlayerModelContainer;
 
-            _camera.FollowPlayerModelContainer = replacement;
-            replacement = temp;
+            _camera.FollowPlayerModelContainer = _replacement;
+            _replacement = temp;
         }
 
         private void TryFindCamera()

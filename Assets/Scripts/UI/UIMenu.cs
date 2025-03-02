@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UI.Buttons;
-using Input;
 
 namespace UI
 {
@@ -20,6 +19,7 @@ namespace UI
         [SerializeField] private bool enableLogs = true;
 
         private List<string> _addedButtonLabels = new List<string>();
+        protected List<UIButtonController> _menuButtons = new();
 
         private EventSystem _eventSystem;
         private GameObject _firstButton = null;
@@ -33,17 +33,11 @@ namespace UI
 
         private void OnEnable()
         {
-            if (_firstButton)
-                StartCoroutine(SetSelectedButton());
+            if(_firstButton) StartCoroutine(SetSelectedButton());
+
         }
 
-        private IEnumerator SetSelectedButton()
-        {
-            yield return null;
-            _eventSystem.SetSelectedGameObject(_firstButton);
-        }
-
-        public void Setup(EventSystem eventSystem)
+        public virtual void Setup(EventSystem eventSystem)
         {
             _eventSystem = eventSystem;
 
@@ -66,21 +60,27 @@ namespace UI
                 var newButton = Instantiate(buttonPrefab, buttonParent);
                 newButton.name = $"{config.ID}_Btn";
                 newButton.Setup(config, HandleButtonClick);
+
+                _menuButtons.Add(newButton);
                 _addedButtonLabels.Add(config.ID);
 
-                if (!_firstButton) _firstButton = newButton.gameObject;
+                if (!_firstButton)
+                    _firstButton = newButton.gameObject;
             }
         }
 
-        public GameObject GetFirstSelectableButton()
+        private IEnumerator SetSelectedButton()
         {
-            return _firstButton;
+            yield return null;
+            _eventSystem.SetSelectedGameObject(_firstButton);
         }
 
         private void HandleButtonClick(string id)
         {
             OnChangeMenu?.Invoke(id);
         }
+
+        protected virtual void SetCustomNavigation() { }
 
         private void ValidateReferences()
         {

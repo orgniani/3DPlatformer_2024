@@ -7,19 +7,19 @@ namespace AI.Trampoline
 {
     public class Trampoline : MonoBehaviour
     {
-        private Vector3 initialPosition;
-        private bool isMoving = false;
+        private Vector3 _initialPosition;
+        private bool _isMoving = false;
 
         public TrampolineModel Model { get; set; }
 
         private void Start()
         {
-            initialPosition = transform.localPosition;
+            _initialPosition = transform.localPosition;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (((1 << other.gameObject.layer) & Model.PlayerLayer.value) != 0 && !isMoving)
+            if (((1 << other.gameObject.layer) & Model.PlayerLayer.value) != 0 && !_isMoving)
             {
                 if (other.TryGetComponent(out IBounceable bounceable) && !bounceable.IsBouncing)
                 {
@@ -31,9 +31,9 @@ namespace AI.Trampoline
 
         private IEnumerator TrampolineBounce(IBounceable bounceable)
         {
-            isMoving = true;
+            _isMoving = true;
 
-            Vector3 downPosition = initialPosition - new Vector3(0, Model.DepressionAmount, 0);
+            Vector3 downPosition = _initialPosition - new Vector3(0, Model.DepressionAmount, 0);
             yield return MoveTrampoline(Model.BounceSpeed, downPosition);
 
             Vector3 bounceForce = Vector3.up * Model.LaunchForce;
@@ -42,12 +42,12 @@ namespace AI.Trampoline
             if (EventManager<string>.Instance)
                 EventManager<string>.Instance.InvokeEvent(GameEvents.PlayAudioAction, Model.BounceAudio, gameObject);
 
-            Vector3 upPosition = initialPosition + new Vector3(0, Model.ElevationAmount, 0);
+            Vector3 upPosition = _initialPosition + new Vector3(0, Model.ElevationAmount, 0);
             yield return MoveTrampoline(Model.BounceSpeed, upPosition);
 
-            yield return MoveTrampoline(Model.RecoverySpeed, initialPosition);
+            yield return MoveTrampoline(Model.RecoverySpeed, _initialPosition);
 
-            isMoving = false;
+            _isMoving = false;
             bounceable.IsBouncing = false;
         }
 

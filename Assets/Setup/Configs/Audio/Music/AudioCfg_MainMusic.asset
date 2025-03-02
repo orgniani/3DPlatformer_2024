@@ -15,7 +15,8 @@ MonoBehaviour:
   <Clip>k__BackingField: {fileID: 8300000, guid: 5d6e42b338547477aa7a88708f894463,
     type: 3}
   <Loop>k__BackingField: 1
-  <Volume>k__BackingField: 0.1
+  <Volume>k__BackingField: 1
   <SpatialBlend>k__BackingField: 0
   <MinDistance>k__BackingField: 10
   <MaxDistance>k__BackingField: 300
+  <IsMusic>k__BackingField: 1

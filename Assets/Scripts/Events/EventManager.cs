@@ -14,6 +14,7 @@ namespace Events
         [SerializeField] private bool enableLogs = true;
 
         private Dictionary<IdT, EventDelegate> _events = new();
+
         public void InvokeEvent(IdT eventIdentifier, params object[] args)
         {
             if (_events.TryGetValue(eventIdentifier, out var eventDelegate))

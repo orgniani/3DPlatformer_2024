@@ -1,9 +1,6 @@
 using AI.Rotation;
 using Audio;
 using Events;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace AI
 {
