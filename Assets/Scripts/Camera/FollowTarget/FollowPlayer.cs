@@ -27,7 +27,7 @@ namespace Camera.FollowTarget
         {
             while (_target)
             {
-                Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0); //TODO: Research quaternions
+                Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0);
 
                 Vector3 offset = Vector3.up * Model.OffsetUp;
 
@@ -35,7 +35,7 @@ namespace Camera.FollowTarget
                 Vector3 position = rotation * negDistance + _target.position + offset;
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Model.RotationSpeed * Time.deltaTime);
-                transform.position = Vector3.Lerp(transform.position, position, Model.Speed * Time.deltaTime); //TODO: Research lerp
+                transform.position = Vector3.Lerp(transform.position, position, Model.Speed * Time.deltaTime);
 
                 yield return new WaitForFixedUpdate();
             }

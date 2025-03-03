@@ -87,15 +87,12 @@ namespace Gameplay
                 _sceneryManager.SetUp(_allSceneIds);
             }
 
-
-            UnloadAllScenesOnStart();
-
             InvokeLoadSceneryEvent(firstBatch.SceneIndexes);
         }
 
         private void OnDisable()
         {
-            if (gameManagerDataSource != null && gameManagerDataSource.Value == this)
+            if (gameManagerDataSource.Value == this)
                 gameManagerDataSource.Value = null;
 
             if (EventManager<string>.Instance)
@@ -109,24 +106,6 @@ namespace Gameplay
         public string GetLevelLabel()
         {
             return levels[_currentLevelIndex].SceneName;
-        }
-
-        private void UnloadAllScenesOnStart()
-        {
-            foreach (var id in _allSceneIds)
-            {
-                if (!id.CanUnload)
-                {
-                    id.CanUnload = true;
-                    InvokeUnloadSceneryEvent(id.SceneIndexes);
-
-                    id.CanUnload = false;
-
-                    continue;
-                }
-
-                InvokeUnloadSceneryEvent(id.SceneIndexes);
-            }
         }
 
         private void OnWinLevel(params object[] args)
@@ -145,6 +124,7 @@ namespace Gameplay
         public void HandlePauseGame(params object[] args)
         {
             IsGamePaused = !IsGamePaused;
+
             if (IsGamePaused)
                 Time.timeScale = 0f;
 
@@ -230,7 +210,7 @@ namespace Gameplay
             if (!secondBatch)
             {
                 Debug.LogError($"{name}: {nameof(secondBatch)} is null!" +
-                               $"\nDisabling ocomponentbject to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }

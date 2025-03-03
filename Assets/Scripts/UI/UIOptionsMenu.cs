@@ -9,7 +9,6 @@ namespace UI
     [RequireComponent(typeof(UIVolumeSliders))]
     public class UIOptionsMenu : UIMenu
     {
-        //TODO: Revisit script --> UIOptionsMenu
         private UIVolumeSliders _volumeSliders;
         private List<Selectable> _allInteractables = new();
 

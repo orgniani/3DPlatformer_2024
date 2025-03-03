@@ -2015,24 +2015,31 @@ MonoBehaviour:
   - <ID>k__BackingField: Main Menu
     <MenuScript>k__BackingField: {fileID: 35789866}
     <IsTutorialMenu>k__BackingField: 0
+    <IsPauseMenu>k__BackingField: 0
   - <ID>k__BackingField: Credits
     <MenuScript>k__BackingField: {fileID: 1388089929}
     <IsTutorialMenu>k__BackingField: 0
+    <IsPauseMenu>k__BackingField: 0
   - <ID>k__BackingField: Options
     <MenuScript>k__BackingField: {fileID: 1454842335}
     <IsTutorialMenu>k__BackingField: 0
+    <IsPauseMenu>k__BackingField: 0
   - <ID>k__BackingField: Win
     <MenuScript>k__BackingField: {fileID: 1850539987}
     <IsTutorialMenu>k__BackingField: 0
+    <IsPauseMenu>k__BackingField: 0
   - <ID>k__BackingField: Lose
     <MenuScript>k__BackingField: {fileID: 2132303013}
     <IsTutorialMenu>k__BackingField: 0
+    <IsPauseMenu>k__BackingField: 0
   - <ID>k__BackingField: Pause
     <MenuScript>k__BackingField: {fileID: 1951761623}
     <IsTutorialMenu>k__BackingField: 0
+    <IsPauseMenu>k__BackingField: 1
   - <ID>k__BackingField: Tutorial
     <MenuScript>k__BackingField: {fileID: 1758390977}
     <IsTutorialMenu>k__BackingField: 1
+    <IsPauseMenu>k__BackingField: 0
   buttonConfigs:
   - {fileID: 11400000, guid: 5cc16f59b6e85a140bb82bcd82a54804, type: 2}
   - {fileID: 11400000, guid: 176098d7ce7b6214a819449bfc2065bd, type: 2}

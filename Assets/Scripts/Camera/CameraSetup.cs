@@ -31,18 +31,17 @@ namespace Camera
         private void Awake()
         {
             _followPlayer = GetComponent<FollowPlayer>();
+            ValidateReferences();
         }
 
         private void OnEnable()
         {
-            ValidateReferences();
-
             cameraDataSource.Value = this;
         }
 
         private void OnDisable()
         {
-            if (cameraDataSource != null && cameraDataSource.Value == this)
+            if (cameraDataSource.Value == this)
                 cameraDataSource.Value = null;
         }
 

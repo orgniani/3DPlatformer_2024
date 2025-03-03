@@ -51,7 +51,7 @@ namespace Player.Brain
 
         private void Update()
         {
-            if (_desiredDirection.magnitude > Mathf.Epsilon && _input.magnitude < Mathf.Epsilon) //TODO: Mathf.Epsilon?
+            if (_desiredDirection.magnitude > Mathf.Epsilon && _input.magnitude < Mathf.Epsilon)
                 body.RequestBrake(Model.MovementBreakMultiplier);
 
             Vector3 movementInput = _input;
@@ -61,7 +61,7 @@ namespace Player.Brain
 
         private Vector3 TransformDirectionRelativeToCamera(Vector2 input)
         {
-            Vector3 direction = new Vector3(input.x, 0, input.y); //TODO: Research why z has to be 0
+            Vector3 direction = new Vector3(input.x, 0, input.y);
 
             Vector3 cameraForward = Camera.transform.forward;
             cameraForward.y = 0;
@@ -93,7 +93,7 @@ namespace Player.Brain
             if (!body)
             {
                 Debug.LogError($"{name}: {nameof(body)} is null!" +
-                               $"\nDisabling object to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }
@@ -101,7 +101,7 @@ namespace Player.Brain
             if (!jump)
             {
                 Debug.LogError($"{name}: {nameof(jump)} is null!" +
-                               $"\nDisabling object to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }

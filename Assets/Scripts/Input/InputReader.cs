@@ -24,9 +24,9 @@ namespace Input
         private InputAction _lookAction;
         private InputAction _pauseAction;
 
-        private Vector2 _controllerCameraInput;
+        private Vector2 _gamepadCameraInput;
         private bool _isListeningForStickInput = false;
-        private bool _isUsingController = false;
+        private bool _isUsingGamepad = false;
         
         public InputActionAsset InputActions => inputActions;
         
@@ -97,11 +97,22 @@ namespace Input
 
         private void HandleMovementInput(InputAction.CallbackContext ctx)
         {
-            //TODO: Find a way to not read the movementInput when the level is still loading
+            if (levelManagerDataSource.Value == null)
+            {
+                StopMovementInput();
+                return;
+            }
+
             Vector2 movementInput = ctx.ReadValue<Vector2>();
 
             if (EventManager<string>.Instance)
                 EventManager<string>.Instance.InvokeEvent(GameEvents.MoveAction, movementInput);
+        }
+
+        private void StopMovementInput()
+        {
+            if (EventManager<string>.Instance)
+                EventManager<string>.Instance.InvokeEvent(GameEvents.MoveAction, Vector2.zero);
         }
 
         private void HandleJumpInput(InputAction.CallbackContext ctx)
@@ -113,21 +124,20 @@ namespace Input
             }
         }
 
-        //TODO: Revisit logic --> Handle camera input for CONTROLLER
         private void HandleCameraInput(InputAction.CallbackContext ctx)
         {
             Vector2 cameraInput = ctx.ReadValue<Vector2>();
-            bool isGamepad = ctx.control.device is Gamepad;
+            bool isGamepadInput = ctx.control.device is Gamepad;
 
-            if (isGamepad != _isUsingController)
+            if (isGamepadInput != _isUsingGamepad)
             {
-                _isUsingController = isGamepad;
+                _isUsingGamepad = isGamepadInput;
                 cameraModelReplacer.ReplaceCameraModelContainer();
             }
 
-            if (isGamepad)
+            if (isGamepadInput)
             {
-                HandleControllerInput(cameraInput);
+                HandleGamepadInput(cameraInput);
                 return;
             }
 
@@ -140,7 +150,7 @@ namespace Input
                 EventManager<string>.Instance.InvokeEvent(GameEvents.LookAction, cameraInput);
         }
 
-        private void HandleControllerInput(Vector2 cameraInput)
+        private void HandleGamepadInput(Vector2 cameraInput)
         {
             if (cameraInput.magnitude <= 0.01f)
             {
@@ -148,29 +158,27 @@ namespace Input
                 return;
             }
 
-            _controllerCameraInput = cameraInput;
+            _gamepadCameraInput = cameraInput;
 
             if (!_isListeningForStickInput)
             {
                 _isListeningForStickInput = true;
-                StartCoroutine(ProcessControllerLook());
+                StartCoroutine(ProcessGamepadCameraInput());
             }
         }
 
-        private IEnumerator ProcessControllerLook()
+        private IEnumerator ProcessGamepadCameraInput()
         {
             while (_isListeningForStickInput)
             {
                 if (EventManager<string>.Instance)
-                    EventManager<string>.Instance.InvokeEvent(GameEvents.LookAction, _controllerCameraInput);
+                    EventManager<string>.Instance.InvokeEvent(GameEvents.LookAction, _gamepadCameraInput);
 
-
-                if (_controllerCameraInput.magnitude <= 0.01f)
+                if (_gamepadCameraInput.magnitude <= 0.01f)
                 {
                     _isListeningForStickInput = false;
                     break;
                 }
-
 
                 yield return null;
             }
@@ -179,6 +187,7 @@ namespace Input
         private void HandlePauseInput(InputAction.CallbackContext ctx)
         {
             if (!levelManagerDataSource.Value) return;
+
             if (ctx.phase == InputActionPhase.Started)
             {
                 if (EventManager<string>.Instance)

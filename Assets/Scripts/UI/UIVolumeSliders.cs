@@ -10,7 +10,6 @@ namespace UI
 {
     public class UIVolumeSliders : MonoBehaviour
     {
-        //TODO: Revisit script --> UIVolumeSliders
         [Header("Data Sources")]
         [SerializeField] private DataSource<AudioManager> audioManagerDataSource;
 
@@ -19,9 +18,9 @@ namespace UI
         [SerializeField] private Slider musicSlider;
         [SerializeField] private Slider sfxSlider;
 
-        private string _masterVolume;
-        private string _musicVolume;
-        private string _sfxVolume;
+        private string _masterVolumeKey;
+        private string _musicVolumeKey;
+        private string _sfxVolumeKey;
 
         private List<Slider> _sliders = new();
         private AudioManager _audioManager;
@@ -51,18 +50,18 @@ namespace UI
                 yield return null;
             }
 
-            _masterVolume = _audioManager.MasteVolume;
-            _musicVolume = _audioManager.MusicVolume;
-            _sfxVolume = _audioManager.SFXVolume;
+            _masterVolumeKey = _audioManager.MasteVolumeKey;
+            _musicVolumeKey = _audioManager.MusicVolumeKey;
+            _sfxVolumeKey = _audioManager.SFXVolumeKey;
 
             InitiateSliders();
         }
 
         private void InitiateSliders()
         {
-            masterSlider.value = PlayerPrefs.GetFloat(_masterVolume, 1);
-            musicSlider.value = PlayerPrefs.GetFloat(_musicVolume, 1);
-            sfxSlider.value = PlayerPrefs.GetFloat(_sfxVolume, 1);
+            masterSlider.value = PlayerPrefs.GetFloat(_masterVolumeKey, 1);
+            musicSlider.value = PlayerPrefs.GetFloat(_musicVolumeKey, 1);
+            sfxSlider.value = PlayerPrefs.GetFloat(_sfxVolumeKey, 1);
 
             masterSlider.onValueChanged.AddListener(UpdateMasterVolume);
             musicSlider.onValueChanged.AddListener(UpdateMusicVolume);
@@ -72,19 +71,19 @@ namespace UI
         private void UpdateMasterVolume(float value)
         {
             _audioManager.SetMasterVolume(value);
-            PlayerPrefs.SetFloat(_masterVolume, value);
+            PlayerPrefs.SetFloat(_masterVolumeKey, value);
         }
 
         private void UpdateMusicVolume(float value)
         {
             _audioManager.SetMusicVolume(value);
-            PlayerPrefs.SetFloat(_musicVolume, value);
+            PlayerPrefs.SetFloat(_musicVolumeKey, value);
         }
 
         private void UpdateSFXVolume(float value)
         {
             _audioManager.SetSFXVolume(value);
-            PlayerPrefs.SetFloat(_sfxVolume, value);
+            PlayerPrefs.SetFloat(_sfxVolumeKey, value);
         }
 
         private void ValidateReferences()

@@ -1,6 +1,7 @@
 using AI.Rotation;
 using Audio;
 using Events;
+using UnityEngine;
 
 namespace AI
 {
@@ -13,7 +14,16 @@ namespace AI
             base.OnEnable();
 
             _audio = Model.RotationAudio;
-            if (_audio && _audio.Loop) PlayRotationSound();
+
+            if (!_audio)
+            {
+                Debug.LogError($"{name}: {nameof(_audio)} is null!" +
+                               $"\nDisabling component _audio avoid errors.");
+                enabled = false;
+                return;
+            }
+
+            if (_audio.Loop) PlayRotationSound();
         }
 
         protected override void CompleteRotationAction()

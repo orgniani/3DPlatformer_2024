@@ -29,12 +29,11 @@ namespace Player.Rotation
             Vector3 velocity = _rigidBody.velocity;
             velocity.y = 0;
 
-            if (velocity.magnitude < Model.MinimumSpeedForRotation) //TODO: Research magnitude
+            if (velocity.magnitude < Model.MinimumSpeedForRotation)
                 return;
 
-            float rotationAngle = Vector3.SignedAngle(transform.forward, velocity, Vector3.up); //TODO: Research signed angle
+            float rotationAngle = Vector3.SignedAngle(transform.forward, velocity, Vector3.up);
             transform.Rotate(Vector3.up, rotationAngle * Model.RotationSpeed * Time.deltaTime);
         }
     }
-
 }

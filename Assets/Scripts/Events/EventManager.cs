@@ -4,7 +4,6 @@ using Core.Singletons;
 
 namespace Events
 {
-    //TODO: Review script
     public delegate void EventDelegate(params object[] args);
 
     [DisallowMultipleComponent]

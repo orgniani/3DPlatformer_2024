@@ -23,7 +23,7 @@ namespace AI.Rotation
             if (!animator)
             {
                 Debug.LogError($"{name}: {nameof(animator)} is null!" +
-                               $"\nDisabling object to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }
@@ -31,7 +31,7 @@ namespace AI.Rotation
             if (!sceneryManagerSource)
             {
                 Debug.LogError($"{name}: {nameof(sceneryManagerSource)} is null!" +
-                               $"\nDisabling object to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }

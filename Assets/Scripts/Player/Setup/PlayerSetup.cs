@@ -57,7 +57,6 @@ namespace Player.Setup
 
         private void Awake()
         {
-            //TODO: What does ??= mean?
             _character ??= GetComponent<Character>();
 
             _playerBody = GetComponent<PlayerBody>();
@@ -77,7 +76,7 @@ namespace Player.Setup
 
         private void OnDisable()
         {
-            if (playerDataSource != null && playerDataSource.Value == this)
+            if (playerDataSource.Value == this)
                 playerDataSource.Value = null;
 
             if (characterDataSource.Value == _character)

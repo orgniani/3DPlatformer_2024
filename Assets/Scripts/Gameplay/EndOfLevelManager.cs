@@ -16,11 +16,7 @@ namespace Gameplay
 
         private void Awake()
         {
-            if (playerLayer == 0)
-            {
-                Debug.LogError($"{name}: {nameof(playerLayer)} is not set!");
-                return;
-            }
+            if (playerLayer == 0) Debug.LogError($"{name}: {nameof(playerLayer)} is not set!");
         }
 
         private void OnTriggerEnter(Collider other)

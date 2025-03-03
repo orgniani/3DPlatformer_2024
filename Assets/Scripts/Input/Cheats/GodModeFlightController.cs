@@ -9,7 +9,6 @@ namespace Input.Cheats
 {
     public class GodModeFlightController : MonoBehaviour
     {
-        //TODO: REVISIT WHOLE SCRIPT!!! --> GOD MODE
         [Header("Data Sources")]
         [SerializeField] private DataSource<CameraSetup> cameraDataSource;
         [SerializeField] private DataSource<Character> playerDataSource;
@@ -135,6 +134,7 @@ namespace Input.Cheats
                 enabled = false;
                 return;
             }
+
             if (!cameraDataSource)
             {
                 Debug.LogError($"{name}: {nameof(cameraDataSource)} is null!" +

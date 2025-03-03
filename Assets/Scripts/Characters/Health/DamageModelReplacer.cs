@@ -29,9 +29,7 @@ namespace Characters.Health
             }
 
             if (_replacement == _target.DamageModelContainer)
-            {
                 _replacement = invincibleModelContainer;
-            }
 
             var temp = _target.DamageModelContainer;
 

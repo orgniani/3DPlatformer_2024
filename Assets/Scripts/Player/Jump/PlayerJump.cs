@@ -85,7 +85,7 @@ namespace Player.Jump
             if (collision.GetContact(0).thisCollider != footCollider) return;
 
             var contact = collision.contacts[0];
-            var contactAngle = Vector3.Angle(contact.normal, Vector3.up); //TODO: Research vector3.angle
+            var contactAngle = Vector3.Angle(contact.normal, Vector3.up);
 
             if (contactAngle >= 90)
                 contactAngle = 0;
@@ -107,7 +107,7 @@ namespace Player.Jump
             if (!body)
             {
                 Debug.LogError($"{name}: {nameof(body)} is null!" +
-                               $"\nDisabling object to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }
@@ -115,7 +115,7 @@ namespace Player.Jump
             if (!brain)
             {
                 Debug.LogError($"{name}: {nameof(brain)} is null!" +
-                               $"\nDisabling object to avoid errors.");
+                               $"\nDisabling component to avoid errors.");
                 enabled = false;
                 return;
             }

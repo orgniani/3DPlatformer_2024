@@ -6,6 +6,7 @@ using Characters.Health;
 
 namespace Input.Cheats
 {
+    [RequireComponent(typeof(GodModeFlightController))]
     public class CheatsInputReader : MonoBehaviour
     {
         [Header("Inputs")]
@@ -33,8 +34,8 @@ namespace Input.Cheats
         {
             _inputActions = inputReader.InputActions;
             _flightController = GetComponent<GodModeFlightController>();
-
             _cheatsActionMap = _inputActions.FindActionMap(actionMapName, true);
+
             ValidateReferences();
         }
 

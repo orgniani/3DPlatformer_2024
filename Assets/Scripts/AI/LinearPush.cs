@@ -23,7 +23,7 @@ namespace AI
             _rigidBody = GetComponent<Rigidbody>();
             _targetPosition = transform.position + targetOffset;
 
-            _movementDirection = (_targetPosition - transform.position).normalized; // Direction towards target
+            _movementDirection = (_targetPosition - transform.position).normalized;
         }
 
         public IEnumerator PushForward()

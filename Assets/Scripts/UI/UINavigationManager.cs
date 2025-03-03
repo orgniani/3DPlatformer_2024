@@ -13,7 +13,6 @@ namespace UI
 {
     public class UINavigationManager : MonoBehaviour
     {
-        //TODO: Revisit script --> UINAVIGATIONMANAGER
         [Header("References")]
         [Header("Data Sources")]
         [SerializeField] private DataSource<GameManager> gameManagerDataSource;
@@ -54,8 +53,6 @@ namespace UI
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.PauseAction, HandleOpenPauseMenu);
             }
         }
-
-
         private void Start()
         {
             InitializeMenus();
@@ -161,15 +158,19 @@ namespace UI
             PlayClickButtonAudio();
         }
 
+        /// <summary>
+        /// Opens the menu with the button ID. If the game is currently playing and the button ID
+        /// is the same as the ID of the default menu in the list (assumed to be the Main Menu), it will
+        /// instead open the Pause Menu.
+        /// </summary>
         private void OpenMenu(string id)
         {
             var menu = menusWithId.FirstOrDefault(menu => menu.ID == id);
             if (menu.MenuScript == null) return;
 
-            //TODO: Fix hardcoded!!
-            if (_gameManager.IsPlaying && id == "Main Menu")
+            if (_gameManager.IsPlaying && menusWithId[0].ID == id)
             {
-                menu = menusWithId.FirstOrDefault(menu => menu.ID == "Pause");
+                menu = menusWithId.FirstOrDefault(menu => menu.IsPauseMenu);
                 if (menu.MenuScript == null) return;
             }
 
@@ -244,13 +245,13 @@ namespace UI
             Cursor.visible = true;
         }
 
-
         [Serializable]
         public struct MenuWithId
         {
             [field: SerializeField] public string ID { get; set; }
             [field: SerializeField] public UIMenu MenuScript { get; set; }
             [field: SerializeField] public bool IsTutorialMenu { get; set; }
+            [field: SerializeField] public bool IsPauseMenu { get; set; }
         }
 
         private void ValidateReferences()

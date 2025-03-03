@@ -21,15 +21,15 @@ namespace Audio
         [SerializeField] private AudioConfig loseAudio;
         [SerializeField] private AudioConfig winAudio;
 
-        private string masterVolume = "MasterVolume";
-        private string musicVolume = "MusicVolume";
-        private string sfxVolume = "SFXVolume";
+        private string masterVolumeKey = "MasterVolume";
+        private string musicVolumeKey = "MusicVolume";
+        private string sfxVolumeKey = "SFXVolume";
 
         private Dictionary<GameObject, Dictionary<AudioClip, AudioSource>> audioSources = new();
 
-        public string MasteVolume => masterVolume;
-        public string MusicVolume => musicVolume;
-        public string SFXVolume => sfxVolume;
+        public string MasteVolumeKey => masterVolumeKey;
+        public string MusicVolumeKey => musicVolumeKey;
+        public string SFXVolumeKey => sfxVolumeKey;
 
         private void Awake()
         {
@@ -53,7 +53,7 @@ namespace Audio
 
         private void OnDisable()
         {
-            if (audioManagerDataSource != null && audioManagerDataSource.Value == this)
+            if (audioManagerDataSource.Value == this)
                 audioManagerDataSource.Value = null;
 
             if (EventManager<string>.Instance)
@@ -66,9 +66,9 @@ namespace Audio
 
         private void SetAudioVolume()
         {
-            float masterVol = PlayerPrefs.GetFloat(masterVolume, 1);
-            float musicVol = PlayerPrefs.GetFloat(musicVolume, 1);
-            float sfxVol = PlayerPrefs.GetFloat(sfxVolume, 1);
+            float masterVol = PlayerPrefs.GetFloat(masterVolumeKey, 1);
+            float musicVol = PlayerPrefs.GetFloat(musicVolumeKey, 1);
+            float sfxVol = PlayerPrefs.GetFloat(sfxVolumeKey, 1);
 
             SetMasterVolume(masterVol);
             SetMusicVolume(musicVol);
@@ -135,9 +135,9 @@ namespace Audio
             PlayAudio(loseAudio, gameObject);
         }
 
-        public void SetMasterVolume(float volume) => mainMixer.SetFloat(masterVolume, ConvertToDecibels(volume));
-        public void SetMusicVolume(float volume) => mainMixer.SetFloat(musicVolume, ConvertToDecibels(volume));
-        public void SetSFXVolume(float volume) => mainMixer.SetFloat(sfxVolume, ConvertToDecibels(volume));
+        public void SetMasterVolume(float volume) => mainMixer.SetFloat(masterVolumeKey, ConvertToDecibels(volume));
+        public void SetMusicVolume(float volume) => mainMixer.SetFloat(musicVolumeKey, ConvertToDecibels(volume));
+        public void SetSFXVolume(float volume) => mainMixer.SetFloat(sfxVolumeKey, ConvertToDecibels(volume));
 
         private float ConvertToDecibels(float volume)
         {
@@ -178,29 +178,11 @@ namespace Audio
                 return;
             }
 
-            if (!mainMusic)
-            {
-                Debug.LogError($"{name}: {nameof(mainMusic)} is null!" +
-                               $"\nDisabling component to avoid errors.");
-                enabled = false;
-                return;
-            }
+            if (!mainMusic) Debug.LogError($"{name}: {nameof(mainMusic)} is null!");
 
-            if (!loseAudio)
-            {
-                Debug.LogError($"{name}: {nameof(loseAudio)} is null!" +
-                               $"\nDisabling component to avoid errors.");
-                enabled = false;
-                return;
-            }
+            if (!loseAudio) Debug.LogError($"{name}: {nameof(loseAudio)} is null!");
 
-            if (!winAudio)
-            {
-                Debug.LogError($"{name}: {nameof(winAudio)} is null!" +
-                               $"\nDisabling component to avoid errors.");
-                enabled = false;
-                return;
-            }
+            if (!winAudio) Debug.LogError($"{name}: {nameof(winAudio)} is null!");
         }
     }
 }

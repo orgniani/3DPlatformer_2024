@@ -36,12 +36,6 @@ namespace AI
 
         private void ValidateReferences()
         {
-            if (targetLayer == 0)
-            {
-                Debug.LogError($"{name}: {nameof(targetLayer)} is not set!");
-                return;
-            }
-
             if (obstacles.Length <= 0)
             {
                 Debug.LogError($"{name}: {nameof(obstacles)} array is empty!" +
@@ -49,6 +43,10 @@ namespace AI
                 enabled = false;
                 return;
             }
+
+            if (targetLayer == 0) Debug.LogError($"{name}: {nameof(targetLayer)} is not set!");
+
+            if (!triggerAudio) Debug.LogError($"{name}: {nameof(triggerAudio)} is null!");
         }
     }
 }

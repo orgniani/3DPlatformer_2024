@@ -61,7 +61,7 @@ namespace Player.Body
 
         private void Break()
         {
-            _rigidBody.AddForce(-_rigidBody.velocity * _brakeMultiplier, ForceMode.Impulse); //TODO: Research forcemode
+            _rigidBody.AddForce(-_rigidBody.velocity * _brakeMultiplier, ForceMode.Impulse);
             _isBrakeRequested = false;
         }
 
@@ -70,7 +70,6 @@ namespace Player.Body
             var velocity = _rigidBody.velocity;
             velocity.y = 0;
 
-            //TODO: There must be a way to improve this bit
             RaycastHit hit;
 
             Vector3 lineOffset = new Vector3(0f, Model.FloorLineCheckOffset, 0f);

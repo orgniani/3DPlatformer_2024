@@ -32,7 +32,6 @@ namespace Characters.Health
                 _target = targetDataSource.Value;
 
             else if (enableLogs) Debug.LogError($"{name}: <color=red> Target not found in level! </color>");
-
         }
 
         private void OnTriggerEnter(Collider other)

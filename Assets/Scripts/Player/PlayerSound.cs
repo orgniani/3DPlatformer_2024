@@ -52,21 +52,9 @@ namespace Player
                 return;
             }
 
-            if (footstepsAudio.Length == 0)
-            {
-                Debug.LogError($"{name}: {nameof(footstepsAudio)} array is empty!" +
-                               $"\nDisabling object to avoid errors.");
-                enabled = false;
-                return;
-            }
+            if (footstepsAudio.Length == 0) Debug.LogError($"{name}: {nameof(footstepsAudio)} array is empty!");
 
-            if (!jumpAudio)
-            {
-                Debug.LogError($"{name}: {nameof(jumpAudio)} is null!" +
-                               $"\nDisabling object to avoid errors.");
-                enabled = false;
-                return;
-            }
+            if (!jumpAudio) Debug.LogError($"{name}: {nameof(jumpAudio)} is null!");
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public readonly struct MovementRequest : IEquatable<MovementRequest> //TODO: Research IEquatable
+    public readonly struct MovementRequest : IEquatable<MovementRequest>
     {
         public readonly Vector3 Direction;
 
@@ -39,22 +39,22 @@ namespace Player
             return obj is MovementRequest other && Equals(other);
         }
 
-        public override int GetHashCode() //TODO: GetHashCode?
+        public override int GetHashCode()
         {
             unchecked
             {
                 var hashCode = Direction.GetHashCode();
-                hashCode = (hashCode * 397) * GoalSpeed.GetHashCode(); //TODO: Why 397?
+                hashCode = (hashCode * 397) * GoalSpeed.GetHashCode();
                 return hashCode;
             }
         }
 
-        public static bool operator ==(MovementRequest one, MovementRequest two) //TODO: Where is this used?
+        public static bool operator ==(MovementRequest one, MovementRequest two)
         {
             return one.Equals(two);
         }
 
-        public static bool operator !=(MovementRequest one, MovementRequest two) //TODO: Where is this used?
+        public static bool operator !=(MovementRequest one, MovementRequest two)
         {
             return !(one == two);
         }

@@ -29,9 +29,7 @@ namespace Camera.FollowTarget
             }
 
             if (_replacement == _camera.FollowPlayerModelContainer)
-            {
                 _replacement = controllerFollowPlayerModelContainer;
-            }
 
             var temp = _camera.FollowPlayerModelContainer;
 

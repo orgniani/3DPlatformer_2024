@@ -44,25 +44,25 @@ namespace Scenery
 
         private void OnEnable()
         {
+            sceneryManagerDataSource.Value = this;
+            
             if (EventManager<string>.Instance)
             {
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.LoadScenery, HandleLoadScenery);
                 EventManager<string>.Instance.SubscribeToEvent(GameEvents.UnloadScenery, HandleUnloadScenery);
             }
-
-            sceneryManagerDataSource.Value = this;
         }
 
         private void OnDisable()
         {
+            if (sceneryManagerDataSource.Value == this)
+                sceneryManagerDataSource.Value = null;
+
             if (EventManager<string>.Instance)
             {
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.LoadScenery, HandleLoadScenery);
                 EventManager<string>.Instance.UnsubscribeFromEvent(GameEvents.UnloadScenery, HandleUnloadScenery);
             }
-
-            if (sceneryManagerDataSource.Value == this)
-                sceneryManagerDataSource.Value = null;
         }
 
         public void SetUp(SceneryLoadId[] sceneryLoadIds)
@@ -81,9 +81,7 @@ namespace Scenery
             if (args.Length > 0 && args[0] is int[] newSceneIndexes)
             {
                 if (_currentLevelIds != null)
-                {
                     StartCoroutine(UnloadAndLoadScenes(_currentLevelIds, newSceneIndexes));
-                }
 
                 _currentLevelIds = newSceneIndexes;
             }
@@ -101,8 +99,6 @@ namespace Scenery
             }
         }
 
-        //TODO: Come back to this and RECHECK CODE:
-        //is completed operations necessary?
         private IEnumerator UnloadAndLoadScenes(int[] unloadSceneIndexes, int[] loadSceneIndexes)
         {
             IsLoading = true;
@@ -142,11 +138,9 @@ namespace Scenery
             completedOperations++;
 
             yield return new WaitForSeconds(fakeLoadingTime);
+
             OnLoadEnd?.Invoke();
-
             IsLoading = false;
-
-            StopAllCoroutines();
         }
 
         private IEnumerator Load(int[] sceneIndexes, Action<float> onLoadedSceneQtyChanged)
@@ -164,9 +158,7 @@ namespace Scenery
                 }
 
                 while (!loadOp.isDone)
-                {
                     yield return null;
-                }
 
                 current++;
                 onLoadedSceneQtyChanged?.Invoke((float)current / sceneIndexes.Length);
@@ -193,9 +185,7 @@ namespace Scenery
                     }
 
                     while (!unloadOp.isDone)
-                    {
                         yield return null;
-                    }
 
                     current++;
                     onLoadedSceneQtyChanged?.Invoke((float)current / sceneIndexes.Length);

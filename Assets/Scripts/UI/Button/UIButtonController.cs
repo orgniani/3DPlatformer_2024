@@ -53,14 +53,6 @@ namespace UI.Buttons
 
         public void Setup(UIButtonConfig config, Action<string> onClick)
         {
-            if (!buttonText)
-            {
-                Debug.LogError($"{name}: {nameof(buttonText)} is null in the button prefab!" +
-                               $"\nDisabling component to avoid errors.");
-                enabled = false;
-                return;
-            }
-
             buttonText.SetText(config.Text);
             _id = config.ID;
             OnClick = onClick;
