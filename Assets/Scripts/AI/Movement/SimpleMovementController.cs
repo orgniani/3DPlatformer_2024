@@ -50,7 +50,7 @@ namespace AI.Movement
                 obstacle.transform.position = Vector3.Lerp(position1.position, position2.position, curveValue);
                 lastFrameCurveValue = curveValue;
 
-                yield return new WaitForFixedUpdate();
+                yield return null;
             }
         }
 

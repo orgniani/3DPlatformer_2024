@@ -63,7 +63,7 @@ namespace AI.Trampoline
 
                 transform.localPosition = Vector3.Lerp(startPosition, targetPosition, curveValue);
 
-                yield return new WaitForFixedUpdate();
+                yield return null;
             }
 
             transform.localPosition = targetPosition;

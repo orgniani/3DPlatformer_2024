@@ -48,7 +48,7 @@ namespace AI.Rotation
                 Vector3 rotationAngles = Model.RotationAxis.normalized * curveValue * fullAngleRotation;
                 transform.localRotation = _initialRotation * Quaternion.Euler(rotationAngles);
 
-                yield return new WaitForFixedUpdate();
+                yield return null;
             }
         }
 
